@@ -12,7 +12,9 @@ class MapController extends Controller
      */
     public function index()
     {
-        //
+        return View('maps.index' ,[
+            'maps'=> Map::all()
+        ]);
     }
 
     /**
