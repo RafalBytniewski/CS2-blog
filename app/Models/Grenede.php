@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Grenede extends Model
 {
     use HasFactory;
+
+        /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'describtion',
+        'image_path',
+        'team',
+        'type',
+        'user_id'
+    ];
 }
