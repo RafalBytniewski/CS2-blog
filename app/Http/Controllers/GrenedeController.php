@@ -2,27 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Grenede;
 use App\Models\Map;
+use Illuminate\Http\Request;
 
-class MapController extends Controller
+class GrenedeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return View('maps.index' ,[
-            'maps'=> Map::all()
-        ]);
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($map)
     {
-        //
+        $selectedMap = Map::find($map);
+    
+        return view('maps.create', [
+            'selectedMap' => $selectedMap,
+        ]);
     }
 
     /**
@@ -36,17 +39,15 @@ class MapController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Map $map)
+    public function show(Grenede $grenede)
     {
-        return view("maps.show",[
-            'map' => $map
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Grenede $grenede)
     {
         //
     }
@@ -54,7 +55,7 @@ class MapController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Grenede $grenede)
     {
         //
     }
@@ -62,7 +63,7 @@ class MapController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Grenede $grenede)
     {
         //
     }

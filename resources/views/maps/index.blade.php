@@ -24,7 +24,9 @@
                     <td>{{$map->name}}</td>
                     <td>{{$map->describtion}}</td>
                     <td>
-                        <a class="btn btn-sm btn-primary">V</a>
+                        <a href="{{ route('maps.show', $map->id) }}">
+                            <button class="btn btn-sm btn-primary">V</button>
+                        </a>
                         <a class="btn btn-sm btn-secondary">E</a>
                         <a class="btn btn-sm btn-danger">X</a>
                     </td>

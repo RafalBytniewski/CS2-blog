@@ -6,7 +6,7 @@
     <div class="container w-100">
       <div class="row align-content-center">
   @foreach($maps as $map)
-        <a class="card p-2 col-md-3  no-gutters text-white" href="">
+        <a class="card p-2 col-md-3  no-gutters text-white" href="{{ route('maps.show', $map->id) }}"xa>
           <img class="card-img h-100 shadow"
             src="https://images.unsplash.com/photo-1517659649778-bae24b8c2e26?ixlib=rb-0.3.5&amp;s=6c3524e0ea8d0107f85384392d779467&amp;auto=format&amp;fit=crop&amp;w=666&amp;q=80"
             alt="Card image">
