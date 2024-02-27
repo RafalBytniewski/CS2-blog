@@ -21,7 +21,9 @@ class Grenade extends Model
         'team',
         'type',
         'user_id',
-        'map_id'
+        'map_id',
+        'callout_from_id',
+        'callout_to_id'
     ];
     
     public function user(): BelongsTo
@@ -32,5 +34,15 @@ class Grenade extends Model
     public function map(): BelongsTo
     {
         return $this->belongsTo(Map::class);
+    }
+
+    public function calloutFrom()
+    {
+        return $this->belongsTo(Callout::class, 'callout_from_id');
+    }
+
+    public function calloutTo()
+    {
+        return $this->belongsTo(Callout::class, 'callout_to_id');
     }
 }
