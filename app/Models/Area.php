@@ -23,4 +23,8 @@ public function maps(): BelongsTo
 {
     return $this->belongsTo(Map::class);
 }
+public function callouts(): HasMany
+{
+    return $this->hasMany(Callout::class);
+}
 }
