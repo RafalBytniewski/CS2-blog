@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('describtion', 255);
             $table->string('image_path', 1000);
-            $table->enum('type',['smoke', 'flash', 'hegrenede', 'molotov']);
+            $table->enum('type',['smoke', 'flash', 'hegrenade', 'molotov']);
             $table->enum('team',['t', 'ct']);
             $table->timestamps(); 
         });
@@ -23,6 +23,8 @@ return new class extends Migration
         Schema::table('grenades', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->after('id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('map_id')->after('user_id');
+            $table->foreign('map_id')->references('id')->on('maps');
         });
     }
 
@@ -34,6 +36,10 @@ return new class extends Migration
         Schema::table('grenades', function (Blueprint $table) {
             $table->dropForeign('grenades_user_id_foreign');
             $table->dropColumn('user_id');
+        });
+        Schema::table('grenades', function (Blueprint $table) {
+            $table->dropForeign('grenades_map_id_foreign');
+            $table->dropColumn('map_id'); 
         });
         Schema::dropIfExists('grenades');
     }

@@ -46,6 +46,6 @@ class User extends Authenticatable
 
     public function grenedes(): HasMany
     {
-        return $this->hasMany(Grenede::class);
+        return $this->hasMany(Grenade::class);
     }
 }

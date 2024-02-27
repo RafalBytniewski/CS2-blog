@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
+
 
 class Map extends Model
 {
@@ -18,4 +20,15 @@ class Map extends Model
         'name',
         'describtion'
     ];
+
+    public function grenades(): HasMany
+    {
+        return $this->hasMany(Grenade::class);
+    }
+
+    public function areas(): HasMany
+    {
+        return $this->hasMany(Area::class);
+    }
+
 }
