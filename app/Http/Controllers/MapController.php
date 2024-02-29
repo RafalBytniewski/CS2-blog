@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Map;
 use App\Models\Grenade;
 use App\Models\Callout;
+use App\Models\Area;
+use App\Models\User;
 
 
 class MapController extends Controller
@@ -43,7 +45,8 @@ class MapController extends Controller
     {
         return view("maps.show",[
             'maps' => $map,
-            'grenades' => Grenade::with('user', 'calloutFrom', 'calloutTo', 'calloutFrom.areas')->get()
+            'grenades' => Grenade::with('user', 'calloutFrom', 'calloutTo', 'calloutFrom')->get(),
+            'users' => User::with('grenades')->get()
         ]);
     }
 
