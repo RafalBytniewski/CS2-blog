@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Map;
+use App\Models\Grenade;
+use App\Models\Callout;
+
 
 class MapController extends Controller
 {
@@ -39,7 +42,8 @@ class MapController extends Controller
     public function show(Map $map)
     {
         return view("maps.show",[
-            'map' => $map
+            'maps' => $map,
+            'grenades' => Grenade::with('user', 'calloutFrom', 'calloutTo', 'calloutFrom.areas')->get()
         ]);
     }
 

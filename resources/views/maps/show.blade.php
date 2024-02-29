@@ -2,14 +2,22 @@
 @section('content')
 <div class="container">
     <div class="card-header">
-        <h1 style="text-align:center">{{$map->name}}</h1>
-    </div>
-    <div class="card-body">
-        <a href="{{ route('maps.create', $map->id) }}">
-            <button class="btn btn-lg btn-primary">
+        <h1 style="text-align:center">{{$maps->name}}</h1>
+    
+        <a href="{{ route('maps.create', $maps->id) }}">
+            <button class="btn btn-lg btn-outline-primary">
                 Add grenede
             </button>
         </a>
+        </div>
+    <div class="card-body">
+        @foreach($grenades as $grenade)
+        <div class="card">
+            <span>User name: {{$grenade->user->name}}</span>
+            <span>Callout from: {{ $grenade->calloutFrom->name }}</span>
+            <span>Callout to: {{ $grenade->calloutTo->name }}</span>
+        </div>
+        @endforeach
     </div>
 </div>
 @endsection

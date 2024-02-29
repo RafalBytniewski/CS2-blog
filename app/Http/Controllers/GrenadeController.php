@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Grenade;
 use App\Models\Map;
 use App\Models\User;
+use App\Models\Area;
+use App\Models\Callout;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -25,7 +27,9 @@ class GrenadeController extends Controller
     {
   
            return view('maps.grenades.create', [
-            'maps' => Map::all()
+            'maps' => Map::all(),
+            'areas' => Area::all(),
+            'callouts' => Callout::all()
         ]);
     }
 
