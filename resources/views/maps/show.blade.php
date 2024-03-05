@@ -18,6 +18,15 @@
             <span>Callout to: {{ $grenade->calloutTo->name }}</span>
         </div>
         @endforeach
+
+        @foreach($users as $user)
+    <div class="card">
+        <h4>User: {{ $user->name }}</h4>
+        @foreach($user->grenades as $grenade)
+            <span>Grenade type: {{ $grenade->type }}</span>
+        @endforeach
+    </div>
+@endforeach
     </div>
 </div>
 @endsection
