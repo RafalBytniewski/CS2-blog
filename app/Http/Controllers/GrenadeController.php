@@ -41,14 +41,34 @@ class GrenadeController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
+        $data = $request->validate([
+            'describtion',
+            'image_path' => 'required|array',
+            'team',
+            'type',
+            'user_id',
+            'map_id',
+            'callout_from_id',
+            'callout_to_id'
+        ]);
+
+        $images = [];
+
+        foreach ($data['image_path'] as $image) {
+            $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image_path =  $image->storeAs('Grenades', $fileName, 'public');
+
+            array_push($images, $image_path);
+        }
+
         $user = auth()->user();
-        $grenadeData = $request->all();
-        $grenadeData['user_id'] = $user->id;
+        $data['user_id'] = $user->id;
 
-        // Utwórz nową instancję Grenade i zapisz do bazy danych
-        $grenade = Grenade::create($grenadeData);
+        $data['images'] = $images;
 
-        return redirect(route('maps.index'));
+        Grenade::create($data);
+
+        return redirect()->route('maps.index');
     }
 
     /**

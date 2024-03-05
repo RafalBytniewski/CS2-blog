@@ -26,6 +26,10 @@ class Grenade extends Model
         'callout_to_id'
     ];
     
+    protected $casts = [
+        'image_path' => 'array'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
