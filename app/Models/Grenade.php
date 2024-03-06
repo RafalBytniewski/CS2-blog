@@ -26,6 +26,11 @@ class Grenade extends Model
         'callout_to_id'
     ];
     
+    public function grenade_images(): HasMany
+    {
+        return $this->hasMany(GrenadeImage::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
