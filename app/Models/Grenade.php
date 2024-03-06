@@ -23,7 +23,7 @@ class Grenade extends Model
         'user_id',
         'map_id',
         'callout_from_id',
-        'callout_to_id'
+        'callout_to_id',
     ];
     
     public function grenade_images(): HasMany
