@@ -10,6 +10,7 @@ use App\Models\Callout;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
+
 class GrenadeController extends Controller
 {
     /**
@@ -38,36 +39,18 @@ class GrenadeController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-
-        $data = $request->validate([
-            'describtion',
-            'image_path' => 'required|array',
-            'team',
-            'type',
-            'user_id',
-            'map_id',
-            'callout_from_id',
-            'callout_to_id'
-        ]);
-
-        $images = [];
-
-        foreach ($data['image_path'] as $image) {
-            $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path =  $image->storeAs('Grenades', $fileName, 'public');
-
-            array_push($images, $image_path);
-        }
-
         $user = auth()->user();
-        $data['user_id'] = $user->id;
-
-        $data['images'] = $images;
-
-        Grenade::create($data);
-
+        $grenadeData = $request->all();
+        $grenadeData['user_id'] = $user->id;
+        $grenade = Grenade::create($grenadeData);
+    
+        foreach ($request->file('images') as $image) {
+            $path = $image->store('images/grenades');
+            $grenade->grenadeImages()->create(['path' => $path]);
+        }
+    
         return redirect()->route('maps.index');
     }
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Grenade extends Model
 {
@@ -26,7 +27,7 @@ class Grenade extends Model
         'callout_to_id'
     ];
     
-    public function grenade_images(): HasMany
+    public function grenadeImages(): HasMany
     {
         return $this->hasMany(GrenadeImage::class);
     }
