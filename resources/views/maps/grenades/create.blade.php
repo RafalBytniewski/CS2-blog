@@ -125,7 +125,7 @@
                     <label for="images" class="col-md-4 col-form-label text-md-end">Images</label>
 
                     <div class="col-md-6">
-                        <input id="images" name="images" type="file" multiple class="form-control @error('') is-invalid @enderror" autofocus>
+                        <input id="images" name="images[]" type="file" multiple class="form-control @error('') is-invalid @enderror" autofocus>
                         @error('')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
