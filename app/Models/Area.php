@@ -29,4 +29,8 @@ public function callouts(): HasMany
 {
     return $this->hasMany(Callout::class);
 }
+public function grenades(): HasMany
+{
+    return $this->hasMany(Grenade::class);
+}
 }

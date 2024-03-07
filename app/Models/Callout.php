@@ -19,6 +19,10 @@ protected $fillable = [
     'name',
     'area_id'
 ];
+public function grenades(): HasMany
+{
+    return $this->hasMany(Grenade::class);
+}
 
 public function areas(): BelongsTo
 {

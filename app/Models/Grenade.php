@@ -23,6 +23,8 @@ class Grenade extends Model
         'type',
         'user_id',
         'map_id',
+        'area_from_id',
+        'area_to_id',
         'callout_from_id',
         'callout_to_id'
     ];
@@ -50,5 +52,13 @@ class Grenade extends Model
     public function calloutTo()
     {
         return $this->belongsTo(Callout::class, 'callout_to_id');
+    }
+    public function areaFrom()
+    {
+        return $this->belongsTo(Area::class, 'area_from_id');
+    }
+    public function areaTo()
+    {
+        return $this->belongsTo(Area::class, 'area_to_id');
     }
 }
