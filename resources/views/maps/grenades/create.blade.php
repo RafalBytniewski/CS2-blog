@@ -61,7 +61,7 @@
                 <div class="row mb-3">
                     <label for="area" class="col-md-4 col-form-label text-md-end">Throwing from (area)</label>
                     <div class="col-md-6">
-                        <select id="area" name="area_id" class="form-control @error('area') is-invalid @enderror">
+                        <select id="area" name="area_from_id" class="form-control @error('area') is-invalid @enderror">
                             <option value=""></option>
                             @foreach ($areas as $area)
                                 <option value="{{ $area->id }}">{{ $area->name }}</option>
@@ -84,7 +84,7 @@
                 <div class="row mb-3">
                     <label for="area" class="col-md-4 col-form-label text-md-end">Throwing to (area)</label>
                     <div class="col-md-6">
-                        <select id="area" name="area_id" class="form-control @error('area') is-invalid @enderror">
+                        <select id="area" name="area_to_id" class="form-control @error('area') is-invalid @enderror">
                             <option value=""></option>
                             @foreach ($areas as $area)
                                 <option value="{{ $area->id }}">{{ $area->name }}</option>

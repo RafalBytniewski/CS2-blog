@@ -45,7 +45,7 @@ class MapController extends Controller
     {
         return view("maps.show",[
             'maps' => $map,
-            'grenades' => Grenade::with('user', 'calloutFrom', 'calloutTo', 'calloutFrom')->get(),
+            'grenades' => Grenade::with('user', 'calloutFrom', 'calloutTo', 'calloutFrom', 'grenadeImages')->get(),
             'users' => User::with('grenades')->get()
         ]);
     }

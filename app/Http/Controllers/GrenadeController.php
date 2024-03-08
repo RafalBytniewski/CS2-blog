@@ -47,8 +47,9 @@ class GrenadeController extends Controller
         $grenade = Grenade::create($grenadeData);
     
         foreach ($request->file('images') as $image) {
-            $path = $image->store('images/grenades');
-            $grenade->grenadeImages()->create(['path' => $path]);
+            $path = $image->store('public/images/grenades');
+            $publicPath = str_replace('public/', '', $path);
+            $grenade->grenadeImages()->create(['path' => $publicPath]);
         }
     
         return redirect()->route('maps.index');
