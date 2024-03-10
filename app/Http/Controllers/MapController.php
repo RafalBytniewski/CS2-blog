@@ -43,9 +43,8 @@ class MapController extends Controller
      */
 public function show(Map $map)
 {
-    // Pobiera granaty dla danej mapy wraz z powiązanymi danymi użytkownika, calloutFrom, calloutTo i grenadeImages.
-    $grenades = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages'])
-                       ->where('map_id', $map->id) // Zakładam, że kolumna nazywa się 'map_id' w tabeli granatów
+    $grenades = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
+                       ->where('map_id', $map->id) 
                        ->get();
 
     return view('maps.show', [

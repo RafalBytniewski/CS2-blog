@@ -3,23 +3,29 @@
 @section('content')
 <div class="container">
     <div class="card-header">
-        <h1 style="text-align:center">{{$maps->name}}</h1>
+        <h1 class="fs-1 fw-medium" style="text-align:center">{{$maps->name}}</h1>
         <a href="{{ route('maps.create', $maps->id) }}">
-            <button class="btn btn-lg btn-outline-primary">
+            <button class="btn btn-lg btn-outline-primary my-2">
                 Add grenade
             </button>
         </a>
     </div>
     <div class="card-body">
         @foreach($grenades as $grenade)
-        <div class="card">
-            <span>User name: {{$grenade->user->name}}</span>
-            @if(isset($grenade->calloutFrom->name))
-                <span>Callout from: {{ $grenade->calloutFrom->name }}</span>
-            @endif
-            @if(isset($grenade->calloutTo->name))
-                <span>Callout to: {{ $grenade->calloutTo->name }}</span>
-            @endif
+        <div class="card border border-primary my-2">
+            <div class="card my-2 ps-3 border border-0">
+                <span class="text-md-start fs-4">
+                    <b>{{ $grenade->type }}</b>
+                    <b>from: </b>{{ $grenade->areaFrom->name}} 
+                    @if(isset($grenade->calloutFrom->name))
+                        -> {{ $grenade->calloutFrom->name }}
+                    @endif       
+                    <b> to:</b> {{ $grenade->areaTo->name}} 
+                    @if(isset($grenade->calloutTo->name))
+                        -> {{ $grenade->calloutTo->name }}
+                    @endif
+                </span>
+            </div>
             @if($grenade->grenadeImages->count() > 0)
                 <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide" data-bs-interval="false">
                     <div class="carousel-inner">
@@ -40,6 +46,9 @@
                     </button>
                 </div>
             @endif
+            <div class="card my-2 pe-3 border border-0">
+                <span class="text-end">Added by: <b style="color:red">{{$grenade->user->name}}</b></span>
+            </div>        
         </div>
         @endforeach
     </div>
