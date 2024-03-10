@@ -26,7 +26,7 @@
                         @foreach($grenade->grenadeImages as $key => $image)
                         <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
                         <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}"
-    style="max-width: 960px; height: 720px;">
+    style="max-width: 960px; height: 720px; quality: 90;">
                         </div>
                         @endforeach
                     </div>

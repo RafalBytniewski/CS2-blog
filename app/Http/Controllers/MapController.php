@@ -41,14 +41,18 @@ class MapController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Map $map)
-    {
-        return view("maps.show",[
-            'maps' => $map,
-            'grenades' => Grenade::with('user', 'calloutFrom', 'calloutTo', 'calloutFrom', 'grenadeImages')->get(),
-            'users' => User::with('grenades')->get()
-        ]);
-    }
+public function show(Map $map)
+{
+    // Pobiera granaty dla danej mapy wraz z powiązanymi danymi użytkownika, calloutFrom, calloutTo i grenadeImages.
+    $grenades = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages'])
+                       ->where('map_id', $map->id) // Zakładam, że kolumna nazywa się 'map_id' w tabeli granatów
+                       ->get();
+
+    return view('maps.show', [
+        'maps' => $map,
+        'grenades' => $grenades
+    ]);
+}
 
     /**
      * Show the form for editing the specified resource.
