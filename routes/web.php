@@ -31,3 +31,7 @@ Route::post('/maps/grenades/store', [GrenadeController::class, 'store'])->name('
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
