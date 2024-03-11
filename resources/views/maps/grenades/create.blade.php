@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="card-header">
-            <h1 style="text-align:center">Add new grenede</h1>
+            <h1 style="text-align:center">{{__("cs2.map.grenade.add_form.add_grenade")}}</h1>
         </div>
 
         <div class="card-body">
@@ -11,7 +11,7 @@
                 @csrf
 
                 <div class="row mb-3">
-                    <label for="map" class="col-md-4 col-form-label text-md-end">Map</label>
+                    <label for="map" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.map') }}</label>
                     <div class="col-md-6">
                         <select id="map" name="map_id" class="form-control @error('map') is-invalid @enderror">
                             <option value=""></option>
