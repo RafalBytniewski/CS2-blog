@@ -24,11 +24,11 @@ class GrenadeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Map $map)
     {
   
            return view('maps.grenades.create', [
-            'maps' => Map::all(),
+            'map' => $map,
             'areas' => Area::all(),
             'callouts' => Callout::all()
         ]);

@@ -13,12 +13,7 @@
                 <div class="row mb-3">
                     <label for="map" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.map') }}</label>
                     <div class="col-md-6">
-                        <select id="map" name="map_id" class="form-control @error('map') is-invalid @enderror">
-                            <option value=""></option>
-                            @foreach ($maps as $map)
-                                <option value="{{ $map->id }}">{{ $map->name }}</option>
-                            @endforeach
-                        </select>
+                        <input id="map" name="map_id" type="text" value="{{ $map->name }}" readonly class="form-control">
                     </div>
                 </div>
                 <div class="row mb-3">
