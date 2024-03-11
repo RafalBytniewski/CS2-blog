@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="" class="col-md-4 col-form-label text-md-end">Throwing as</label>
+                    <label for="" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.team') }}</label>
                     <div class="col-md-6">
                         <select id="team" name="team"
                             class="form-control @error('category_id') is-invalid @enderror" name="">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="type" class="col-md-4 col-form-label text-md-end">Type of nade</label>
+                    <label for="type" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.type') }}</label>
                     <div class="col-md-6">
                         <select id="type" class="form-control @error('type') is-invalid @enderror" name="type">
                             <option value=""></option>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="area" class="col-md-4 col-form-label text-md-end">Throwing from (area)</label>
+                    <label for="area" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_from_(area)') }}</label>
                     <div class="col-md-6">
                         <select id="area" name="area_from_id" class="form-control @error('area') is-invalid @enderror">
                             <option value=""></option>
@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="callout_from" class="col-md-4 col-form-label text-md-end">Throwing from (callout)</label>
+                    <label for="callout_from" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_from_(callout)') }}</label>
                     <div class="col-md-6">
                         <select id="callout_from" name="callout_from_id" class="form-control @error('callout_from') is-invalid @enderror">
                             <option value=""></option>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="area" class="col-md-4 col-form-label text-md-end">Throwing to (area)</label>
+                    <label for="area" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_to_(area)') }}</label>
                     <div class="col-md-6">
                         <select id="area" name="area_to_id" class="form-control @error('area') is-invalid @enderror">
                             <option value=""></option>
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="callout_to" class="col-md-4 col-form-label text-md-end">Throwing to (callout)</label>
+                    <label for="callout_to" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_to_(callout)') }}</label>
                     <div class="col-md-6">
                         <select id="callout_to" name="callout_to_id" class="form-control @error('callout_to') is-invalid @enderror">
                             <option value=""></option>
@@ -107,7 +107,7 @@
 
 
                 <div class="row mb-3">
-                    <label for="describtion" class="col-md-4 col-form-label text-md-end">Describtion</label>
+                    <label for="describtion" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.describtion') }}</label>
 
                     <div class="col-md-6">
                         <input id="describtion" name="describtion" type="text"
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="images" class="col-md-4 col-form-label text-md-end">Images</label>
+                    <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.images') }}</label>
 
                     <div class="col-md-6">
                         <input id="images" name="images[]" type="file" multiple class="form-control @error('') is-invalid @enderror" autofocus>
@@ -136,7 +136,7 @@
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">
-                            Submit
+                            {{ __('cs2.map.grenade.add_form.submit') }}
                         </button>
                     </div>
                 </div>
