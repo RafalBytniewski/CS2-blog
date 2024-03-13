@@ -30,7 +30,7 @@ class GrenadeController extends Controller
            return view('maps.grenades.create', [
             'map' => $map,
             'areas' => Area::all(),
-            'callouts' => Callout::where('area_id', 47)->get()
+            'callouts' => Callout::all()
         ]);
     }
 
