@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 <div class="container">
     <div class="card-header">
         <h1 class="fs-1 fw-medium" style="text-align:center">{{$maps->name}}</h1>
@@ -57,14 +58,16 @@
                 <div class="d-flex">
                     <div class="filter-content flex-fill">
                         <div class="card-body">
-                            @foreach($areas as $area)
-                                <label class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="">
-                                    <span class="form-check-label">
-                                        {{$area->name}}
-                                    </span>
-                                </label>
-                            @endforeach
+                            @if(!is_null($areas))
+                                @foreach($areas as $area)
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="">
+                                        <span class="form-check-label">
+                                            {{$area->name}}
+                                        </span>
+                                    </label>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                     <style>
@@ -72,16 +75,20 @@
                             max-height: 135px; /* Dostosuj wysokość do swoich potrzeb */
                         }
                     </style>
-                    <div hidden class="filter-content flex-fill {{ count($callouts) > 5 ? 'custom-scrollable' : '' }} overflow-auto">
-                        <div class="card-body">
-                            @foreach($callouts as $callout)
-                                <label class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="">
-                                    <span class="form-check-label">
-                                        {{$callout->name}}
-                                    </span>
-                                </label>
-                            @endforeach
+                    @if(!is_null($areas))
+                        <div hidden class="filter-content flex-fill {{ count($areas) > 5 ? 'custom-scrollable' : '' }} overflow-auto">
+                            <div class="card-body">
+                                @foreach($areas as $area)
+                                    @foreach($area->callouts as $callout)
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="">
+                                            <span id="{{ $callout->id }}"class="form-check-label">
+                                                {{ $callout->name }}
+                                            </span>
+                                        </label>
+                                    @endforeach
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -93,31 +100,37 @@
                 <div class="d-flex">
                     <div class="filter-content flex-fill">
                         <div class="card-body">
-                            @foreach($areas as $area)
-                                <label class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="">
-                                    <span id="{{ $area->id }}"class="form-check-label">
-                                        {{$area->name}}
-                                    </span>
-                                </label>
-                            @endforeach
+                            @if(!is_null($areas))
+                                @foreach($areas as $area)
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="">
+                                        <span id="{{ $area->id }}"class="form-check-label">
+                                            {{$area->name}}
+                                        </span>
+                                    </label>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                     <style>
                         .custom-scrollable {
                             max-height: 135px; /* Dostosuj wysokość do swoich potrzeb */
                         }
-                    </style>    
-                    <div hidden class="filter-content flex-fill {{ count($callouts) > 5 ? 'custom-scrollable' : '' }} overflow-auto">
-                        <div class="card-body">
-                            @foreach($callouts as $callout)
-                                <label class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="">
-                                    <span id="{{ $callout->id }}"class="form-check-label">
-                                        {{$callout->name}}
-                                    </span>
-                                </label>
-                            @endforeach
+                    </style>
+                    @if(!is_null($areas))
+                        <div hidden class="filter-content flex-fill {{ count($areas) > 5 ? 'custom-scrollable' : '' }} overflow-auto">
+                            <div class="card-body">
+                                @foreach($areas as $area)
+                                    @foreach($area->callouts as $callout)
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="">
+                                            <span id="{{ $callout->id }}"class="form-check-label">
+                                                {{ $callout->name }}
+                                            </span>
+                                        </label>
+                                    @endforeach
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -170,6 +183,8 @@
     </div>
 </div>
 @endsection
-@section('js-files')
-    <script src="{{ asset("js/welcome.js")}}"></script>
-@endsection
+
+
+@section('js')
+    @vite(['resources/js/welcome.js'])
+ @endsection

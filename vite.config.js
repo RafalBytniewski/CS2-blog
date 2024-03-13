@@ -7,6 +7,8 @@ export default defineConfig({
             input: [
                 'resources/sass/app.scss',
                 'resources/js/app.js',
+                'resources/js/welcome.js',
+                'resources/js/create_grenade.js'
             ],
             refresh: true,
         }),

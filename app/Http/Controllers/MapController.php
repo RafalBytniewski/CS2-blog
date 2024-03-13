@@ -44,16 +44,19 @@ class MapController extends Controller
      */
 public function show(Map $map)
 {
-    $areas = Area::all();
-    $callouts = Callout::all();
+    $areas = Area::with(['callouts'])
+                    ->where('map_id', $map->id)
+                    ->get();
+   
+
+
     $grenades = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
                        ->where('map_id', $map->id) 
                        ->get();
-    $types = DB::table('grenades')->select('type')->distinct()->pluck('type')->toArray();
+                       $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
 
     return view('maps.show', [
         'areas' => $areas,
-        'callouts' => $callouts,
         'maps' => $map,
         'grenades' => $grenades,
         'types' => $types

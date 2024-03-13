@@ -55,9 +55,9 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="area" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_from_(area)') }}</label>
+                    <label for="area_from" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_from_(area)') }}</label>
                     <div class="col-md-6">
-                        <select id="area" name="area_from_id" class="form-control @error('area') is-invalid @enderror">
+                        <select id="area_from" name="area_from_id" class="form-control @error('area') is-invalid @enderror">
                             <option value=""></option>
                             @foreach ($areas as $area)
                                 <option value="{{ $area->id }}">{{ $area->name }}</option>
@@ -66,8 +66,8 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label for="callout_from" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_from_(callout)') }}</label>
+                <div hidden class="row mb-3" id="callout_from_div" >
+                    <label for="callout_from" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.optional') }}</label>
                     <div class="col-md-6">
                         <select id="callout_from" name="callout_from_id" class="form-control @error('callout_from') is-invalid @enderror">
                             <option value=""></option>
@@ -78,9 +78,9 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="area" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_to_(area)') }}</label>
+                    <label for="area_to" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_to_(area)') }}</label>
                     <div class="col-md-6">
-                        <select id="area" name="area_to_id" class="form-control @error('area') is-invalid @enderror">
+                        <select id="area_to" name="area_to_id" class="form-control @error('area') is-invalid @enderror">
                             <option value=""></option>
                             @foreach ($areas as $area)
                                 <option value="{{ $area->id }}">{{ $area->name }}</option>
@@ -89,8 +89,8 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label for="callout_to" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_to_(callout)') }}</label>
+                <div hidden class="row mb-3" id="callout_to_div">
+                    <label for="callout_to" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.optional') }}</label>
                     <div class="col-md-6">
                         <select id="callout_to" name="callout_to_id" class="form-control @error('callout_to') is-invalid @enderror">
                             <option value=""></option>
@@ -140,4 +140,7 @@
         </div>
     </div>
     </div>
+@endsection
+@section('js')
+@vite(['resources/js/create_grenade.js'])
 @endsection

@@ -19,6 +19,7 @@ return [
                 'describtion' => 'Opis',
                 'images' => 'Screenshoty',
                 'submit' => 'Dodaj',
+                'optional' => 'Callout (opcjonalnie)'
             ],
         ],
         'status' => [

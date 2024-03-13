@@ -1,9 +1,10 @@
 // app.js
 
 import 'bootstrap';
-
 // Import jQuery
-import jQuery from 'jquery';
+import './bootstrap';
 
-// Ustawienie jQuery jako globalnej zmiennej
-window.$ = window.jQuery = jQuery;
+import $ from "jquery"; 
+window.$ = window.jQuery = $;
+
+import '../sass/app.scss';
