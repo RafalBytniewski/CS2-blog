@@ -11,6 +11,122 @@
         </a>
     </div>
     <div class="card-body">
+        <div class="card d-flex flex-row justify-content-center align-items-start">
+            <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title fs-4">Agent</h6>
+                </header>
+                <div class="filter-content">
+                    <div class="card-body">
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" value="">
+                                <span class="form-check-label">
+                                    Terrorist
+                                </span>
+                            </label>
+                                <label class="form-check">
+                                <input class="form-check-input" type="checkbox" value="">
+                                <span class="form-check-label">
+                                    Counter-Terrorist
+                                </span>
+                            </label>
+                    </div>
+                </div>
+            </article>         
+            <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title fs-4">Type of nade</h6>
+                </header>
+                <div class="filter-content">
+                    <div class="card-body">
+                        @foreach($types as $type)
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" value="">
+                                <span class="form-check-label">
+                                    {{$type}}
+                                </span>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+            </article>  
+            <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title fs-4" style="text-align:center;">From</h6>
+                </header>
+                <div class="d-flex">
+                    <div class="filter-content flex-fill">
+                        <div class="card-body">
+                            @foreach($areas as $area)
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="">
+                                    <span class="form-check-label">
+                                        {{$area->name}}
+                                    </span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                    <style>
+                        .custom-scrollable {
+                            max-height: 135px; /* Dostosuj wysokość do swoich potrzeb */
+                        }
+                    </style>
+                    <div hidden class="filter-content flex-fill {{ count($callouts) > 5 ? 'custom-scrollable' : '' }} overflow-auto">
+                        <div class="card-body">
+                            @foreach($callouts as $callout)
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="">
+                                    <span class="form-check-label">
+                                        {{$callout->name}}
+                                    </span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </article>       
+            <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title fs-4" style="text-align:center;">To</h6>
+                </header>
+                <div class="d-flex">
+                    <div class="filter-content flex-fill">
+                        <div class="card-body">
+                            @foreach($areas as $area)
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="">
+                                    <span id="{{ $area->id }}"class="form-check-label">
+                                        {{$area->name}}
+                                    </span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                    <style>
+                        .custom-scrollable {
+                            max-height: 135px; /* Dostosuj wysokość do swoich potrzeb */
+                        }
+                    </style>    
+                    <div hidden class="filter-content flex-fill {{ count($callouts) > 5 ? 'custom-scrollable' : '' }} overflow-auto">
+                        <div class="card-body">
+                            @foreach($callouts as $callout)
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="">
+                                    <span id="{{ $callout->id }}"class="form-check-label">
+                                        {{$callout->name}}
+                                    </span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </article> 
+            <a href="" class="btn btn-sm btn-primary" id="filter-btn">{{ __('cs2.filter')}}</a>
+        </div> 
+    
+        
+
         @foreach($grenades as $grenade)
         <div class="card border border-primary my-2">
             <div class="card my-2 ps-3 border border-0">
@@ -53,4 +169,7 @@
         @endforeach
     </div>
 </div>
+@endsection
+@section('js-files')
+    <script src="{{ asset("js/welcome.js")}}"></script>
 @endsection

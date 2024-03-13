@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Map;
 use App\Models\Grenade;
 use App\Models\Callout;
@@ -43,13 +44,19 @@ class MapController extends Controller
      */
 public function show(Map $map)
 {
+    $areas = Area::all();
+    $callouts = Callout::all();
     $grenades = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
                        ->where('map_id', $map->id) 
                        ->get();
+    $types = DB::table('grenades')->select('type')->distinct()->pluck('type')->toArray();
 
     return view('maps.show', [
+        'areas' => $areas,
+        'callouts' => $callouts,
         'maps' => $map,
-        'grenades' => $grenades
+        'grenades' => $grenades,
+        'types' => $types
     ]);
 }
 

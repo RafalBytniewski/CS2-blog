@@ -13,7 +13,8 @@
                 <div class="row mb-3">
                     <label for="map" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.map') }}</label>
                     <div class="col-md-6">
-                        <input id="map" name="map_id" type="text" value="{{ $map->name }}" readonly class="form-control">
+                        <input id="map" name="map_id" type="hidden" value="{{ $map->id }}">
+                        <input id="map_name" name="map_name" type="text" value="{{ $map->name }}" readonly class="form-control">
                     </div>
                 </div>
                 <div class="row mb-3">
