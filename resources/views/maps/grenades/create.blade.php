@@ -22,12 +22,12 @@
                     <div class="col-md-6">
                         <select id="team" name="team"
                             class="form-control @error('category_id') is-invalid @enderror" name="">
-
                             <option value=""></option>
-                            <option value="t">Terrorist (T)</option>
-                            <option value="ct">Counter-Terrorist (CT)</option>
+                            @foreach($teams as $team)
+                                <option value="{{ $team }}">{{ $team }}</option>
+                            @endforeach
                         </select>
-                        @error('category_id')
+                        @error('team')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -40,12 +40,9 @@
                     <div class="col-md-6">
                         <select id="type" class="form-control @error('type') is-invalid @enderror" name="type">
                             <option value=""></option>
-                            <option value="smoke">Smoke</option>
-                            <option value="hegrenade">He Grenade</option>
-                            <option value="flash">Flash</option>
-                            <option value="molotov">Molotov</option>
-
-
+                            @foreach($types as $type)
+                                <option value="{{ $type }}">{{ $type }}</option>
+                            @endforeach
                         </select>
                         @error('type')
                             <span class="invalid-feedback" role="alert">

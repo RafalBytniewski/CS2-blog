@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Grenade;
 use App\Models\Map;
 use App\Models\User;
@@ -26,11 +27,15 @@ class GrenadeController extends Controller
      */
     public function create(Map $map)
     {
-  
-           return view('maps.grenades.create', [
+        $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
+        $teams = DB::table('grenades')->select('team')->distinct()->pluck('team');
+            
+        return view('maps.grenades.create', [
             'map' => $map,
             'areas' => Area::all(),
-            'callouts' => Callout::where('area_id', 46)->get()
+            'callouts' => Callout::where('area_id', 46)->get(),
+            'types' => $types,
+            'teams' => $teams,
         ]);
     }
 
@@ -90,8 +95,6 @@ class GrenadeController extends Controller
     public function fetchCallouts($areaId)
     {
         $callouts = Callout::where('area_id', $areaId)->get();
-        
-        // Zwraca callouty jako JSON
         return response()->json($callouts);
     }
     

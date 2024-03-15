@@ -3,19 +3,22 @@
 @section('content')
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <div class="container">
-    <div class="card-header">
-        <h1 class="fs-1 fw-medium" style="text-align:center">{{$maps->name}}</h1>
-        <a href="{{ route('maps.create', $maps->id) }}">
-            <button class="btn btn-lg btn-outline-primary my-2">
-                Add grenade
-            </button>
-        </a>
+    <div class="card-header d-flex flex-column">
+        <div class=" d-flex justify-content-end">
+            <a href="{{ route('maps.create', $maps->id) }}">
+                <button class="btn btn-lg btn-outline-primary my-2">
+                    {{ __('cs2.map.show.add_grenade')}}
+                </button>
+            </a>
+        </div>
+        <h1 class="fs-1 fw-bold my-4" style="text-align:center">{{$maps->name}}</h1>
+
     </div>
     <div class="card-body">
-        <div class="card d-flex flex-row justify-content-center align-items-start">
+        <div class="card d-flex flex-row justify-content-center align-items-start border-0">
             <article class="card-group-item">
                 <header class="card-header">
-                    <h6 class="title fs-4">Agent</h6>
+                    <h6 class="title fs-4">{{ __('cs2.map.show.agent')}}</h6>
                 </header>
                 <div class="filter-content">
                     <div class="card-body">
@@ -36,7 +39,7 @@
             </article>         
             <article class="card-group-item">
                 <header class="card-header">
-                    <h6 class="title fs-4">Type of nade</h6>
+                    <h6 class="title fs-4">{{ __('cs2.map.show.nade_type')}}</h6>
                 </header>
                 <div class="filter-content">
                     <div class="card-body">
@@ -53,7 +56,7 @@
             </article>  
             <article class="card-group-item">
                 <header class="card-header">
-                    <h6 class="title fs-4" style="text-align:center;">From</h6>
+                    <h6 class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.from')}}</h6>
                 </header>
                 <div class="d-flex">
                     <div class="filter-content flex-fill">
@@ -95,7 +98,7 @@
             </article>       
             <article class="card-group-item">
                 <header class="card-header">
-                    <h6 class="title fs-4" style="text-align:center;">To</h6>
+                    <h6 class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.to')}}</h6>
                 </header>
                 <div class="d-flex">
                     <div class="filter-content flex-fill">
