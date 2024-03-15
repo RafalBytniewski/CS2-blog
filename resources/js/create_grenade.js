@@ -1,38 +1,39 @@
-const calloutFromDiv = document.querySelector('#callout_from_div');
-const calloutToDiv = document.querySelector('#callout_to_div');
-
-//show 'callout from' field after chose 'area'
 document.addEventListener('DOMContentLoaded', function() {
-    let selectElement = document.querySelector('#area_from');
-    let selectedOptionId;
+    const areaFromSelect = document.querySelector('#area_from');
+    const areaToSelect = document.querySelector('#area_to');
+    const calloutFromDiv = document.querySelector('#callout_from_div');
+    const calloutToDiv = document.querySelector('#callout_to_div');
 
-    selectElement.addEventListener('change', function() {
-        let selectedOption = this.options[this.selectedIndex];
-        selectedOptionId = selectedOption.value;
-        console.log(selectedOptionId);
-        if (this.value) {
+    areaFromSelect.addEventListener('change', function() {
+        const areaId = this.value;
+        if (areaId) {
+            fetchCallouts('callout_from', areaId);
             calloutFromDiv.removeAttribute('hidden');
-        }else {
+        } else {
             calloutFromDiv.setAttribute('hidden', true);
         }
     });
-});
 
-//show 'callout to' field after chose 'area'
-
-document.addEventListener('DOMContentLoaded', function() {
-    let selectElement = document.querySelector('#area_to');
-    let selectedOptionId;
-
-    selectElement.addEventListener('change', function() {
-        let selectedOption = this.options[this.selectedIndex];
-        selectedOptionId = selectedOption.value;
-        console.log(selectedOptionId);
-        if (this.value) {
+    areaToSelect.addEventListener('change', function() {
+        const areaId = this.value;
+        if (areaId) {
+            fetchCallouts('callout_to', areaId);
             calloutToDiv.removeAttribute('hidden');
-        }else {
+        } else {
             calloutToDiv.setAttribute('hidden', true);
         }
     });
 });
 
+function fetchCallouts(targetId, areaId) {
+    fetch(`/fetch-callouts/${areaId}`)
+        .then(response => response.json())
+        .then(data => {
+            const select = document.querySelector(`#${targetId}`);          
+            select.length = 1;
+            data.forEach(callout => {
+                select.add(new Option(callout.name, callout.id));
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}

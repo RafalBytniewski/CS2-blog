@@ -6,6 +6,7 @@ return [
         'users' => 'Użytkownicy'
     ],
     'map' => [
+        'filter' => "Filtruj",
         'grenade' => [
             'add_form' => [
                 'add_grenade' => 'Dodaj nowy granat',
@@ -17,7 +18,7 @@ return [
                 'throwing_to_(area)' => 'Rzucany na (area)',
                 'throwing_to_(callout)' => 'Rzucany na (callout) opcjonalnie',
                 'describtion' => 'Opis',
-                'images' => 'Screenshoty',
+                'images' => 'Zrzuty ekranu',
                 'submit' => 'Dodaj',
                 'optional' => 'Callout (opcjonalnie)'
             ],

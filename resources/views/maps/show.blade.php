@@ -135,7 +135,7 @@
                     </div>
                 </div>
             </article> 
-            <a href="" class="btn btn-sm btn-primary" id="filter-btn">{{ __('cs2.filter')}}</a>
+            <a href="" class="btn btn-md btn-primary" id="filter-btn">{{ __('cs2.map.filter')}}</a>
         </div> 
     
         
