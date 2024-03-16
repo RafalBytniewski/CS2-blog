@@ -6,7 +6,14 @@ return [
         'users' => 'Użytkownicy'
     ],
     'map' => [
-        'filter' => "Filtruj",
+        'show' => [
+            'add_grenade' => 'Dodaj granat',
+            'agent' => 'Agent',
+            'nade_type' => 'Typ granatu',
+            'from' => 'Rzucany z',
+            'to' => 'Rzucany na',
+
+        ],
         'grenade' => [
             'add_form' => [
                 'add_grenade' => 'Dodaj nowy granat',

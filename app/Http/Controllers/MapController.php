@@ -86,4 +86,10 @@ public function show(Map $map)
     {
         //
     }
+
+    public function fetchCallouts(Area $area)
+    {
+        $callouts = $area->callouts;
+        return response()->json($callouts);
+    }
 }

@@ -2,6 +2,12 @@
 
 @section('content')
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+<style>
+    .show-more {
+    display: block;
+    margin-top: 10px; /* Dostosuj margines według potrzeb */
+}
+</style>
 <div class="container">
     <div class="card-header d-flex flex-column">
         <div class=" d-flex justify-content-end">
@@ -16,7 +22,7 @@
     </div>
     <div class="card-body">
         <div class="card d-flex flex-row justify-content-center align-items-start border-0">
-            <article class="card-group-item">
+            <article class="card-group-item mx-4">
                 <header class="card-header">
                     <h6 class="title fs-4">{{ __('cs2.map.show.agent')}}</h6>
                 </header>
@@ -37,7 +43,7 @@
                     </div>
                 </div>
             </article>         
-            <article class="card-group-item">
+            <article class="card-group-item mx-4">
                 <header class="card-header">
                     <h6 class="title fs-4">{{ __('cs2.map.show.nade_type')}}</h6>
                 </header>
@@ -45,7 +51,7 @@
                     <div class="card-body">
                         @foreach($types as $type)
                             <label class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
+                                <input class="form-check-input" type="checkbox" value="" id="{{$type}}">
                                 <span class="form-check-label">
                                     {{$type}}
                                 </span>
@@ -54,91 +60,55 @@
                     </div>
                 </div>
             </article>  
-            <article class="card-group-item">
+            <article class="card-group-item mx-4">
                 <header class="card-header">
-                    <h6 class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.from')}}</h6>
+                    <h6 class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.from') }}</h6>
                 </header>
                 <div class="d-flex">
                     <div class="filter-content flex-fill">
                         <div class="card-body">
-                            @if(!is_null($areas))
-                                @foreach($areas as $area)
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        <span class="form-check-label">
-                                            {{$area->name}}
-                                        </span>
-                                    </label>
-                                @endforeach
-                            @endif
+                            @foreach($areas as $area)
+                                <label class="form-check">
+                                    <input class="form-check-input areaFromSelect" type="checkbox" value="{{ $area->id }}">
+                                    <span class="form-check-label">
+                                        {{ $area->name }}
+                                    </span>
+                                </label>
+                            @endforeach
                         </div>
                     </div>
-                    <style>
-                        .custom-scrollable {
-                            max-height: 135px; /* Dostosuj wysokość do swoich potrzeb */
-                        }
-                    </style>
-                    @if(!is_null($areas))
-                        <div hidden class="filter-content flex-fill {{ count($areas) > 5 ? 'custom-scrollable' : '' }} overflow-auto">
-                            <div class="card-body">
-                                @foreach($areas as $area)
-                                    @foreach($area->callouts as $callout)
-                                        <label class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            <span id="{{ $callout->id }}"class="form-check-label">
-                                                {{ $callout->name }}
-                                            </span>
-                                        </label>
-                                    @endforeach
-                                @endforeach
-                            @endif
+                    <div class="filter-content flex-fill d-none" id="calloutsFromSection">
+                        <div class="card-body">
+                            <!-- Tutaj będą wyświetlane wywołania dla wybranych obszarów -->
                         </div>
                     </div>
                 </div>
-            </article>       
-            <article class="card-group-item">
+            </article>
+            <article class="card-group-item mx-4">
                 <header class="card-header">
                     <h6 class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.to')}}</h6>
                 </header>
                 <div class="d-flex">
                     <div class="filter-content flex-fill">
                         <div class="card-body">
-                            @if(!is_null($areas))
-                                @foreach($areas as $area)
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        <span id="{{ $area->id }}"class="form-check-label">
-                                            {{$area->name}}
-                                        </span>
-                                    </label>
-                                @endforeach
-                            @endif
+                            @foreach($areas as $area)
+                                <label class="form-check">
+                                    <input class="form-check-input areaToSelect" type="checkbox" value="{{ $area->id }}">
+                                    <span class="form-check-label">
+                                        {{ $area->name }}
+                                    </span>
+                                </label>
+                            @endforeach
                         </div>
                     </div>
-                    <style>
-                        .custom-scrollable {
-                            max-height: 135px; /* Dostosuj wysokość do swoich potrzeb */
-                        }
-                    </style>
-                    @if(!is_null($areas))
-                        <div hidden class="filter-content flex-fill {{ count($areas) > 5 ? 'custom-scrollable' : '' }} overflow-auto">
-                            <div class="card-body">
-                                @foreach($areas as $area)
-                                    @foreach($area->callouts as $callout)
-                                        <label class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            <span id="{{ $callout->id }}"class="form-check-label">
-                                                {{ $callout->name }}
-                                            </span>
-                                        </label>
-                                    @endforeach
-                                @endforeach
-                            @endif
+                    <div class="filter-content flex-fill d-none" id="calloutsToSection">
+                        <div class="card-body">
+                            <!-- Tutaj będą wyświetlane wywołania dla wybranych obszarów -->
                         </div>
                     </div>
                 </div>
-            </article> 
-            <a href="" class="btn btn-md btn-primary" id="filter-btn">{{ __('cs2.map.filter')}}</a>
+            </article>
+            
         </div> 
     
         
@@ -190,4 +160,4 @@
 
 @section('js')
     @vite(['resources/js/welcome.js'])
- @endsection
+@endsection
