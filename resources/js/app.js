@@ -1,7 +1,7 @@
 // app.js
-
 import 'bootstrap';
 // Import jQuery
+
 import './bootstrap';
 
 import $ from "jquery"; 

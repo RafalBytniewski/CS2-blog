@@ -37,3 +37,6 @@ function fetchCallouts(targetId, areaId) {
         })
         .catch(error => console.error('Error:', error));
 }
+
+
+
