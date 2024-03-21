@@ -17,9 +17,11 @@ class GrenadeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() 
     {
-        //
+        return View('maps.grenades.index' ,[
+            'grenades' => Grenade::with('user', 'map')->get()
+        ]);
     }
 
     /**
@@ -27,13 +29,14 @@ class GrenadeController extends Controller
      */
     public function create(Map $map)
     {
+        
         $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
         $teams = DB::table('grenades')->select('team')->distinct()->pluck('team');
             
         return view('maps.grenades.create', [
             'map' => $map,
             'areas' => Area::all(),
-            'callouts' => Callout::where('area_id', 46)->get(),
+            'callouts' => Callout::all(),
             'types' => $types,
             'teams' => $teams,
         ]);
@@ -73,7 +76,29 @@ class GrenadeController extends Controller
      */
     public function edit(Grenade $grenade)
     {
-        //
+        $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
+        $teams = DB::table('grenades')->select('team')->distinct()->pluck('team');
+        
+        $map = $grenade->map;
+        $areaFrom = $grenade->areaFrom;
+        $calloutFrom = $grenade->calloutFrom;
+        $areato = $grenade->areato;
+        $calloutTo = $grenade->calloutTo;
+        $areas = Area::all();
+        $callouts = Callout::all();
+
+        return view('maps.grenades.edit', [
+            'grenade' => $grenade,
+            'areaFrom' => $areaFrom,
+            'calloutFrom' => $calloutFrom,
+            'areaToo' => $areato,
+            'calloutTo' => $calloutTo,
+            'map' => $map,
+            'areas' => $areas, 
+            'callouts' => $callouts,
+            'types' => $types,
+            'teams' => $teams,
+        ]);
     }
 
     /**

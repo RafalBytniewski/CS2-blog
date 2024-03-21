@@ -23,11 +23,19 @@ Route::get('/', [WelcomeController::class, 'index']);
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/maps/list', [MapController::class, 'index'])->name('maps.index')->middleware('auth');
 Route::get('/users/list', [UserController::class, 'index'])->name('users.index')->middleware('auth');
+
+Route::get('/maps/list', [MapController::class, 'index'])->name('maps.index')->middleware('auth');
 Route::get('/maps/{map}', [MapController::class, 'show'])->name('maps.show')->middleware('auth');
+
 Route::get('/maps/grenades/{map}/create', [GrenadeController::class, 'create'])->name('maps.create')->middleware('auth');
 Route::post('/maps/grenades/store', [GrenadeController::class, 'store'])->name('grenade.store')->middleware('auth');
+Route::get('/maps/grenades/index', [GrenadeController::class, 'index'])->name('grenade.index')->middleware('auth');
+Route::get('/maps/grenades/edit/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit')->middleware('auth');
+Route::get('/maps/grenades/show/{grenade}', [GrenadeController::class, 'show'])->name('grenade.show')->middleware('auth');
+Route::post('/maps/grenades/update', [GrenadeController::class, 'update'])->name('grenade.update')->middleware('auth');
+
+/* AJAX */
 Route::get('/fetch-callouts/{areaId}', [GrenadeController::class, 'fetchCallouts']);
 Route::get('/fetch_callouts/{area}', [MapController::class, 'fetchCallouts']);
 
