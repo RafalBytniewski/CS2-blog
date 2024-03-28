@@ -92,4 +92,15 @@ public function show(Map $map)
         $callouts = $area->callouts;
         return response()->json($callouts);
     }
+
+    public function settings(Map $map)
+    {
+
+        $areas = Area::with('callouts')->where('map_id', $map->id)->get();
+
+        return view('maps.settings', [
+            'map' => $map,
+            'areas' => $areas
+        ]); 
+    }
 }

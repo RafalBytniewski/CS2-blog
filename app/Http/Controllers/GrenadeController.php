@@ -106,7 +106,11 @@ class GrenadeController extends Controller
      */
     public function update(Request $request, Grenade $grenade)
     {
-        //
+
+        $requestData = $request->except('user_id');
+        $grenade->fill($requestData);
+        $grenade->save();
+        return redirect(route('maps.grenades.index'));
     }
 
     /**

@@ -117,14 +117,7 @@
                 <div class="row mb-3">
                     <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.images') }}</label>
 
-                    <div class="col-md-6">
-                        <input id="images" name="images[]" type="file" multiple class="form-control @error('') is-invalid @enderror" autofocus>
-                        @error('')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+
                 </div>
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">

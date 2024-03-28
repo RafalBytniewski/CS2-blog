@@ -27,6 +27,8 @@ Route::get('/users/list', [UserController::class, 'index'])->name('users.index')
 
 Route::get('/maps/list', [MapController::class, 'index'])->name('maps.index')->middleware('auth');
 Route::get('/maps/{map}', [MapController::class, 'show'])->name('maps.show')->middleware('auth');
+Route::get('/maps/settings/{map}', [MapController::class, 'settings'])->name('maps.settings')->middleware('auth');
+
 
 Route::get('/maps/grenades/{map}/create', [GrenadeController::class, 'create'])->name('maps.create')->middleware('auth');
 Route::post('/maps/grenades/store', [GrenadeController::class, 'store'])->name('grenade.store')->middleware('auth');
