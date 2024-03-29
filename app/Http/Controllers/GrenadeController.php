@@ -28,17 +28,11 @@ class GrenadeController extends Controller
      * Show the form for creating a new resource.
      */
     public function create(Map $map)
-    {
-        
-        $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
-        $teams = DB::table('grenades')->select('team')->distinct()->pluck('team');
-            
-        return view('maps.grenades.create', [
+    {     
+         return view('maps.grenades.create', [
             'map' => $map,
-            'areas' => Area::all(),
+            'areas' => Area::where('map_id', $map->id)->get(),
             'callouts' => Callout::all(),
-            'types' => $types,
-            'teams' => $teams,
         ]);
     }
 
