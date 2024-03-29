@@ -11,6 +11,11 @@
 <div class="container">
     <div class="card-header d-flex flex-column">
         <div class=" d-flex justify-content-end">
+            <a href="{{ route('maps.settings', $maps->id) }}">
+                <button class="btn btn-lg btn-outline-primary my-2">
+                    {{ __('cs2.map.show.settings')}}
+                </button>
+            </a>
             <a href="{{ route('maps.create', $maps->id) }}">
                 <button class="btn btn-lg btn-outline-primary my-2">
                     {{ __('cs2.map.show.add_grenade')}}

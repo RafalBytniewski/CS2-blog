@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Callout;
 use Illuminate\Http\Request;
+use App\Models\Area;
+
 
 class CalloutController extends Controller
 {
@@ -28,7 +30,18 @@ class CalloutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $areaId = $request->input('area_id');
+
+        // Sprawdź, czy area istnieje
+        $area = Area::findOrFail($areaId);
+    
+        // Twórz nowy callout dla konkretnej area
+        $callout = new Callout();
+        $callout->name = $request->input('name');
+        $callout->area_id = $areaId;
+        $callout->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -50,9 +63,17 @@ class CalloutController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Callout $callout)
+    public function update(Request $request)
     {
-        //
+    $calloutId = $request->input('callout_id'); // Pobierz ID callout z zapytania
+
+    $callout = Callout::findOrFail($calloutId); // Znajdź callout na podstawie ID
+
+    $callout->fill($request->only(['name'])); // Uaktualnij tylko pole 'name'
+
+    $callout->save();
+
+    return redirect()->back();
     }
 
     /**
@@ -60,6 +81,10 @@ class CalloutController extends Controller
      */
     public function destroy(Callout $callout)
     {
-        //
+        $callout->delete();
+            
+        // Przekieruj z komunikatem sukcesu
+        return redirect()->back()->with('success', 'Callout deleted successfully');
+
     }
 }

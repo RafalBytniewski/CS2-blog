@@ -97,6 +97,7 @@ public function show(Map $map)
     {
 
         $areas = Area::with('callouts')->where('map_id', $map->id)->get();
+        
 
         return view('maps.settings', [
             'map' => $map,
