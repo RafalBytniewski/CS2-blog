@@ -10,7 +10,7 @@ use App\Models\Area;
 use App\Models\Callout;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-
+use App\Http\Requests\UpsertGrenadeRequest;
 
 class GrenadeController extends Controller
 {
@@ -38,14 +38,15 @@ class GrenadeController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     * @param UpsertGrenadeRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(UpsertGrenadeRequest $request)
     {
+
         $user = auth()->user();
-        $grenadeData = $request->all();
-        $grenadeData['user_id'] = $user->id;
+        $grenadeData = $request->validated();
+        $grenadeData['user_id'] = $user->id;    
         $grenade = Grenade::create($grenadeData);
     
         foreach ($request->file('images') as $image) {
@@ -53,8 +54,7 @@ class GrenadeController extends Controller
             $publicPath = str_replace('public/', '', $path);
             $grenade->grenadeImages()->create(['path' => $publicPath]);
         }
-    
-        return redirect()->route('maps.index');
+        return redirect()->route('maps.index')->with('success', 'Pomyślnie dodano grenadę!');
     }
 
     /**

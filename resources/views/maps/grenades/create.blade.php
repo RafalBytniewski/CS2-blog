@@ -20,8 +20,7 @@
                 <div class="row mb-3">
                     <label for="" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.team') }}</label>
                     <div class="col-md-6">
-                        <select id="team" name="team"
-                            class="form-control @error('category_id') is-invalid @enderror" name="">
+                        <select id="team" name="team" class="form-control @error('category_id') is-invalid @enderror" required>
                             <option value=""></option>
                             <option value="Terrorist">Terrorist</option>
                             <option value="Counter-Terrorist">Counter-Terrorist</option>
@@ -37,7 +36,7 @@
                 <div class="row mb-3">
                     <label for="type" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.type') }}</label>
                     <div class="col-md-6">
-                        <select id="type" class="form-control @error('type') is-invalid @enderror" name="type">
+                        <select id="type" class="form-control @error('type') is-invalid @enderror" name="type" required>
                             <option value=""></option>
                             <option value="Smoke">Smoke</option>
                             <option value="Flash">Flash</option>
@@ -55,7 +54,7 @@
                 <div class="row mb-3">
                     <label for="area_from" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_from_(area)') }}</label>
                     <div class="col-md-6">
-                        <select id="area_from" name="area_from_id" class="form-control @error('area') is-invalid @enderror">
+                        <select id="area_from" name="area_from_id" class="form-control @error('area') is-invalid @enderror" required>
                             <option value=""></option>
                             @foreach ($areas as $area)
                                 <option value="{{ $area->id }}">{{ $area->name }}</option>
@@ -78,7 +77,7 @@
                 <div class="row mb-3">
                     <label for="area_to" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.throwing_to_(area)') }}</label>
                     <div class="col-md-6">
-                        <select id="area_to" name="area_to_id" class="form-control @error('area') is-invalid @enderror">
+                        <select id="area_to" name="area_to_id" class="form-control @error('area') is-invalid @enderror" required>
                             <option value=""></option>
                             @foreach ($areas as $area)
                                 <option value="{{ $area->id }}">{{ $area->name }}</option>
@@ -102,11 +101,8 @@
 
                 <div class="row mb-3">
                     <label for="describtion" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.describtion') }}</label>
-
                     <div class="col-md-6">
-                        <input id="describtion" name="describtion" type="text"
-                            class="form-control @error('') is-invalid @enderror" value="" required
-                            autocomplete="describtion" autofocus>
+                        <textarea id="describtion" name="describtion" class="form-control @error('describtion') is-invalid @enderror" maxlength="500" autocomplete="describtion" autofocus></textarea>
                         @error('describtion')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -117,10 +113,14 @@
 
                 <div class="row mb-3">
                     <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.images') }}</label>
-
                     <div class="col-md-6">
-                        <input id="images" name="images[]" type="file" multiple class="form-control @error('') is-invalid @enderror" autofocus>
-                        @error('')
+                        <input id="images" name="images[]" type="file" multiple class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror" autofocus >
+                        @error('images')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        @error('images.*')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
