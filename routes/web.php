@@ -20,27 +20,30 @@ use App\Http\Controllers\CalloutController;
 |
 */
 
-Route::get('/', [WelcomeController::class, 'index']);
+
 
 Auth::routes();
 
+Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/users/list', [UserController::class, 'index'])->name('users.index')->middleware('auth');
 
-Route::get('/maps/list', [MapController::class, 'index'])->name('maps.index')->middleware('auth');
-Route::get('/maps/{map}', [MapController::class, 'show'])->name('maps.show')->middleware('auth');
-Route::get('/maps/settings/{map}', [MapController::class, 'settings'])->name('maps.settings')->middleware('auth');
+Route::get('/{map}', [MapController::class, 'show'])->name('maps.show');
 
+Route::middleware(['auth'])->group(function() {
+    Route::get('/{map}/grenade/create', [GrenadeController::class, 'create'])->name('grenade.create');
+    Route::post('/{map}/grenade/store', [GrenadeController::class, 'store'])->name('grenade.store');
+    Route::get('/{map}/grenade/edit/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit');
 
-Route::get('/maps/grenades/{map}/create', [GrenadeController::class, 'create'])->name('maps.create')->middleware('auth')->middleware('can:isAdmin');
-Route::post('/maps/grenades/store', [GrenadeController::class, 'store'])->name('grenade.store')->middleware('auth');
-Route::get('/maps/grenades/index', [GrenadeController::class, 'index'])->name('grenade.index')->middleware('auth');
-Route::get('/maps/grenades/edit/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit')->middleware('auth');
-Route::put('/callouts/update', [CalloutController::class, 'update'])->name('callout.update');
-Route::post('/callouts/store', [CalloutController::class, 'store'])->name('callout.store')->middleware('auth');
-Route::get('/maps/settings/{map}', [MapController::class, 'settings'])->name('maps.settings')->middleware('auth');
-Route::delete('/callouts/{callout}', [CalloutController::class, 'destroy'])->name('callout.destroy')->middleware('auth');
-
+    Route::middleware(['can:isAdmin'])->group(function() {
+        Route::get('/users/list', [UserController::class, 'index'])->name('users.index');
+        Route::get('/maps/list', [MapController::class, 'index'])->name('maps.index');
+        Route::get('/{map}/settings', [MapController::class, 'settings'])->name('maps.settings');
+        Route::get('/grenades/list', [GrenadeController::class, 'index'])->name('grenade.index');
+        Route::put('/callouts/update', [CalloutController::class, 'update'])->name('callout.update');
+        Route::post('/callouts/store', [CalloutController::class, 'store'])->name('callout.store');
+        Route::delete('/callouts/{callout}', [CalloutController::class, 'destroy'])->name('callout.destroy');
+    });
+});
 
 Route::get('/maps/grenades/show/{grenade}', [GrenadeController::class, 'show'])->name('grenade.show')->middleware('auth');
 Route::post('/maps/grenades/update', [GrenadeController::class, 'update'])->name('grenade.update')->middleware('auth');

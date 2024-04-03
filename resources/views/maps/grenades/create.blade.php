@@ -7,7 +7,7 @@
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('grenade.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('grenade.store', $map->id) }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row mb-3">

@@ -11,12 +11,14 @@
 <div class="container">
     <div class="card-header d-flex flex-column">
         <div class=" d-flex justify-content-end">
-            <a href="{{ route('maps.settings', $maps->id) }}">
-                <button class="btn btn-lg btn-outline-primary my-2">
-                    {{ __('cs2.buttons.settings')}}
-                </button>
-            </a>
-            <a href="{{ route('maps.create', $maps->id) }}">
+            @can('isAdmin')
+                <a href="{{ route('maps.settings', $maps->id) }}">
+                    <button class="btn btn-lg btn-outline-primary my-2">
+                        {{ __('cs2.buttons.settings')}}
+                    </button>
+                </a>
+            @endcan
+            <a href="{{ route('grenade.create', $maps->id) }}">
                 <button class="btn btn-lg btn-outline-primary my-2">
                     {{ __('cs2.buttons.add_grenade')}}
                 </button>

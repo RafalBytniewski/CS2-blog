@@ -63,8 +63,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('maps.index') }}">{{ __('cs2.nav.maps') }}</a>
-                                <a class="dropdown-item" href="{{ route('users.index') }}">{{ __('cs2.nav.users') }}</a>
+                                @can('isAdmin')
+                                    <a class="dropdown-item" href="{{ route('maps.index') }}">{{ __('cs2.nav.maps') }}</a>
+                                    <a class="dropdown-item" href="{{ route('users.index') }}">{{ __('cs2.nav.users') }}</a>
+                                @endcan
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
