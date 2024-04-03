@@ -131,3 +131,6 @@
     </div>
     </div>
 @endsection
+@section('js')
+@vite(['resources/js/create_grenade.js'])
+@endsection

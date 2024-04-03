@@ -70,15 +70,14 @@ class GrenadeController extends Controller
      */
     public function edit(Grenade $grenade)
     {
-        $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
-        $teams = DB::table('grenades')->select('team')->distinct()->pluck('team');
-        
+        $types = Grenade::select('type')->distinct()->pluck('type');
+        $teams = Grenade::select('team')->distinct()->pluck('team');
         $map = $grenade->map;
         $areaFrom = $grenade->areaFrom;
         $calloutFrom = $grenade->calloutFrom;
         $areato = $grenade->areato;
         $calloutTo = $grenade->calloutTo;
-        $areas = Area::all();
+        $areas = Area::where('map_id', $map->id)->get();
         $callouts = Callout::all();
 
         return view('maps.grenades.edit', [
@@ -98,14 +97,12 @@ class GrenadeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Grenade $grenade)
+    public function update(UpsertGrenadeRequest $request, Grenade $grenade)
     {
-
-        $requestData = $request->except('user_id');
-        $grenade->fill($requestData);
-        $grenade->save();
+        $grenade->update($request->validated());
         return redirect(route('maps.grenades.index'));
     }
+    
 
     /**
      * Remove the specified resource from storage.
