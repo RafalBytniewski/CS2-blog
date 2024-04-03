@@ -32,7 +32,7 @@ Route::get('/maps/{map}', [MapController::class, 'show'])->name('maps.show')->mi
 Route::get('/maps/settings/{map}', [MapController::class, 'settings'])->name('maps.settings')->middleware('auth');
 
 
-Route::get('/maps/grenades/{map}/create', [GrenadeController::class, 'create'])->name('maps.create')->middleware('auth');
+Route::get('/maps/grenades/{map}/create', [GrenadeController::class, 'create'])->name('maps.create')->middleware('auth')->middleware('can:isAdmin');
 Route::post('/maps/grenades/store', [GrenadeController::class, 'store'])->name('grenade.store')->middleware('auth');
 Route::get('/maps/grenades/index', [GrenadeController::class, 'index'])->name('grenade.index')->middleware('auth');
 Route::get('/maps/grenades/edit/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit')->middleware('auth');

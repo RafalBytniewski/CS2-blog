@@ -102,7 +102,7 @@
                 <div class="row mb-3">
                     <label for="describtion" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.add_form.describtion') }}</label>
                     <div class="col-md-6">
-                        <textarea id="describtion" name="describtion" class="form-control @error('describtion') is-invalid @enderror" maxlength="500" autocomplete="describtion" autofocus></textarea>
+                        <textarea placeholder="Max. 500 char"id="describtion" name="describtion" class="form-control @error('describtion') is-invalid @enderror" maxlength="500" autocomplete="describtion" autofocus></textarea>
                         @error('describtion')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
