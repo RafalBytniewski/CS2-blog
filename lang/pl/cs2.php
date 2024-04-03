@@ -1,13 +1,24 @@
 <?php
 
 return [
+    'buttons' => [
+        'add_grenade' => 'Dodaj granat',
+        'settings' => 'Ustawienia',
+        'submit' => 'Wyślij',
+        'view' => 'Podgląd',
+        'edit' => 'Edytuj',
+        'delete' => 'Usuń',
+
+    ],
     'nav' => [
         'maps' => 'Mapy',
         'users' => 'Użytkownicy'
     ],
     'map' => [
+        'index' =>  [
+            'title' => 'Mapy',
+        ],
         'show' => [
-            'add_grenade' => 'Dodaj granat',
             'agent' => 'Agent',
             'nade_type' => 'Typ granatu',
             'from' => 'Rzucany z',

@@ -5,7 +5,7 @@
 <style>
     .show-more {
     display: block;
-    margin-top: 10px; /* Dostosuj margines według potrzeb */
+    margin-top: 10px;
 }
 </style>
 <div class="container">
@@ -13,12 +13,12 @@
         <div class=" d-flex justify-content-end">
             <a href="{{ route('maps.settings', $maps->id) }}">
                 <button class="btn btn-lg btn-outline-primary my-2">
-                    {{ __('cs2.map.show.settings')}}
+                    {{ __('cs2.buttons.settings')}}
                 </button>
             </a>
             <a href="{{ route('maps.create', $maps->id) }}">
                 <button class="btn btn-lg btn-outline-primary my-2">
-                    {{ __('cs2.map.show.add_grenade')}}
+                    {{ __('cs2.buttons.add_grenade')}}
                 </button>
             </a>
         </div>

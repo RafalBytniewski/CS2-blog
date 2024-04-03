@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="card-header">
-        <h1>Maps list</h1>
+        <h1>{{ __('cs2.map.index.title') }}</h1>
 
     </div>
     <div class="card-body">
@@ -12,9 +12,9 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Describtion</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">{{ __('cs2.map.index.name') }}</th>
+                    <th scope="col">{{ __('cs2.map.index.describtion') }}</th>
+                    <th scope="col">{{ __('cs2.map.index.action') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,10 +25,10 @@
                     <td>{{$map->describtion}}</td>
                     <td>
                         <a href="{{ route('maps.show', $map->id) }}">
-                            <button class="btn btn-sm btn-primary">V</button>
+                            <button title="{{ __('cs2.buttons.view') }}"class="btn btn-sm btn-primary">V</button>
                         </a>
-                        <a class="btn btn-sm btn-secondary">E</a>
-                        <a class="btn btn-sm btn-danger">X</a>
+                        <a title="{{ __('cs2.buttons.edit') }}" class="btn btn-sm btn-secondary">E</a>
+                        <a title="{{ __('cs2.buttons.delete') }}" class="btn btn-sm btn-danger">X</a>
                     </td>
                 </tr>
                 @endforeach

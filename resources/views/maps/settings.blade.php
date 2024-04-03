@@ -27,12 +27,12 @@
                                 @method('PUT')
                                     <input type="hidden" name="callout_id" value="{{ $callout->id }}">
                                     <input type="text" name="name" value="{{ $callout->name }}">
-                                    <button type="submit" class="btn">E</button>
+                                    <button type="submit" title="{{ __('cs2.buttons.edit')}}" class="btn">E</button>
                                 </form>
                                 <form method="POST" action="{{ route('callout.destroy', $callout->id) }}">
                                 @csrf
                                 @method('DELETE')
-                                    <button class="btn" type="submit">X</button>
+                                    <button title="{{ __('cs2.buttons.delete')}}" class="btn" type="submit">X</button>
                                 </form>
                             @endforeach
                         </td>
