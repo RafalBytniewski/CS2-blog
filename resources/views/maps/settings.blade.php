@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
 <div class="container">
     <div class="card-header d-flex flex-column">
         <h1 class="fs-1 fw-bold my-4" style="text-align:center">{{$map->name}}</h1>
+        
     </div>
     <div class="card-body">
         <div class="container">
@@ -27,12 +28,14 @@
                                 @method('PUT')
                                     <input type="hidden" name="callout_id" value="{{ $callout->id }}">
                                     <input type="text" name="name" value="{{ $callout->name }}">
-                                    <button type="submit" title="{{ __('cs2.buttons.edit')}}" class="btn">E</button>
+                                    
+                                    <i type="submit" title="{{ __('cs2.buttons.edit')}}" class="fa-solid fa-square-check btn btn-sm btn-success"></i>
                                 </form>
                                 <form method="POST" action="{{ route('callout.destroy', $callout->id) }}">
                                 @csrf
                                 @method('DELETE')
-                                    <button title="{{ __('cs2.buttons.delete')}}" class="btn" type="submit">X</button>
+                                    <i title="{{ __('cs2.buttons.delete')}}" class="fa-solid fa-trash btn btn-sm btn-danger" type="submit"></i>
+                                    
                                 </form>
                             @endforeach
                         </td>

@@ -24,9 +24,9 @@
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td>
-                        <a class="btn btn-sm btn-primary">V</a>
-                        <a class="btn btn-sm btn-secondary">E</a>
-                        <a class="btn btn-sm btn-danger">X</a>
+                        <i class="fa-solid fa-magnifying-glass btn btn-md btn-primary"></i>
+                        <i class="fa-solid fa-pen-to-square btn btn-md btn-success"></i>
+                        <i class="fa-solid fa-trash btn btn-md btn-danger"></i>
                     </td>
                 </tr>
                 @endforeach

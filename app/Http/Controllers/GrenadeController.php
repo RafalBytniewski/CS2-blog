@@ -29,6 +29,7 @@ class GrenadeController extends Controller
      */
     public function create(Map $map)
     {     
+        
          return view('maps.grenades.create', [
             'map' => $map,
             'areas' => Area::where('map_id', $map->id)->get(),

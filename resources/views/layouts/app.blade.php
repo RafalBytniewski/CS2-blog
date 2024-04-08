@@ -88,6 +88,7 @@
         </main>
     </div>
     @yield('js')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </body>
 
 </html>

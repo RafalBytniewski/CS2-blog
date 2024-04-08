@@ -10,6 +10,7 @@
       <p class="fs-3">
         Check grenades added by our community and join us if you want to share your nades.
       </p>
+      
     </div>
   <div class="container"> 
     <section class="pt-5 pb-5">
