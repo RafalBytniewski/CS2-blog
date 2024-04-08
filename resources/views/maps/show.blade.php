@@ -18,11 +18,13 @@
                     </button>
                 </a>
             @endcan
-            <a href="{{ route('grenade.create', $maps->id) }}">
-                <button class="btn btn-lg btn-outline-primary my-2">
-                    {{ __('cs2.buttons.add_grenade')}}
-                </button>
-            </a>
+            @auth
+                <a href="{{ route('grenade.create', $maps->id) }}">
+                    <button class="btn btn-lg btn-outline-primary my-2">
+                        {{ __('cs2.buttons.add_grenade')}}
+                    </button>
+                </a>
+            @endauth
         </div>
         <h1 class="fs-1 fw-bold my-4" style="text-align:center">{{$maps->name}}</h1>
 
