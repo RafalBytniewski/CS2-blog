@@ -26,10 +26,15 @@
                         <td>{{$map->describtion}}</td>
                         <td>
                             <a href="{{ route('maps.show', $map->id) }}">
-                                <button title="{{ __('cs2.buttons.view') }}"class="btn btn-sm btn-primary">V</button>
+                                <i title="{{ __('cs2.buttons.view') }}" class="fa-solid fa-magnifying-glass btn btn-md btn-primary"></i>
                             </a>
-                            <a title="{{ __('cs2.buttons.edit') }}" class="btn btn-sm btn-secondary">E</a>
-                            <a title="{{ __('cs2.buttons.delete') }}" class="btn btn-sm btn-danger">X</a>
+                            <a href="">
+                                <i class="fa-solid fa-pen-to-square btn btn-md btn-success" title="{{ __('cs2.buttons.edit') }}"></i>
+                            </a>
+                            <a href="{{ route('maps.settings', $map->id) }}">
+                                <i class="fa-solid fa-gear btn btn-md btn-secondary" title="{{ __('cs2.buttons.settings') }}"></i>
+                            </a>
+                            <i class="fa-solid fa-trash btn btn-md btn-danger" title="{{ __('cs2.buttons.delete') }}"></i>
                         </td>
                     </tr>
                     @endforeach
