@@ -19,7 +19,9 @@ class Map extends Model
      */
     protected $fillable = [
         'name',
-        'describtion'
+        'describtion',
+        'active',
+        'image_path'
     ];
 
     public function grenades(): HasMany

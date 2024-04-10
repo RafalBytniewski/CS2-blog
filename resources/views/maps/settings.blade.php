@@ -34,8 +34,7 @@
                                 <form method="POST" action="{{ route('callout.destroy', $callout->id) }}">
                                 @csrf
                                 @method('DELETE')
-                                    <i title="{{ __('cs2.buttons.delete')}}" class="fa-solid fa-trash btn btn-sm btn-danger" type="submit"></i>
-                                    
+                                    <i title="{{ __('cs2.buttons.delete')}}" class="fa-solid fa-trash btn btn-sm btn-danger" type="submit"></i>                                   
                                 </form>
                             @endforeach
                         </td>

@@ -4,6 +4,13 @@
 
 <div class="container">
     <div class="card-header">
+        <div class=" d-flex justify-content-end">
+            <a href="{{ route('maps.create') }}">
+                <button class="btn btn-lg btn-outline-primary my-2">
+                    {{ __('cs2.buttons.add_map')}}
+                </button>
+            </a>
+        </div>
         <h1>{{ __('cs2.map.index.title') }}</h1>
 
     </div>
@@ -14,7 +21,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">{{ __('cs2.map.index.name') }}</th>
-                        <th scope="col">{{ __('cs2.map.index.describtion') }}</th>
+                        <th scope="col">{{ __('cs2.map.index.active') }}</th>
                         <th scope="col">{{ __('cs2.map.index.action') }}</th>
                     </tr>
                 </thead>
@@ -23,12 +30,12 @@
                     <tr>
                         <th scope="row">{{$map->id}}</th>
                         <td>{{$map->name}}</td>
-                        <td>{{$map->describtion}}</td>
+                        <td>{{$map->active}}</td>
                         <td>
                             <a href="{{ route('maps.show', $map->id) }}">
                                 <i title="{{ __('cs2.buttons.view') }}" class="fa-solid fa-magnifying-glass btn btn-md btn-primary"></i>
                             </a>
-                            <a href="">
+                            <a href="{{ route('maps.edit', $map->id) }}">
                                 <i class="fa-solid fa-pen-to-square btn btn-md btn-success" title="{{ __('cs2.buttons.edit') }}"></i>
                             </a>
                             <a href="{{ route('maps.settings', $map->id) }}">

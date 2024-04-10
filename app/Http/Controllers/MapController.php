@@ -9,7 +9,7 @@ use App\Models\Grenade;
 use App\Models\Callout;
 use App\Models\Area;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Storage;
 
 class MapController extends Controller
 {
@@ -28,7 +28,7 @@ class MapController extends Controller
      */
     public function create()
     {
-        //
+        return View('maps.create');
     }
 
     /**
@@ -36,7 +36,15 @@ class MapController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $map = new Map($request->all());
+
+        if ($request->hasFile('image_path')) {
+            $path = $request->file('image_path')->store('public/images/maps');
+            $publicPath = str_replace('public/', '', $path);
+            $map->image_path = $publicPath;
+        }
+        $map->save();
+        return redirect()->route('maps.index');
     }
 
     /**
@@ -66,17 +74,32 @@ public function show(Map $map)
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Map $map)
     {
-        //
+        return view('maps.edit',[
+            'map' => $map
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Map $map)
     {
-        //
+
+        $oldImagePath = $map->image_path;
+        $map ->fill($request->all());
+        if ($request->hasFile('image_path')) {
+            if(Storage::exists($oldImagePath)){
+                Storage::delete($oldImagePath);
+            }
+            $path = $request->file('image_path')->store('public/images/maps');
+            $publicPath = str_replace('public/', '', $path);
+            $map->image_path = $publicPath;
+        }
+        $map->save();
+
+        return redirect()->route('maps.index');
     }
 
     /**

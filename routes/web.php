@@ -37,6 +37,10 @@ Route::middleware(['auth'])->group(function() {
     Route::middleware(['can:isAdmin'])->group(function() {
         Route::get('/users/list', [UserController::class, 'index'])->name('users.index');
         Route::get('/maps/list', [MapController::class, 'index'])->name('maps.index');
+        Route::get('/maps/create', [MapController::class, 'create'])->name('maps.create');
+        Route::post('/maps/store', [MapController::class, 'store'])->name('maps.store');
+        Route::get('/{map}/edit', [MapController::class, 'edit'])->name('maps.edit');
+        Route::post('/{map}/update', [MapController::class, 'update'])->name('maps.update');
         Route::get('/{map}/settings', [MapController::class, 'settings'])->name('maps.settings');
         Route::get('/grenades/list', [GrenadeController::class, 'index'])->name('grenade.index');
         Route::put('/callouts/update', [CalloutController::class, 'update'])->name('callout.update');
