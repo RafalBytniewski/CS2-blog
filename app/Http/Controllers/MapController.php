@@ -10,6 +10,8 @@ use App\Models\Callout;
 use App\Models\Area;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpsertMapRequest;
+
 
 class MapController extends Controller
 {
@@ -34,9 +36,9 @@ class MapController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UpsertMapRequest $request)
     {
-        $map = new Map($request->all());
+        $map = new Map($request->validated());
 
         if ($request->hasFile('image_path')) {
             $path = $request->file('image_path')->store('public/images/maps');
@@ -84,11 +86,11 @@ public function show(Map $map)
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Map $map)
+    public function update(UpsertMapRequest $request, Map $map)
     {
 
         $oldImagePath = $map->image_path;
-        $map ->fill($request->all());
+        $map ->fill($request->validated());
         if ($request->hasFile('image_path')) {
             if(Storage::exists($oldImagePath)){
                 Storage::delete($oldImagePath);
