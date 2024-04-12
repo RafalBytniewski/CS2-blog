@@ -24,8 +24,10 @@
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td>
-                        <i class="fa-solid fa-magnifying-glass btn btn-md btn-primary"></i>
-                        <i class="fa-solid fa-pen-to-square btn btn-md btn-success"></i>
+                        <a href="{{ route('users.show', $user->id) }}">
+                            <i class="fa-solid fa-magnifying-glass btn btn-md btn-primary"></i>
+                        </a>
+                            <i class="fa-solid fa-pen-to-square btn btn-md btn-success"></i>
                         <i class="fa-solid fa-trash btn btn-md btn-danger"></i>
                     </td>
                 </tr>

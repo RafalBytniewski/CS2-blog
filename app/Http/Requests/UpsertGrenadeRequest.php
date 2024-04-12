@@ -22,14 +22,14 @@ class UpsertGrenadeRequest extends FormRequest
     public function rules(): array
     {
         return [   
-                'map_id' => 'required',
+                'map_id' => 'required|numeric',
                 'team' => 'required|',
                 'type' => 'required|',
-                'area_from_id' => 'required|',
-                'callout_from_id' => 'nullable|',
-                'area_to_id' => 'required|',
-                'callout_from_id' => 'nullable|',
-                'describtion' => 'nullable|',
+                'area_from_id' => 'required|numeric',
+                'callout_from_id' => 'nullable|numeric',
+                'area_to_id' => 'required|numeric',
+                'callout_from_id' => 'nullable|numeric',
+                'describtion' => 'nullable|max:500',
                 'images' => 'required|array|min:1',
                 'images.*' => 'required|image|mimes:jpg,png|max:4096'
         ];

@@ -66,6 +66,8 @@
                                 @can('isAdmin')
                                     <a class="dropdown-item" href="{{ route('maps.index') }}">{{ __('cs2.nav.maps') }}</a>
                                     <a class="dropdown-item" href="{{ route('users.index') }}">{{ __('cs2.nav.users') }}</a>
+                                    <a class="dropdown-item" href="{{ route('grenades.index') }}">{{ __('cs2.nav.grenades') }}</a>
+
                                 @endcan
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

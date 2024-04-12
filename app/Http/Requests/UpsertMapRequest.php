@@ -24,7 +24,7 @@ class UpsertMapRequest extends FormRequest
         return [
             'name' => 'required',
             'describtion' => 'nullable|',
-            'active' => 'required|numeric',
+            'active' => 'required|boolean',
             'image_path' => 'required|image|mimes:jpg,png|max:4096'
         ];
     }

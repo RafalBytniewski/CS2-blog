@@ -63,7 +63,9 @@ class GrenadeController extends Controller
      */
     public function show(Grenade $grenade)
     {
-        //
+        return view('maps.grenades.show', [
+            'grenades' => Grenade::all()
+        ]);
     }
 
     /**
