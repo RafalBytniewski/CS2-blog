@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="card-header">
-        <h1>{{__('cs2.maps.grenades.list')}}</h1>
+        <h1>{{__('cs2.map.grenade.table.index_title')}}</h1>
 
     </div>
     <div class="card-body">
@@ -12,10 +12,10 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{__('cs2.maps.grenades.map')}}</th>
-                    <th scope="col">{{__('cs2.maps.grenades.user_name')}}</th>
-                    <th scope="col">{{__('cs2.maps.grenades.describtion')}}</th>
-                    <th scope="col">{{__('cs2.maps.grenades.action')}}</th>
+                    <th scope="col">{{__('cs2.map.grenade.table.map')}}</th>
+                    <th scope="col">{{__('cs2.map.grenade.table.user')}}</th>
+                    <th scope="col">{{__('cs2.map.grenade.table.description')}}</th>
+                    <th scope="col">{{__('cs2.map.grenade.table.actions')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,12 +27,14 @@
                     <td>{{$grenade->describtion}}</td>
                     <td>
                         <a href="{{ route('grenade.show', $grenade->id) }}">
-                            <button class="btn btn-sm btn-primary">V</button>
+                            <i title="{{ __('cs2.buttons.view') }}" class="fa-solid fa-magnifying-glass btn btn-md btn-primary"></i>
                         </a>
                         <a href="{{ route('grenade.edit', $grenade->id) }}">
-                            <button class="btn btn-sm btn-secondary">E</button>
+                            <i class="fa-solid fa-pen-to-square btn btn-md btn-success" title="{{ __('cs2.buttons.edit') }}"></i>
                         </a>
-                        <a class="btn btn-sm btn-danger">X</a>
+                        <a href="">
+                            <i class="fa-solid fa-trash btn btn-md btn-danger" title="{{ __('cs2.buttons.delete') }}"></i>
+                        </a>
                     </td>
                 </tr>
                 @endforeach

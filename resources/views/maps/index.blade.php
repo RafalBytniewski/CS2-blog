@@ -41,7 +41,9 @@
                             <a href="{{ route('maps.settings', $map->id) }}">
                                 <i class="fa-solid fa-gear btn btn-md btn-secondary" title="{{ __('cs2.buttons.settings') }}"></i>
                             </a>
-                            <i class="fa-solid fa-trash btn btn-md btn-danger" title="{{ __('cs2.buttons.delete') }}"></i>
+                            <a href="">
+                                <i class="fa-solid fa-trash btn btn-md btn-danger" title="{{ __('cs2.buttons.delete') }}"></i>
+                            </a>
                         </td>
                     </tr>
                     @endforeach

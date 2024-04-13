@@ -12,7 +12,8 @@ return [
     ],
     'nav' => [
         'maps' => 'Mapy',
-        'users' => 'Użytkownicy'
+        'users' => 'Użytkownicy',
+        'grenades' => 'Granaty'
     ],
     'map' => [
         'index' =>  [
@@ -26,8 +27,16 @@ return [
 
         ],
         'grenade' => [
-            'add_form' => [
-                'add_grenade' => 'Dodaj nowy granat',
+            'table' => [
+                'index_title' => 'Lista granatów',
+                'map' => 'Mapa',
+                'user' => 'Nazwa użytkownia',
+                'description' => 'Opis',
+                'actions' => 'Akcje'
+            ],
+            'form' => [
+                'create_title' => 'Dodaj nowy granat',
+                'edit_title' => 'Edytuj granat',
                 'map' => 'Mapa',
                 'team' => 'Grasz jako',
                 'type' => 'Typ granatu',

@@ -27,8 +27,12 @@
                         <a href="{{ route('users.show', $user->id) }}">
                             <i class="fa-solid fa-magnifying-glass btn btn-md btn-primary"></i>
                         </a>
+                        <a href="{{ route('users.edit', $user->id) }}">
                             <i class="fa-solid fa-pen-to-square btn btn-md btn-success"></i>
-                        <i class="fa-solid fa-trash btn btn-md btn-danger"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa-solid fa-trash btn btn-md btn-danger"></i>
+                        </a>
                     </td>
                 </tr>
                 @endforeach

@@ -121,9 +121,9 @@
         </div> 
     
         
-
+<div class="container col-10">
         @foreach($grenades as $grenade)
-        <div class="card border border-primary my-2">
+        <div class="card my-2">
             <div class="card my-2 ps-3 border border-0">
                 <span class="text-md-start fs-4">
                     <b>{{ $grenade->type }}</b>
@@ -162,6 +162,7 @@
             </div>        
         </div>
         @endforeach
+    </div>
     </div>
 </div>
 @endsection

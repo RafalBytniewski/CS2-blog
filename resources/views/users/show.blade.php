@@ -5,17 +5,14 @@
 <section class="h-100 gradient-custom-2">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-lg-9 col-xl-7">
+        <div class="col col-lg-12 col-xl-12"> <!-- Zmiana klas na col-lg-12 col-xl-12 -->
           <div class="card">
-            <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+            <div class="rounded-top text-white d-flex flex-row" style="height:200px;">
               <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                  alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                  style="width: 150px; z-index: 1">
-                <a href="{{ route('users.edit', $user->id) }}" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                  style="z-index: 1;">
-                  Edit profile
-              </a>
+                <img src="{{ asset('storage/images/avatars/avatar.jpg') }}" alt="Avatar of {{ $user->name }}" class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
+                <a href="{{ route('users.edit', $user->id) }}" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark" data-mdb-ripple-color="dark"style="z-index: 1;">
+                    Edit profile
+                </a>
               </div>
               <div class="ms-3" style="margin-top: 130px;">
                 <h5>{{ $user->name}}</h5>
@@ -50,21 +47,19 @@
                 <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
               </div>
               <div class="row g-2">
-                <div class="col mb-2">
+                <div class="col-4 mb-2">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
                     alt="image 1" class="w-100 rounded-3">
                 </div>
-                <div class="col mb-2">
+                <div class="col-4 mb-2">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
                     alt="image 1" class="w-100 rounded-3">
                 </div>
-              </div>
-              <div class="row g-2">
-                <div class="col">
+                <div class="col-4 mb-2">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
                     alt="image 1" class="w-100 rounded-3">
                 </div>
-                <div class="col">
+                <div class="col-4">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
                     alt="image 1" class="w-100 rounded-3">
                 </div>
@@ -76,4 +71,4 @@
     </div>
   </section>
 
-  @endsection
+@endsection
