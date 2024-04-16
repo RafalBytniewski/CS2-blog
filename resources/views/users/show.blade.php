@@ -5,7 +5,7 @@
 <section class="h-100 gradient-custom-2">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-lg-12 col-xl-12"> <!-- Zmiana klas na col-lg-12 col-xl-12 -->
+        <div class="col col-lg-12 col-xl-12">
           <div class="card">
             <div class="rounded-top text-white d-flex flex-row" style="height:200px;">
               <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">

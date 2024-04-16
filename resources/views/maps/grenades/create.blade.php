@@ -18,9 +18,9 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.team') }}</label>
+                    <label for="team" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.team') }}</label>
                     <div class="col-md-6">
-                        <select id="team" name="team" class="form-control @error('category_id') is-invalid @enderror" required>
+                        <select id="team" name="team" class="form-control @error('team') is-invalid @enderror" required>
                             <option value=""></option>
                             <option value="Terrorist">Terrorist</option>
                             <option value="Counter-Terrorist">Counter-Terrorist</option>
@@ -49,6 +49,22 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="visibility" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.visibility') }}</label>
+                    <div class="col-md-6">
+                        <select id="visibility" name="visibility" class="form-control @error('visibility') is-invalid @enderror" required>
+                            <option value=""></option>
+                            <option value="0">{{ __('cs2.map.grenade.form.private') }}</option>
+                            <option value="1" selected>{{ __('cs2.map.grenade.form.public') }}</option>
+                        </select>
+                        @error('team')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
                     </div>
                 </div>
                 <div class="row mb-3">

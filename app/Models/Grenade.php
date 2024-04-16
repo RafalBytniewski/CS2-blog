@@ -17,16 +17,17 @@ class Grenade extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'describtion',
-        'image_path',
-        'team',
-        'type',
         'user_id',
         'map_id',
+        'describtion',
+        'team',
+        'type',
+        'visibility',
         'area_from_id',
         'area_to_id',
         'callout_from_id',
-        'callout_to_id'
+        'callout_to_id',
+        'image_path'
     ];
     
     public function grenadeImages(): HasMany

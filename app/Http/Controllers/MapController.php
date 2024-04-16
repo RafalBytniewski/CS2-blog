@@ -61,7 +61,7 @@ public function show(Map $map)
 
 
     $grenades = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
-                       ->where('map_id', $map->id) 
+                       ->where('map_id', $map->id)->where('visibility', 1) 
                        ->get();
     $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
 
