@@ -6,7 +6,7 @@
     .show-more {
     display: block;
     margin-top: 10px;
-}
+    }
 </style>
 <div class="container">
     <div class="card-header d-flex flex-column">
@@ -117,57 +117,88 @@
                     </div>
                 </div>
             </article>
-            
         </div> 
-    
-        
-<div class="container col-10">
-        @foreach($grenades as $grenade)
-        <div class="card my-2">
-            <div class="card my-2 ps-3 border border-0">
-                <span class="text-md-start fs-4">
-                    <b>{{ $grenade->type }}</b>
-                    <b>from: </b>{{ $grenade->areaFrom->name}} 
-                    @if(isset($grenade->calloutFrom->name))
-                        -> {{ $grenade->calloutFrom->name }}
-                    @endif       
-                    <b> to:</b> {{ $grenade->areaTo->name}} 
-                    @if(isset($grenade->calloutTo->name))
-                        -> {{ $grenade->calloutTo->name }}
-                    @endif
-                </span>
-            </div>
-            @if($grenade->grenadeImages->count() > 0)
-                <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide" data-bs-interval="false">
-                    <div class="carousel-inner">
-                        @foreach($grenade->grenadeImages as $key => $image)
-                        <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                        <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}"
-    style="max-width: 960px; height: 720px; quality: 90;" data-action="zoom">
-                        </div>
-                        @endforeach
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            @endif
-            <div class="card my-2 pe-3 border border-0">
-                <span class="text-end">Added by: <b style="color:red">{{$grenade->user->name}}</b></span>
-            </div>        
+        <div class="container  col-10 d-flex justify-content-end">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    View:
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">5</a></li>
+                    <li><a class="dropdown-item" href="#">10</a></li>
+                    <li><a class="dropdown-item" href="#">20</a></li>
+                </ul>
+            </div>  
         </div>
-        @endforeach
+        <div class="container col-10">
+            @foreach($grenades as $grenade)
+            <div class="card my-2">
+                <div class="card my-2 ps-3 border border-0">
+                    <span class="text-md-center fs-4">
+                        <b>{{ $grenade->type }}</b>
+                        <b>from: </b>{{ $grenade->areaFrom->name}} 
+                        @if(isset($grenade->calloutFrom->name))
+                            -> {{ $grenade->calloutFrom->name }}
+                        @endif       
+                        <b> to:</b> {{ $grenade->areaTo->name}} 
+                        @if(isset($grenade->calloutTo->name))
+                            -> {{ $grenade->calloutTo->name }}
+                        @endif
+                    </span>
+                </div>
+                @if($grenade->grenadeImages->count() > 0)
+                    <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide position-relative" data-bs-interval="false">
+                        <div class="carousel-inner">
+                            @foreach($grenade->grenadeImages as $key => $image)
+                                <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
+                                    <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="max-width: 960px; height: 720px; quality: 90;" data-action="zoom">
+                                    <div class="carousel-caption">
+                                        <span class="carousel-slide-number fs-4">{{$loop->iteration}}</span>
+                                        <span class="fw-bold fs-4">/</span>
+                                        <span class="carousel-total-slides fs-4">{{ count($grenade->grenadeImages) }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                @endif
+                <div class="card my-2 border border-0 d-flex flex-row justify-content-evenly">
+                    <div class="like-grenade-footer">
+                        <a href=""><i class="fa-solid fa-minus fa-xl" style="color: #f00000"></i></a>
+                        <span class="fs-5">0</span>
+                        <a href=""><i class="fa-solid fa-plus fa-xl" style="color: #00f068"></i></a>
+                    </div>
+                    <div class="favorite-grenade-footer">
+                        <a href=""><i class="fa-regular fa-star fa-lg"></i></a>
+                        <span class="fs-5">0</span>
+                    </div>
+                    @can('isAdmin')
+                        <div class="visibility">
+                            @if($grenade->visibility === 1)
+                                public
+                            @else
+                                private
+                            @endif
+                        </div>
+                    @endcan
+                    <div class="author-grenade-footer">
+                        <span class="text-end">Added by: <b style="color: #f00000">{{$grenade->user->name}}</b></span>
+                    </div>
+                </div>        
+            </div>
+            @endforeach
+        </div>
     </div>
-    </div>
-</div>
+</div> 
 @endsection
-
-
 @section('js')
     @vite(['resources/js/welcome.js'])
 @endsection

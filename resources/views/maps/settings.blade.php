@@ -23,19 +23,21 @@
                         @foreach($areas as $area)
                         <td>
                             @foreach($area->callouts as $callout)
-                                <form method="POST" action="{{ route('callout.update') }}">
-                                @csrf
-                                @method('PUT')
-                                    <input type="hidden" name="callout_id" value="{{ $callout->id }}">
-                                    <input type="text" name="name" value="{{ $callout->name }}">
-                                    
-                                    <i type="submit" title="{{ __('cs2.buttons.edit')}}" class="fa-solid fa-square-check btn btn-sm btn-success"></i>
-                                </form>
-                                <form method="POST" action="{{ route('callout.destroy', $callout->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                    <i title="{{ __('cs2.buttons.delete')}}" class="fa-solid fa-trash btn btn-sm btn-danger" type="submit"></i>                                   
-                                </form>
+                                <div class="row">
+                                    <form method="POST" action="{{ route('callout.update') }}">
+                                    @csrf
+                                    @method('PUT')
+                                        <input type="hidden" name="callout_id" value="{{ $callout->id }}">
+                                        <input type="text" name="name" value="{{ $callout->name }}">
+                                        
+                                        <i type="submit" title="{{ __('cs2.buttons.edit')}}" class="fa-solid fa-square-check btn btn-sm btn-success"></i>
+                                    </form>
+                                    <form method="POST" action="{{ route('callout.destroy', $callout->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <i title="{{ __('cs2.buttons.delete')}}" class="fa-solid fa-trash btn btn-sm btn-danger" type="submit"></i>                                   
+                                    </form>
+                                </div>
                             @endforeach
                         </td>
                     @endforeach

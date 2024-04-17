@@ -47,7 +47,8 @@ return [
                 'optional' => 'Callout (opcjonalnie)',
                 'describtion' => 'Opis',
                 'images' => 'Zrzuty ekranu',
-                'submit' => 'Dodaj'
+                'submit' => 'Dodaj',
+                'update' => 'Aktualizuj',
 
             ],
         ],

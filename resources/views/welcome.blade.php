@@ -2,8 +2,8 @@
 @section('content')
 
 <div class="container">
-  <div class="card-body">
-    <div class="card welcome">
+  <div class="card-header">
+    <div class="welcome">
       <h1>
           Welcome to CS2 Nades
       </h1>
@@ -17,7 +17,7 @@
       <div class="container w-100">
         <div class="row align-content-center">
           @foreach($maps as $map)
-            <a class="card p-2 col-md-3  no-gutters text-black" href="{{ route('maps.show', $map->id) }}"xa>
+            <a class="card p-2 col-md-3  no-gutters" href="{{ route('maps.show', $map->id) }}"xa>
               @if(empty($map->image_path))
                 <img class="card-img h-100 shadow" src="" alt="{{$map->describtion}}">
               @else
