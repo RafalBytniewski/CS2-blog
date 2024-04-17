@@ -21,7 +21,7 @@
               @if(empty($map->image_path))
                 <img class="card-img h-100 shadow" src="" alt="{{$map->describtion}}">
               @else
-                <img class="card-img h-100 shadow" src="{{ asset('storage/' . $map->image_path) }}" alt="{{$map->describtion}}">
+                <img class="card-img h-100 shadow" src="{{ asset('storage/' . $map->image_path) }}" alt="{{$map->describtion}} style='quality: 90'">
               @endif 
                 <div class="card-img-overlay p-1 d-flex  flex-column  align-items-baseline justify-content-center ">
                 <div class="container-fluid  h-50  text-center">
