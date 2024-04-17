@@ -44,10 +44,11 @@ return [
                 'throwing_from_(callout)' => 'Rzucany z (callout) opcjonalnie',
                 'throwing_to_(area)' => 'Rzucany na (area)',
                 'throwing_to_(callout)' => 'Rzucany na (callout) opcjonalnie',
+                'optional' => 'Callout (opcjonalnie)',
                 'describtion' => 'Opis',
                 'images' => 'Zrzuty ekranu',
-                'submit' => 'Dodaj',
-                'optional' => 'Callout (opcjonalnie)'
+                'submit' => 'Dodaj'
+
             ],
         ],
         'status' => [

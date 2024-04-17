@@ -82,6 +82,7 @@ class GrenadeController extends Controller
         $calloutTo = $grenade->calloutTo;
         $areas = Area::where('map_id', $map->id)->get();
         $callouts = Callout::all();
+        $images = $grenade->grenadeImages;
 
         return view('maps.grenades.edit', [
             'grenade' => $grenade,
@@ -94,6 +95,7 @@ class GrenadeController extends Controller
             'callouts' => $callouts,
             'types' => $types,
             'teams' => $teams,
+            'images' => $images
         ]);
     }
 

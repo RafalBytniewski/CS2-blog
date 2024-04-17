@@ -113,12 +113,20 @@
                         @enderror
                     </div>
                 </div>
-
                 <div class="row mb-3">
-                    <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.images') }}</label>
-
-
-                </div>
+                    <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.images') }}<p>(drag and drop)</p></label>
+                    
+                    <div class="row col-md-8" id="images-list">
+                        @foreach($images as $index => $image)
+                            <div class="col-md-3 mb-3">
+                                <div data-image-id="{{ $image->id }}" class="image-item position-relative">
+                                    <img src="{{ asset('storage/' . $image->path) }}" alt="image" class="img-thumbnail">
+                                    <span class="badge bg-secondary position-absolute bottom-0 start-50 translate-middle-x">{{ $index + 1 }}/{{ count($images) }}</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>         
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">
@@ -133,4 +141,5 @@
 @endsection
 @section('js')
 @vite(['resources/js/create_grenade.js'])
+@vite(['resources/js/sortable.js'])
 @endsection
