@@ -57,9 +57,6 @@ public function show(Map $map)
     $areas = Area::with(['callouts'])
                     ->where('map_id', $map->id)
                     ->get();
-   
-
-
     $grenades = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
                        ->where('map_id', $map->id)->where('visibility', 1) 
                        ->get();
