@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('grenade_id');
             $table->foreign('grenade_id')->references('id')->on('grenades');
+            $table->integer('vote_type')->default(0);
             $table->timestamps();
         });
     }
