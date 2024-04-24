@@ -62,4 +62,8 @@ class Grenade extends Model
     {
         return $this->belongsTo(Area::class, 'area_to_id');
     }
+    public function votes(): HasMany
+    {
+        return $this->hasMany(GrenadeVote::class);
+    }
 }

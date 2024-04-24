@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Grenade::class);
     }
+
+    public function votes(): HasMany
+    {
+        return $this->hasMany(GrenadeVote::class);
+    }
 }
