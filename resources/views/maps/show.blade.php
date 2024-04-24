@@ -186,7 +186,7 @@
                         <form action="{{ route('vote', ['grenadeId' => $grenade->id]) }}" method="post">
                             @csrf
                         
-                            <button type="submit" name="vote_type" value="-1">
+                            <button class="btn btn-link" type="submit" name="vote_type" value="-1">
                                 <i class="fa-solid fa-minus fa-xl" style="color: #f00000"></i>
                             </button>
                             <span class="fs-5">
@@ -195,7 +195,7 @@
                                     echo $voteSum;
                                 @endphp
                             </span>
-                            <button type="submit" name="vote_type" value="1">
+                            <button class="btn btn-link" type="submit" name="vote_type" value="1">
                                 <i class="fa-solid fa-plus fa-xl" style="color: #00f068"></i>
                             </button>
                         </form>

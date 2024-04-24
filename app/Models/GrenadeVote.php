@@ -17,7 +17,8 @@ class GrenadeVote extends Model
 protected $fillable = [
     'id',
     'user_id',
-    'grenade_id'
+    'grenade_id',
+    'vote_type'
 ];
 public function users(): bBlongsTo
 {
