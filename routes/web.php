@@ -7,6 +7,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GrenadeController;
 use App\Http\Controllers\CalloutController;
+use App\Http\Controllers\GrenadeVoteController;
 
 
 /*
@@ -32,6 +33,8 @@ Route::get('/{map}', [MapController::class, 'show'])->name('maps.show');
 Route::middleware(['auth'])->group(function() {
     Route::get('/{map}/grenade/create', [GrenadeController::class, 'create'])->name('grenade.create');
     Route::post('/{map}/grenade/store', [GrenadeController::class, 'store'])->name('grenade.store');
+
+    Route::post('vote/{grenadeId}', [GrenadeVoteController::class, 'vote'])->name('vote');
 
     Route::get('/grenade/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit');
     Route::get('/grenades/list', [GrenadeController::class, 'index'])->name('grenades.index');

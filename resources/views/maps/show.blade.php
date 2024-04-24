@@ -8,6 +8,17 @@
     margin-top: 10px;
     }
 </style>
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 <div class="container">
     <div class="card-header d-flex flex-column">
         <div class=" d-flex justify-content-end">
@@ -153,9 +164,9 @@
                                 <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
                                     <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="max-width: 960px; height: 720px; quality: 90;" data-action="zoom">
                                     <div class="carousel-caption">
-                                        <span class="carousel-slide-number fs-4">{{$loop->iteration}}</span>
-                                        <span class="fw-bold fs-4">/</span>
-                                        <span class="carousel-total-slides fs-4">{{ count($grenade->grenadeImages) }}</span>
+                                        <span class="carousel-slide-number fs-1 fw-bolder">{{$loop->iteration}}</span>
+                                        <span class="fw-bold fs-1 fw-bolder">/</span>
+                                        <span class="carousel-total-slides fs-1 fw-bolder">{{ count($grenade->grenadeImages) }}</span>
                                     </div>
                                 </div>
                             @endforeach
@@ -172,9 +183,22 @@
                 @endif
                 <div class="card my-2 border border-0 d-flex flex-row justify-content-evenly">
                     <div class="like-grenade-footer">
-                        <a href=""><i class="fa-solid fa-minus fa-xl" style="color: #f00000"></i></a>
-                        <span class="fs-5">0</span>
-                        <a href=""><i class="fa-solid fa-plus fa-xl" style="color: #00f068"></i></a>
+                        <form action="{{ route('vote', ['grenadeId' => $grenade->id]) }}" method="post">
+                            @csrf
+                        
+                            <button type="submit" name="vote_type" value="-1">
+                                <i class="fa-solid fa-minus fa-xl" style="color: #f00000"></i>
+                            </button>
+                            <span class="fs-5">
+                                @php
+                                    $voteSum = $grenade->votes()->sum('vote_type');
+                                    echo $voteSum;
+                                @endphp
+                            </span>
+                            <button type="submit" name="vote_type" value="1">
+                                <i class="fa-solid fa-plus fa-xl" style="color: #00f068"></i>
+                            </button>
+                        </form>
                     </div>
                     <div class="favorite-grenade-footer">
                         <a href=""><i class="fa-regular fa-star fa-lg"></i></a>
