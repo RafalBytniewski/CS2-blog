@@ -35,33 +35,59 @@
                 </div>
               </div>
             </div>
-            <div class="card-body p-4 text-black">
+            <div class="card-body p-4">
               <div class="mb-5">
                 <p class="lead fw-normal mb-1">About</p>
                 <div class="p-4" style="background-color: #f8f9fa;">
                   <p class="font-italic mb-1">Web Developer</p>
                 </div>
               </div>
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <p class="lead fw-normal mb-0">Recent nades</p>
-                <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
+              <div id="recently_added_nades">
+                <div class="d-flex justify-content-between align-items-center my-4">
+                  <h1>Recent nades</h1>
+                  <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
+                </div>
+                <div class="row g-2">
+                  <div class="col-4 mb-2">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>
+                  <div class="col-4 mb-2">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>
+                  <div class="col-4 mb-2">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>
+                  <div class="col-4">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>
+                </div>
               </div>
-              <div class="row g-2">
-                <div class="col-4 mb-2">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                    alt="image 1" class="w-100 rounded-3">
+              <div id="favorite_nades">
+                <div class="d-flex justify-content-between align-items-center my-4">
+                  <h1>Favorite nades:</h1>
+                  <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
                 </div>
-                <div class="col-4 mb-2">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                    alt="image 1" class="w-100 rounded-3">
-                </div>
-                <div class="col-4 mb-2">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                    alt="image 1" class="w-100 rounded-3">
-                </div>
-                <div class="col-4">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                    alt="image 1" class="w-100 rounded-3">
+                <div class="row g-2">
+                  <div class="col-4 mb-2">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>
+                  <div class="col-4 mb-2">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>
+                  <div class="col-4 mb-2">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>
+                  <div class="col-4">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>
                 </div>
               </div>
             </div>

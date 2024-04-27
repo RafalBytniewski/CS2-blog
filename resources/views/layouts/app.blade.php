@@ -59,11 +59,13 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+                                {{ __('cs2.nav.nav')}}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 @can('isAdmin')
+                                    <a class="dropdown-item" href="{{ route('users.show',  Auth::user()->id)}}">{{ Auth::user()->name }}</a>
+                                
                                     <a class="dropdown-item" href="{{ route('maps.index') }}">{{ __('cs2.nav.maps') }}</a>
                                     <a class="dropdown-item" href="{{ route('users.index') }}">{{ __('cs2.nav.users') }}</a>
                                     <a class="dropdown-item" href="{{ route('grenades.index') }}">{{ __('cs2.nav.grenades') }}</a>
