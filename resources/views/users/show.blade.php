@@ -10,9 +10,9 @@
             <div class="rounded-top text-white d-flex flex-row" style="height:200px;">
               <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
                 <img src="{{ asset('storage/images/avatars/avatar.jpg') }}" alt="Avatar of {{ $user->name }}" class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
-                <a href="{{ route('users.edit', $user->id) }}" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark" data-mdb-ripple-color="dark"style="z-index: 1;">
-                    Edit profile
-                </a>
+                  <a href="{{ route('users.edit', $user->id) }}" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark" data-mdb-ripple-color="dark"style="z-index: 1;">
+                      Edit profile
+                  </a>
               </div>
               <div class="ms-3" style="margin-top: 130px;">
                 <h5>{{ $user->name}}</h5>

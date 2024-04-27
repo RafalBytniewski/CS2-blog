@@ -59,7 +59,7 @@
   </div>
   <div class="card-body d-flex flex-column">
     <div class="py-5 row d-flex justify-content-center">
-      <h1>Active map pool:</h1>
+      <h1 class="my-3">Active map pool:</h1>
       @foreach($mapsActive as $map)
         <div class="col-md-auto m-0 p-0 border border-2 border-white map-card">
           <a class="m-1" href="{{ route('maps.show', $map->id) }}">
@@ -72,7 +72,7 @@
           </a>
         </div>
       @endforeach
-      <h1>Other maps:</h1>
+      <h1 class="my-3">Other maps:</h1>
       @foreach($mapsOthers as $map)
       <div class="col-md-auto m-0 p-0 border border-2 border-white map-card">
         <a class="card" href="{{ route('maps.show', $map->id) }}">
@@ -107,11 +107,11 @@
                     <a href=""><i class="fa-solid fa-plus fa-sm" style="color: #00f068"></i></a>
                 </div>
                 <div class="favorite-grenade-footer">
-                    <a href=""><i class="fa-regular fa-star fa-sm"></i></a>
+                    <a href="#"><i class="fa-regular fa-star fa-sm"></i></a>
                     <span class="fs-5">0</span>
                 </div>
                 <div class="author-grenade-footer">
-                    <span class="text-end">Added by: <b style="color: #f00000">{{$grenade->user->name}}</b></span>
+                    <span class="text-end">Added by: <b><a style="color: #f00000; text-decoration: none" href="{{route('users.show', $grenade->user->id)}}">{{$grenade->user->name}}</a></b></span>
                 </div>
               </div> 
           </div>
