@@ -8,11 +8,13 @@
   height: 330px;
   width: auto;
   transition: transform 0.3s ease-in-out;
+  box-shadow: rgba(255, 255, 255, 0.562) 0px 2px 8px 0px;
 }
 
 .map-card {
   position: relative;
   overflow: hidden;
+
 }
 
 .map-name {
@@ -31,8 +33,13 @@
       transition: opacity 0.3s ease-in-out;
     }
 
-    .map-card:hover .rounded {
-          transform: scale(1.19); /* Powiększamy obraz o 5% */
+    .map-card:hover {
+          transform: scale(1.02);
+          box-shadow: rgba(255, 254, 254, 0.05) 0px 6px 24px 0px, rgba(240, 239, 239, 0.08) 0px 0px 0px 1px;
+      }
+      .grenade-card:hover {
+          transform: scale(1.02);
+          cursor: pointer;
       }
     .map-card:hover .map-name {
             opacity: 1;
@@ -58,11 +65,11 @@
     </div>
   </div>
   <div class="card-body d-flex flex-column">
-    <div class="py-5 row d-flex justify-content-center">
+    <div class="py-5 row text-center">
       <h1 class="my-3">Active map pool:</h1>
       @foreach($mapsActive as $map)
-        <div class="col-md-auto m-0 p-0 border border-2 border-white map-card">
-          <a class="m-1" href="{{ route('maps.show', $map->id) }}">
+        <div class="col-md-auto m-1 p-0 map-card">
+          <a  href="{{ route('maps.show', $map->id) }}">
             @if(empty($map->image_path))
               <img class="rounded" src="default" alt="error">
             @else
@@ -74,8 +81,8 @@
       @endforeach
       <h1 class="my-3">Other maps:</h1>
       @foreach($mapsOthers as $map)
-      <div class="col-md-auto m-0 p-0 border border-2 border-white map-card">
-        <a class="card" href="{{ route('maps.show', $map->id) }}">
+      <div class="col-md-auto m-1 p-0 map-card">
+        <a href="{{ route('maps.show', $map->id) }}">
           @if(empty($map->image_path))
             <img class="rounded" src="default" alt="error">
           @else
@@ -89,7 +96,7 @@
     <h1>Recently added:</h1>
     <div class="row g-2 d-flex justify-content-center">
       @foreach($grenades as $grenade)
-          <div class="card col-md-3">
+          <div class=" grenade-card col-md-3" onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';">
               <span class="text-md-center fs-6">
                 <b>{{ $grenade->map->name }}</b>
                 {{ $grenade->areaTo->name}} 
@@ -104,7 +111,7 @@
                         <div class="carousel-inner">
                             @foreach($grenade->grenadeImages as $key => $image)
                                 <div class="carousel-item {{$loop->first ? 'active' : ''}}">
-                                    <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="max-width: 100%; max-height: 100%; quality: 90;">
+                                    <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="border-radius:5px;max-width: 100%; max-height: 100%; quality: 90;">
                                 </div>
                             @endforeach
                         </div>
