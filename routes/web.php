@@ -48,8 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
         Route::get('/users/list', [UserController::class, 'index'])->name('users.index');
 
         Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
-
-
+        Route::delete('/grenades/{grenade}', [GrenadeController::class, 'destroy'])->name('grenade.destroy');
         Route::get('/maps/list', [MapController::class, 'index'])->name('maps.index');
         Route::get('/maps/create', [MapController::class, 'create'])->name('maps.create');
         Route::post('/maps/store', [MapController::class, 'store'])->name('maps.store');

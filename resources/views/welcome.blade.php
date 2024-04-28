@@ -98,8 +98,27 @@
                 @endif
                 <b>{{ $grenade->type }}</b>  
               </span> 
-              <div class="box m-2 text-center d-flex flex-column justify-content-between" style="height: 210px; width: 280px; background-color:red"> 
-              </div>
+              <div class="box m-2 text-center d-flex flex-column justify-content-between" style="height: 210px; width: 280px;">
+                @if($grenade->grenadeImages->count() > 0)
+                    <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide position-relative" data-bs-interval="false">
+                        <div class="carousel-inner">
+                            @foreach($grenade->grenadeImages as $key => $image)
+                                <div class="carousel-item {{$loop->first ? 'active' : ''}}">
+                                    <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="max-width: 100%; max-height: 100%; quality: 90;">
+                                </div>
+                            @endforeach
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                @endif
+            </div>                  
               <div class="my-2 d-flex flex-row justify-content-between px-3">
                 <div class="like-grenade-footer">
                     <a href=""><i class="fa-solid fa-minus fa-sm" style="color: #f00000"></i></a>

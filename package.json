@@ -19,6 +19,7 @@
         "jqeury": "^0.0.1-security",
         "npm-watch": "^0.11.0",
         "sortablejs": "^1.15.2",
+        "sweetalert2": "^11.10.8",
         "zooming": "^2.1.1"
     }
 }

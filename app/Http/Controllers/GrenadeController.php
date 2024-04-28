@@ -8,6 +8,8 @@ use App\Models\Map;
 use App\Models\User;
 use App\Models\Area;
 use App\Models\Callout;
+use App\Models\GrenadeVote;
+use App\Models\GrenadeImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UpsertGrenadeRequest;
@@ -63,8 +65,29 @@ class GrenadeController extends Controller
      */
     public function show(Grenade $grenade)
     {
+        $types = Grenade::select('type')->distinct()->pluck('type');
+        $teams = Grenade::select('team')->distinct()->pluck('team');
+        $map = $grenade->map;
+        $areaFrom = $grenade->areaFrom;
+        $calloutFrom = $grenade->calloutFrom;
+        $areato = $grenade->areato;
+        $calloutTo = $grenade->calloutTo;
+        $areas = Area::where('map_id', $map->id)->get();
+        $callouts = Callout::all();
+        $images = $grenade->grenadeImages;
+
         return view('maps.grenades.show', [
-            'grenades' => Grenade::all()
+            'grenade' => $grenade,
+            'areaFrom' => $areaFrom,
+            'calloutFrom' => $calloutFrom,
+            'areaToo' => $areato,
+            'calloutTo' => $calloutTo,
+            'map' => $map,
+            'areas' => $areas, 
+            'callouts' => $callouts,
+            'types' => $types,
+            'teams' => $teams,
+            'images' => $images
         ]);
     }
 
@@ -114,8 +137,15 @@ class GrenadeController extends Controller
      */
     public function destroy(Grenade $grenade)
     {
-        //
+
+            GrenadeImage::where('grenade_id', $grenade->id)->delete();
+            GrenadeVote::where('grenade_id', $grenade->id)->delete();
+
+            $grenade->delete();     
+
+            return redirect()->back()->with('success', 'Product deleted successfully');
     }
+
 
     public function fetchCallouts($areaId)
     {

@@ -15,3 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
         scaleBase: 3 // Ustawienie scaleBase na 0.5
     }).listen('[data-action="zoom"]');
 });
+
+import Swal from 'sweetalert2';
+window.Swal = Swal;

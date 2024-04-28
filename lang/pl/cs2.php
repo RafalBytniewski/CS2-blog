@@ -11,6 +11,7 @@ return [
 
     ],
     'nav' => [
+        'menu' => 'Menu',
         'maps' => 'Mapy',
         'users' => 'Użytkownicy',
         'grenades' => 'Granaty'

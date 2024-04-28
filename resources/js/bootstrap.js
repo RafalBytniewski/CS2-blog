@@ -5,6 +5,7 @@ import 'bootstrap';
 import jQuery from 'jquery';
 window.$ = window.jQuery = jQuery;
 
+
 // Load axios
 import axios from 'axios';
 window.axios = axios;
