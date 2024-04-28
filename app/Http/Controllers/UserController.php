@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Grenade;
 
 class UserController extends Controller
 {
@@ -38,8 +39,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $grenades = Grenade::with('grenadeImages', 'user', 'map', 'areaTo', 'calloutTo')->where('user_id', $user->id)->get();
         return View('users.show',[
-            'user' => $user
+            'user' => $user,
+            'grenades' => $grenades
         ]);
     }
 

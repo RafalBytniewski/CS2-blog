@@ -87,10 +87,10 @@
     @endforeach
     </div>
     <h1>Recently added:</h1>
-    <div class="d-flex flex-wrap justify-content-center">
+    <div class="row g-2 d-flex justify-content-center">
       @foreach($grenades as $grenade)
-          <div class="card d-flex flex-column m-1">
-              <span class="text-md-center fs-5">
+          <div class="card col-md-3">
+              <span class="text-md-center fs-6">
                 <b>{{ $grenade->map->name }}</b>
                 {{ $grenade->areaTo->name}} 
                 @if(isset($grenade->calloutTo->name))
@@ -98,7 +98,7 @@
                 @endif
                 <b>{{ $grenade->type }}</b>  
               </span> 
-              <div class="box m-2 text-center d-flex flex-column justify-content-between" style="height: 210px; width: 280px;">
+              <div class="m-1">
                 @if($grenade->grenadeImages->count() > 0)
                     <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide position-relative" data-bs-interval="false">
                         <div class="carousel-inner">
@@ -118,8 +118,8 @@
                         </button>
                     </div>
                 @endif
-            </div>                  
-              <div class="my-2 d-flex flex-row justify-content-between px-3">
+              </div>                  
+              <div class="my-1 d-flex flex-row justify-content-between px-3">
                 <div class="like-grenade-footer">
                     <a href=""><i class="fa-solid fa-minus fa-sm" style="color: #f00000"></i></a>
                     <span class="fs-5">0</span>
