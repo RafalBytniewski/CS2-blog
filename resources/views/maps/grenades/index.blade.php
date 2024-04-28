@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -12,6 +13,7 @@
         {{ session('error') }}
     </div>
 @endif
+
 <div class="container">
     <div class="card-header">
         <h1>{{__('cs2.map.grenade.table.index_title')}}</h1>
@@ -45,9 +47,7 @@
                         <form action="{{ route('grenade.destroy', $grenade->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')            
-                     
-                                <button class="fa-solid fa-trash btn btn-md btn-danger delete" title="{{ __('cs2.buttons.delete') }}" onclick="return confirm('Czy na pewno chcesz usunąć ten element?')"></button>
-                            
+                                <button class="fa-solid fa-trash btn btn-md btn-danger" title="{{ __('cs2.buttons.delete') }}" onclick="return confirm('Czy na pewno chcesz usunąć ten element?')"></button>
                         </form>
                     </td>
                 </tr>

@@ -2,6 +2,18 @@
 
 @section('content')
 
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 <div class="container">
     <div class="card-header">
         <div class=" d-flex justify-content-end">
@@ -41,9 +53,11 @@
                             <a href="{{ route('maps.settings', $map->id) }}">
                                 <i class="fa-solid fa-gear btn btn-md btn-secondary" title="{{ __('cs2.buttons.settings') }}"></i>
                             </a>
-                            <a href="">
-                                <i class="fa-solid fa-trash btn btn-md btn-danger" title="{{ __('cs2.buttons.delete') }}"></i>
-                            </a>
+                            <form action="{{ route('map.destroy', $map->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')            
+                                    <button class="fa-solid fa-trash btn btn-md btn-danger" title="{{ __('cs2.buttons.delete') }}" onclick="return confirm('Czy na pewno chcesz usunąć ten element?')"></button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

@@ -137,13 +137,10 @@ class GrenadeController extends Controller
      */
     public function destroy(Grenade $grenade)
     {
-
             GrenadeImage::where('grenade_id', $grenade->id)->delete();
             GrenadeVote::where('grenade_id', $grenade->id)->delete();
-
             $grenade->delete();     
-
-            return redirect()->back()->with('success', 'Product deleted successfully');
+            return redirect()->back()->with('success', 'Grenade deleted successfully');
     }
 
 

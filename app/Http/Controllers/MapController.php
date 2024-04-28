@@ -11,7 +11,7 @@ use App\Models\Area;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpsertMapRequest;
-
+use Illuminate\Database\QueryException;
 
 class MapController extends Controller
 {
@@ -104,10 +104,17 @@ public function show(Map $map)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+     public function destroy(Map $map)
+     {
+         try {
+             $map->delete();     
+             return redirect()->back()->with('success', 'Map deleted successfully');
+         } catch (QueryException $e) {
+             if ($e->getCode() === '23000') {
+                 return redirect()->back()->with('error', 'This map cannot be deleted because it has associated records.');
+             }
+         }
+     }
 
     public function fetchCallouts(Area $area)
     {
