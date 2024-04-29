@@ -5,16 +5,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
 <style>
 .rounded {
-  height: 330px;
-  width: auto;
-  transition: transform 0.3s ease-in-out;
-  box-shadow: rgba(255, 255, 255, 0.562) 0px 2px 8px 0px;
+      height: 330px;
+      width: auto;
+      transition: transform 0.3s ease-in-out;
+
 }
 
 .map-card {
-  position: relative;
-  overflow: hidden;
-
+      position: relative;
+      overflow: hidden;
 }
 
 .map-name {
@@ -31,15 +30,14 @@
       box-sizing: border-box;
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
-    }
+}
 
     .map-card:hover {
           transform: scale(1.02);
-          box-shadow: rgba(255, 254, 254, 0.05) 0px 6px 24px 0px, rgba(240, 239, 239, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(255, 254, 254, 0.05) 0px 6px 24px 0px;
       }
       .grenade-card:hover {
           transform: scale(1.02);
-          cursor: pointer;
       }
     .map-card:hover .map-name {
             opacity: 1;
@@ -96,8 +94,8 @@
     <h1>Recently added:</h1>
     <div class="row g-2 d-flex justify-content-center">
       @foreach($grenades as $grenade)
-          <div class=" grenade-card col-md-3" onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';">
-              <span class="text-md-center fs-6">
+          <div class="grenade-card col-md-3">
+              <span class="text-md-center fs-6" onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';" style="cursor:pointer">
                 <b>{{ $grenade->map->name }}</b>
                 {{ $grenade->areaTo->name}} 
                 @if(isset($grenade->calloutTo->name))
