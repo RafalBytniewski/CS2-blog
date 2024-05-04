@@ -32,6 +32,9 @@ Route::get('/{map}', [MapController::class, 'show'])->name('maps.show');
 
 Route::get('/users/show/{user}', [UserController::class, 'show'])->name('users.show');
 
+        Route::get('/grenades/{grenade}', [GrenadeController::class, 'show'])->name('grenade.show');
+        Route::post('/filter-grenades/{map}', [GrenadeController::class, 'filter'])->name('grenade.filter');
+
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/{map}/grenade/create', [GrenadeController::class, 'create'])->name('grenade.create');
     Route::post('/{map}/grenade/store', [GrenadeController::class, 'store'])->name('grenade.store');
@@ -40,7 +43,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/grenade/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit');
     Route::get('/grenades/list', [GrenadeController::class, 'index'])->name('grenades.index');
-    Route::get('/grenades/{grenade}', [GrenadeController::class, 'show'])->name('grenade.show');
     Route::post('/grenades', [GrenadeController::class, 'update'])->name('grenade.update');
 
 

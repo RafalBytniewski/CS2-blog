@@ -23,24 +23,24 @@
     <div class="card-header d-flex flex-column">
         <div class=" d-flex justify-content-end">
             @can('isAdmin')
-                <a href="{{ route('maps.settings', $maps->id) }}">
+                <a href="{{ route('maps.settings', $map->id) }}">
                     <button class="btn btn-lg btn-outline-primary my-2">
                         {{ __('cs2.buttons.settings')}}
                     </button>
                 </a>
             @endcan
             @auth
-                <a href="{{ route('grenade.create', $maps->id) }}">
+                <a href="{{ route('grenade.create', $map->id) }}">
                     <button class="btn btn-lg btn-outline-primary my-2">
                         {{ __('cs2.buttons.add_grenade')}}
                     </button>
                 </a>
             @endauth
         </div>
-        <span class="fs-1 fw-bold my-4" style="text-align:center">{{$maps->name}}</span>
+        <span class="fs-1 fw-bold my-4" style="text-align:center">{{$map->name}}</span>
     </div>
     <div class="card-body">
-        <form action="" method="get">
+        <form action="{{ route('grenade.filter', ['map' => $map->id]) }}" method="post">
             @csrf
             <div class="card d-flex flex-row justify-content-center align-items-start border-0" id="filter">
                 <div class="filter-category mx-4">
@@ -217,5 +217,5 @@
 </div> 
 @endsection
 @section('js')
-    @vite(['resources/js/welcome.js'])
+    @vite(['resources/js/show_grenades.js'])
 @endsection

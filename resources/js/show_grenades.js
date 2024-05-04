@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let calloutsToSection = document.querySelector('#calloutsToSection');
     let selectedAreaFromIds = [];
     let selectedAreaToIds = [];
+    let selectedCalloutFromIds = []; // Dodane tablice na wybrane id calloutFrom i calloutTo
+    let selectedCalloutToIds = [];
 
     areaFromSelects.forEach(function(areaSelect) {
         areaSelect.addEventListener('change', function() {
@@ -16,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (selectedAreaFromIds.length > 0) {
-                fetchCallouts(selectedAreaFromIds, calloutsFromSection);
+                fetchCallouts(selectedAreaFromIds, calloutsFromSection, 'calloutFrom');
             } else {
                 calloutsFromSection.classList.add('d-none');
             }
@@ -33,24 +35,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (selectedAreaToIds.length > 0) {
-                fetchCallouts(selectedAreaToIds, calloutsToSection);
+                fetchCallouts(selectedAreaToIds, calloutsToSection, 'calloutTo');
             } else {
                 calloutsToSection.classList.add('d-none');
             }
         });
     });
 
-    function fetchCallouts(areaIds, calloutsSection) {
+    function fetchCallouts(areaIds, calloutsSection, calloutType) {
         let promises = areaIds.map(areaId => fetch('/fetch_callouts/' + areaId).then(response => response.json()));
         Promise.all(promises)
             .then(calloutsData => {
                 let allCallouts = calloutsData.flat();
-                renderCallouts(allCallouts, calloutsSection);
+                renderCallouts(allCallouts, calloutsSection, calloutType);
             })
             .catch(error => console.error('Błąd:', error));
     }
 
-    function renderCallouts(callouts, calloutsSection) {
+    function renderCallouts(callouts, calloutsSection, calloutType) {
         let calloutsContainer = calloutsSection.querySelector('.card-body');
         calloutsContainer.innerHTML = '';
 
@@ -58,12 +60,27 @@ document.addEventListener('DOMContentLoaded', function() {
             let label = document.createElement('label');
             label.classList.add('form-check');
             label.innerHTML = `
-                <input class="form-check-input" name="callout" type="checkbox" value="${callout.id}">
+                <input class="form-check-input ${calloutType}Select" name="${calloutType}" type="checkbox" value="${callout.id}">
                 <span id="${callout.id}" class="form-check-label">${callout.name}</span>
             `;
             calloutsContainer.appendChild(label);
         });
 
         calloutsSection.classList.remove('d-none');
+
+        // Obsługa zdarzeń dla calloutFrom i calloutTo
+        let calloutSelects = document.querySelectorAll(`.${calloutType}Select`);
+        let selectedCalloutIds = (calloutType === 'calloutFrom') ? selectedCalloutFromIds : selectedCalloutToIds;
+
+        calloutSelects.forEach(function(calloutSelect) {
+            calloutSelect.addEventListener('change', function() {
+                let calloutId = this.value;
+                if (this.checked && !selectedCalloutIds.includes(calloutId)) {
+                    selectedCalloutIds.push(calloutId);
+                } else if (!this.checked && selectedCalloutIds.includes(calloutId)) {
+                    selectedCalloutIds = selectedCalloutIds.filter(id => id !== calloutId);
+                }
+            });
+        });
     }
 });

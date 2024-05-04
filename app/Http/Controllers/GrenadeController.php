@@ -149,5 +149,75 @@ class GrenadeController extends Controller
         $callouts = Callout::where('area_id', $areaId)->get();
         return response()->json($callouts);
     }
+
+
+    public function filter(Request $request, $map)
+    {
+
+        $areas = Area::with(['callouts'])
+                ->where('map_id', $map->id)
+                ->get();
+        $grenades = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
+                ->where('map_id', $map->id)->where('visibility', 0) 
+                ->get();
+        $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
+
+
+        // Znajdź mapę na podstawie identyfikatora
+        $map = Map::findOrFail($map_id);
+        
+        // Pobieramy wartości filtrów z formularza
+        $team = $request->input('team');
+        $type = $request->input('type');
+        $areaFrom = $request->input('areaFrom');
+        $calloutFrom = $request->input('calloutFrom');
+        $areaTo = $request->input('areaTo');
+        $calloutTo = $request->input('calloutTo');
+    
+        // Rozpoczynamy zapytanie do bazy danych z modelem Grenade
+        $query = Grenade::query();
+    
+        // Dodajemy warunki filtrów, jeśli zostały one przekazane
+        if ($team) {
+            $query->where('team', $team);
+        }
+    
+        if ($type) {
+            $query->where('type', $type);
+        }
+    
+        if ($areaFrom) {
+            $query->where('area_from_id', $areaFrom);
+        }
+    
+        if ($calloutFrom) {
+            $query->where('callout_from_id', $calloutFrom);
+        }
+    
+        if ($areaTo) {
+            $query->where('area_to_id', $areaTo);
+        }
+    
+        if ($calloutTo) {
+            $query->where('callout_to_id', $calloutTo);
+        }
+    
+        // Wykonujemy zapytanie
+        $grenades = $query->get();
+    
+        return view('maps.show', [
+            'areas' => $areas,
+            'grenades' => $grenades,
+            'types' => $types,
+            'map' => $map,
+            'team' => $team,
+            'type' => $type,
+            'areaFrom' => $areaFrom,
+            'calloutFrom' => $calloutFrom,
+            'areaTo' => $areaTo,
+            'calloutTo' => $calloutTo,
+            'grenades' => $grenades, // Dodaj ten element do przekazywanej tablicy
+        ]);
+    }
     
 }

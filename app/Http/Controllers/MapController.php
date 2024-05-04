@@ -64,7 +64,7 @@ public function show(Map $map)
 
     return view('maps.show', [
         'areas' => $areas,
-        'maps' => $map,
+        'map' => $map,
         'grenades' => $grenades,
         'types' => $types
     ]);
