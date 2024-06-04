@@ -40,6 +40,23 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+// added to turn off register
+                    public function showRegistrationForm()
+                    {
+                        return redirect('/login');
+                    }
+
+                    /**
+                     * Handle a registration request for the application.
+                     *
+                     * @param  \Illuminate\Http\Request  $request
+                     * @return \Illuminate\Http\Response
+                     */
+                    public function register(Request $request)
+                    {
+                        return redirect('/login');
+                    }
+// ***************************************************
     /**
      * Get a validator for an incoming registration request.
      *
