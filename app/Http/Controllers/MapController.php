@@ -85,19 +85,32 @@ public function show(Map $map)
      */
     public function update(UpsertMapRequest $request, Map $map)
     {
-
+        // Przypisanie starej ścieżki obrazu
         $oldImagePath = $map->image_path;
-        $map ->fill($request->validated());
+    
+        // Wypełnienie modelu danymi z formularza
+        $map->fill($request->validated());
+    
+        // Sprawdzenie, czy nowy obraz został przesłany
         if ($request->hasFile('image_path')) {
-            if(Storage::exists($oldImagePath)){
+            // Sprawdzenie, czy stara ścieżka obrazu nie jest null i czy plik istnieje
+            if (!is_null($oldImagePath) && Storage::exists($oldImagePath)) {
+                // Usunięcie starego obrazu
                 Storage::delete($oldImagePath);
             }
+    
+            // Przechowywanie nowego obrazu
             $path = $request->file('image_path')->store('public/images/maps');
             $publicPath = str_replace('public/', '', $path);
+    
+            // Aktualizacja ścieżki obrazu w modelu
             $map->image_path = $publicPath;
         }
+    
+        // Zapisanie modelu
         $map->save();
-
+    
+        // Przekierowanie do listy map
         return redirect()->route('maps.index');
     }
 
