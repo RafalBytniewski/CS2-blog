@@ -8,6 +8,9 @@ window.$ = window.jQuery = $;
 
 import '../sass/app.scss';
 
+// immport fontawesome
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 // Import zoom.js
 import Zooming from 'zooming';
 document.addEventListener('DOMContentLoaded', function() {

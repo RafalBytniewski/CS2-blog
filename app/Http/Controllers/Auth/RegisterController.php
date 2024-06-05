@@ -41,7 +41,7 @@ class RegisterController extends Controller
     }
 
 // added to turn off register
-                    public function showRegistrationForm()
+/*                     public function showRegistrationForm()
                     {
                         return redirect('/login');
                     }
@@ -51,11 +51,11 @@ class RegisterController extends Controller
                      *
                      * @param  \Illuminate\Http\Request  $request
                      * @return \Illuminate\Http\Response
-                     */
+                     *
                     public function register(Request $request)
                     {
                         return redirect('/login');
-                    }
+                    } */
 // ***************************************************
     /**
      * Get a validator for an incoming registration request.

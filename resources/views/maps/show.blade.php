@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+@vite(['resources/js/welcome.js'])
 <style>
     .show-more {
     display: block;
@@ -215,7 +215,4 @@
         </div>
     </div>
 </div> 
-@endsection
-@section('js')
-    @vite(['resources/js/welcome.js'])
 @endsection

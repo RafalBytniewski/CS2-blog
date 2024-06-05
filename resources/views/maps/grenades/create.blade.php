@@ -1,6 +1,7 @@
 @extends('layouts/app')
 
 @section('content')
+@vite(['resources/js/create_grenade.js'])
     <div class="container">
         <div class="card-header">
             <h1 style="text-align:center">{{__("cs2.map.grenade.form.create_title")}}</h1>
@@ -154,7 +155,4 @@
         </div>
     </div>
     </div>
-@endsection
-@section('js')
-@vite(['resources/js/create_grenade.js'])
 @endsection
