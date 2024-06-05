@@ -41,7 +41,7 @@ class MapController extends Controller
         $map = new Map($request->validated());
 
         if ($request->hasFile('image_path')) {
-            $path = $request->file('image_path')->store('public/images/maps');
+            $path = $request->file('image_path')->store('images/maps');
             $publicPath = str_replace('public/', '', $path);
             $map->image_path = $publicPath;
         }
@@ -100,7 +100,7 @@ public function show(Map $map)
             }
     
             // Przechowywanie nowego obrazu
-            $path = $request->file('image_path')->store('public/images/maps');
+            $path = $request->file('image_path')->store('images/maps');
             $publicPath = str_replace('public/', '', $path);
     
             // Aktualizacja ścieżki obrazu w modelu
