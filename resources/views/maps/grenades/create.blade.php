@@ -60,7 +60,7 @@
                             <option value="0">{{ __('cs2.map.grenade.form.private') }}</option>
                             <option value="1" selected>{{ __('cs2.map.grenade.form.public') }}</option>
                         </select>
-                        @error('team')
+                        @error('visibility')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

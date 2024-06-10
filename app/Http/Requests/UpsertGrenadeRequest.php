@@ -25,6 +25,7 @@ class UpsertGrenadeRequest extends FormRequest
                 'map_id' => 'required|numeric',
                 'team' => 'required|',
                 'type' => 'required|',
+                'visibility' => 'required|',
                 'area_from_id' => 'required|numeric',
                 'callout_from_id' => 'nullable|numeric',
                 'area_to_id' => 'required|numeric',
