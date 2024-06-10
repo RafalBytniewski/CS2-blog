@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Area;
 
 class AreaSeeder extends Seeder
 {
@@ -12,7 +13,7 @@ class AreaSeeder extends Seeder
      */
     public function run()
     {
-        $areas = [
+        $data = [
             ['map_id' => 1, 'name' => 'Ct'],
             ['map_id' => 1, 'name' => 'T'],
             ['map_id' => 1, 'name' => 'Mid'],
@@ -65,6 +66,6 @@ class AreaSeeder extends Seeder
             ['map_id' => 10, 'name' => 'B'],
         ];
 
-        DB::table('areas')->insert($areas);
+        Area::insert($data);
     }
 }
