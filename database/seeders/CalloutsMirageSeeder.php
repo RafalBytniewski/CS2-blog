@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\Callouts;
+use App\Models\Callout;
 
-class AreaSeeder extends Seeder
+class CalloutsMirageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -59,6 +59,6 @@ class AreaSeeder extends Seeder
             ['area_id' => 1, 'name' => 'Spawn'],
             ['area_id' => 2, 'name' => 'Spawn'],
         ];
-        Callouts::insert($data);
+        Callout::insert($data);
     }
 }
