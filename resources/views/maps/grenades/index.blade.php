@@ -57,6 +57,3 @@
     </div>
 </div>
 @endsection
-@section('js')
-@vite(['resources/js/alerts.js'])
-@endsection
