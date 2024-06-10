@@ -26,6 +26,8 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 
+/storage
+
 callouts.json
 
 # End of https://www.toptal.com/developers/gitignore/api/laravel
