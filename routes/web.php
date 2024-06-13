@@ -41,7 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/grenade/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit');
     Route::get('/grenades/list', [GrenadeController::class, 'index'])->name('grenades.index');
     Route::get('/grenades/{grenade}', [GrenadeController::class, 'show'])->name('grenade.show');
-    Route::post('/grenades', [GrenadeController::class, 'update'])->name('grenade.update');
+    
+    Route::put('/grenades/{grenade}', [GrenadeController::class, 'update'])->name('grenade.update');
 
 
     Route::middleware(['can:isAdmin'])->group(function() {

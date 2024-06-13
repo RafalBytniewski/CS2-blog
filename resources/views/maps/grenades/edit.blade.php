@@ -2,13 +2,30 @@
 @section('content')
 @vite(['resources/js/create_grenade.js','resources/js/sortable.js'])
     <div class="container">
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         <div class="card-header">
             <h1 style="text-align:center">{{__("cs2.map.grenade.form.edit_title")}}</h1>
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('grenade.update') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('grenade.update', $grenade->id) }}" enctype="multipart/form-data">
+                
                 @csrf
+                @method('PUT')
 
                 <div class="row mb-3">
                     <label for="map" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.map') }}</label>
@@ -49,6 +66,22 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="visibility" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.visibility') }}</label>
+                    <div class="col-md-6">
+                        <select id="visibility" name="visibility" class="form-control @error('visibility') is-invalid @enderror" required>
+                            <option value="" {{ $visibility === null ? 'selected' : '' }}></option>
+                            <option value="0" {{ $visibility == '0' ? 'selected' : '' }}>{{ __('cs2.map.grenade.form.private') }}</option>
+                            <option value="1" {{ $visibility == '1' ? 'selected' : '' }}>{{ __('cs2.map.grenade.form.public') }}</option>
+                        </select>
+                        @error('visibility')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
                     </div>
                 </div>
                 <div class="row mb-3">

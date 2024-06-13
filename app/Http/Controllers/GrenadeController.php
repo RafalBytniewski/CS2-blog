@@ -13,6 +13,8 @@ use App\Models\GrenadeImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UpsertGrenadeRequest;
+use App\Http\Requests\UpdateGrenadeRequest;
+
 
 class GrenadeController extends Controller
 {
@@ -99,6 +101,7 @@ class GrenadeController extends Controller
         $types = Grenade::select('type')->distinct()->pluck('type');
         $teams = Grenade::select('team')->distinct()->pluck('team');
         $map = $grenade->map;
+        $visibility = $grenade->visibility;
         $areaFrom = $grenade->areaFrom;
         $calloutFrom = $grenade->calloutFrom;
         $areato = $grenade->areato;
@@ -109,6 +112,7 @@ class GrenadeController extends Controller
 
         return view('maps.grenades.edit', [
             'grenade' => $grenade,
+            'visibility' => $visibility,
             'areaFrom' => $areaFrom,
             'calloutFrom' => $calloutFrom,
             'areaToo' => $areato,
@@ -125,10 +129,10 @@ class GrenadeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpsertGrenadeRequest $request, Grenade $grenade)
+    public function update(UpdateGrenadeRequest $request, Grenade $grenade)
     {
         $grenade->update($request->validated());
-        return redirect(route('maps.grenades.index'));
+        return redirect()->route('grenade.show', $grenade)->with('success', 'Dane zostały zaktualizowane.');
     }
     
 

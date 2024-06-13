@@ -50,7 +50,9 @@ return [
                 'images' => 'Zrzuty ekranu',
                 'submit' => 'Dodaj',
                 'update' => 'Aktualizuj',
-
+                'visibility' => 'Widoczność',
+                'private' => "Prywata",
+                'public' => "Publiczna",
             ],
         ],
         'status' => [
