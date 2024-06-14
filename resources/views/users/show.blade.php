@@ -10,13 +10,14 @@
             <div class="rounded-top text-white d-flex flex-row" style="height:200px;">
               <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
                 <img src="{{ asset('storage/images/avatars/avatar.jpg') }}" alt="Avatar of {{ $user->name }}" class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
-                  <a href="{{ route('users.edit', $user->id) }}" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark" data-mdb-ripple-color="dark"style="z-index: 1;">
-                      Edit profile
-                  </a>
+                @can('isAdmin')  
+                    <a href="{{ route('users.edit', $user->id) }}" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark" data-mdb-ripple-color="dark"style="z-index: 1;">
+                          Edit profile
+                    </a>
+                 @endcan
               </div>
               <div class="ms-3" style="margin-top: 130px;">
-                <h5>{{ $user->name}}</h5>
-                <p>New York</p>
+                <h3>{{ $user->name}}</h3>
               </div>
             </div>
             <div class="p-4 text-black" style="background-color: #f8f9fa;">
@@ -36,12 +37,7 @@
               </div>
             </div>
             <div class="card-body p-4">
-              <div class="mb-5">
-                <p class="lead fw-normal mb-1">About</p>
-                <div class="p-4" style="background-color: #f8f9fa;">
-                  <p class="font-italic mb-1">Web Developer</p>
-                </div>
-              </div>
+
               <div id="recently_added_nades">
                 <div class="d-flex justify-content-between align-items-center my-4">
                   <h1>Recent nades</h1>
