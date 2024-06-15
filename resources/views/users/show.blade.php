@@ -22,18 +22,18 @@
             </div>
             <div class="p-4 text-black" style="background-color: #f8f9fa;">
               <div class="d-flex justify-content-end text-center py-1">
-                <div>
+                <div><strong>
                   <p class="mb-1 h5">-</p>
-                  <p class="small text-muted mb-0">Grenades</p>
+                  <p class="medium text-dark mb-0">Grenades added</p>
                 </div>
                 <div class="px-3">
                   <p class="mb-1 h5">-</p>
-                  <p class="small text-muted mb-0">Followers</p>
+                  <p class="medium text-dark mb-0">Grenade followed</p>
                 </div>
                 <div>
                   <p class="mb-1 h5">-</p>
-                  <p class="small text-muted mb-0">Likes</p>
-                </div>
+                  <p class="medium text-dark mb-0">Grenade liked</p>
+                </strong></div>
               </div>
             </div>
             <div class="card-body p-4">

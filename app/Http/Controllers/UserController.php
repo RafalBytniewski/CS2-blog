@@ -71,4 +71,11 @@ class UserController extends Controller
     {
         //
     }
+    public function changePassword(User $user)
+    {
+        return View('users.changePassword',[
+            'user' => $user
+        ]);
+    }
+
 }

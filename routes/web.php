@@ -43,6 +43,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
 
     Route::middleware(['can:isAdmin'])->group(function() {
+        Route::get('/users/pwd/{user}', [UserController::class, 'changePassword'])->name('users.changePassword');
+
         Route::get('/users/list', [UserController::class, 'index'])->name('users.index');
 
         Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
