@@ -66,7 +66,7 @@
     <div class="py-5 row text-center">
       <h1 class="my-3">Active map pool:</h1>
       @foreach($mapsActive as $map)
-        <div class="col-md-auto m-1 p-0 map-card">
+        <div class="col-sm-auto m-1 p-0 map-card">
           <a  href="{{ route('maps.show', $map->id) }}">
             @if(empty($map->image_path))
               <img class="rounded" src="default" alt="error">

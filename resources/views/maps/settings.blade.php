@@ -30,12 +30,12 @@
                                         <input type="hidden" name="callout_id" value="{{ $callout->id }}">
                                         <input type="text" name="name" value="{{ $callout->name }}">
                                         
-                                        <i type="submit" title="{{ __('cs2.buttons.edit')}}" class="fa-solid fa-square-check btn btn-sm btn-success"></i>
+                                        <button type="submit" title="{{ __('cs2.buttons.edit')}}" class="fa-solid fa-square-check btn btn-sm btn-success"></button>
                                     </form>
                                     <form method="POST" action="{{ route('callout.destroy', $callout->id) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <i title="{{ __('cs2.buttons.delete')}}" class="fa-solid fa-trash btn btn-sm btn-danger" type="submit"></i>                                   
+                                        <button type="submit" title="{{ __('cs2.buttons.delete')}}" class="fa-solid fa-trash btn btn-sm btn-danger"></button>                                   
                                     </form>
                                 </div>
                             @endforeach
