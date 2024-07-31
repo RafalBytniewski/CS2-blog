@@ -1,12 +1,37 @@
 @extends('layouts.app')
-
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 @section('content')
 @vite(['resources/js/welcome.js'])
+@vite('resources/js/'.$maps->name.'.js')
 <style>
     .show-more {
     display: block;
     margin-top: 10px;
     }
+    .kontejner{
+        display:flex;
+        justify-content: center;
+    }
+    #map-container {
+            height: 750px;
+            width: 750px;
+            margin-bottom: 50px;
+            position: relative;
+
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+            background-color: grey;
+            /* Tło strony */
+            border: 1px solid black;
+        }
+
+        .leaflet-container {
+            height: 100%;
+            width: 100%;
+        }
 </style>
 @if(session('success'))
     <div class="alert alert-success">
@@ -19,7 +44,9 @@
         {{ session('error') }}
     </div>
 @endif
+
 <div class="container">
+
     <div class="card-header d-flex flex-column">
         <div class=" d-flex justify-content-end">
             @can('isAdmin')
@@ -37,7 +64,12 @@
                 </a>
             @endauth
         </div>
-        <span class="fs-1 fw-bold my-4" style="text-align:center">{{$maps->name}}</span>
+        <span class="fw-bold my-4" style="text-align:center;font-size: 60px">{{$maps->name}}</span>
+        <div class="kontejner">
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
     </div>
     <div class="card-body">
         <form action="" method="get">

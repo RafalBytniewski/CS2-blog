@@ -17,9 +17,10 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.5.2",
         "jqeury": "^0.0.1-security",
+        "leaflet": "^1.9.4",
         "npm-watch": "^0.11.0",
         "sortablejs": "^1.15.2",
-        "sweetalert2": "^11.10.8",
+        "sweetalert2": "^11.6.13",
         "zooming": "^2.1.1"
     }
 }
