@@ -5,33 +5,28 @@
 @vite('resources/js/'.$maps->name.'.js')
 <style>
     .show-more {
-    display: block;
-    margin-top: 10px;
+        display: block;
+        margin-top: 10px;
     }
-    .kontejner{
+    #main-map{
         display:flex;
         justify-content: center;
     }
     #map-container {
-            height: 750px;
-            width: 750px;
-            margin-bottom: 50px;
-            position: relative;
-
-        }
-
-        #map {
-            height: 100%;
-            width: 100%;
-            background-color: grey;
-            /* Tło strony */
-            border: 1px solid black;
-        }
-
-        .leaflet-container {
-            height: 100%;
-            width: 100%;
-        }
+        height: 750px;
+        width: 750px;
+        margin-bottom: 50px;
+        position: relative;
+    }
+    #map {
+        height: 100%;
+        width: 100%;
+        border-radius: 5px;
+    }
+    .leaflet-container {
+        height: 100%;
+        width: 100%;
+    }
 </style>
 @if(session('success'))
     <div class="alert alert-success">
@@ -46,7 +41,6 @@
 @endif
 
 <div class="container">
-
     <div class="card-header d-flex flex-column">
         <div class=" d-flex justify-content-end">
             @can('isAdmin')
@@ -65,11 +59,11 @@
             @endauth
         </div>
         <span class="fw-bold my-4" style="text-align:center;font-size: 60px">{{$maps->name}}</span>
-        <div class="kontejner">
-        <div id="map-container">
-            <div id="map"></div>
+        <div id="main-map">
+            <div class="card" id="map-container">
+                <div id="map"></div>
+            </div>
         </div>
-    </div>
     </div>
     <div class="card-body">
         <form action="" method="get">
@@ -151,7 +145,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit">send</button>
+                
             </div> 
         </form>
         <div class="container col-10 d-flex justify-content-end">
