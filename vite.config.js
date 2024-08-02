@@ -7,8 +7,9 @@ export default defineConfig({
             input: [
                 'resources/sass/app.scss',
                 'resources/js/app.js',
-                'resources/js/welcome.js',
-                'resources/js/create_grenade.js',
+                'resources/js/mapPageFiltersShow.js',
+                'resources/js/mapPageFiltersFetch.js',
+                'resources/js/createGrenade.js',
                 'resources/js/Mirage.js'
             ],
             refresh: true,

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 @section('content')
-@vite(['resources/js/welcome.js'])
+@vite(['resources/js/mapPageFiltersShow.js'])
 @php
     $mapFileName = ucfirst($maps->name) . '.js';
 @endphp
@@ -75,40 +75,37 @@
         <form action="" method="get">
             @csrf
             <div class="card d-flex flex-row justify-content-center align-items-start border-0" id="filter">
+                {{-- team --}}
                 <div class="filter-category mx-4">
                     <div class="card-header">
-                        <span class="title fs-4">{{ __('cs2.map.show.agent')}}</span>
+                        <span class="title fs-4">{{ __('cs2.map.show.agent') }}</span>
                     </div>
                     <div class="card-body">
                         <label class="form-check" for="Terrorist">
                             <input name="team" class="form-check-input" type="checkbox" value="Terrorist" id="Terrorist">
-                            <span class="form-check-label">
-                                Terrorist
-                            </span>
+                            <span class="form-check-label">Terrorist</span>
                         </label>
                         <label class="form-check" for="Counter-Terrorist">
                             <input class="form-check-input" name="team" type="checkbox" value="Counter-Terrorist" id="Counter-Terrorist">
-                            <span class="form-check-label">
-                                Counter-Terrorist
-                            </span>
+                            <span class="form-check-label">Counter-Terrorist</span>
                         </label>
                     </div>
-                </div>         
+                </div>
+                {{-- type --}}
                 <div class="filter-category mx-4">
                     <header class="card-header">
-                        <span class="title fs-4">{{ __('cs2.map.show.nade_type')}}</span>
+                        <span class="title fs-4">{{ __('cs2.map.show.nade_type') }}</span>
                     </header>
                     <div class="card-body">
                         @foreach($types as $type)
                             <label class="form-check" for="type-{{$type}}">
                                 <input class="form-check-input" name="type" type="checkbox" value="{{$type}}" id="type-{{$type}}">
-                                <span class="form-check-label">
-                                    {{$type}}
-                                </span>
+                                <span class="form-check-label">{{ $type }}</span>
                             </label>
                         @endforeach
                     </div>
-                </div>  
+                </div>
+                {{-- area/callout from --}}
                 <div class="filter-category mx-4">
                     <header class="card-header">
                         <span class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.from') }}</span>
@@ -117,43 +114,42 @@
                         <div class="card-body flex-fill">
                             @foreach($areas as $area)
                                 <label class="form-check" for="area-from-{{ $area->id }}">
-                                    <input class="form-check-input areaFromSelect" name="areaFrom" type="checkbox" value="{{ $area->id }}" id="area-{{ $area->id }}">
-                                    <span class="form-check-label">
-                                        {{ $area->name }}
-                                    </span>
+                                    <input class="form-check-input areaFromSelect" name="area_from_id[]" type="checkbox" value="{{ $area->id }}" id="area-from-{{ $area->id }}">
+                                    <span class="form-check-label">{{ $area->name }}</span>
                                 </label>
                             @endforeach
                         </div>
                         <div class="filter-content flex-fill d-none" id="calloutsFromSection">
                             <div class="card-body">
+                                <!-- callouts_from -->
                             </div>
                         </div>
                     </div>
                 </div>
+                {{-- area/callout to --}}
                 <div class="filter-category mx-4">
                     <header class="card-header">
-                        <span class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.to')}}</span>
+                        <span class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.to') }}</span>
                     </header>
                     <div class="d-flex">
                         <div class="card-body flex-fill">
                             @foreach($areas as $area)
                                 <label class="form-check" for="area-to-{{ $area->id }}">
-                                    <input class="form-check-input areaToSelect" type="checkbox" name="areaTo" value="{{ $area->id }}" id="area-to-{{ $area->id }}">
-                                    <span class="form-check-label">
-                                        {{ $area->name }}
-                                    </span>
+                                    <input class="form-check-input areaToSelect" type="checkbox" name="area_to_id[]" value="{{ $area->id }}" id="area-to-{{ $area->id }}">
+                                    <span class="form-check-label">{{ $area->name }}</span>
                                 </label>
                             @endforeach
                         </div>
                         <div class="filter-content flex-fill d-none" id="calloutsToSection">
                             <div class="card-body">
+                                <!-- callouts_to -->
                             </div>
                         </div>
                     </div>
                 </div>
-                
-            </div> 
+            </div>
         </form>
+        
         <div class="container col-10 d-flex justify-content-end">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

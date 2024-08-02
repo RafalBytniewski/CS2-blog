@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (selectedAreaFromIds.length > 0) {
-                fetchCallouts(selectedAreaFromIds, calloutsFromSection);
+                fetchCallouts(selectedAreaFromIds, calloutsFromSection, 'from');
             } else {
                 calloutsFromSection.classList.add('d-none');
             }
@@ -33,24 +33,27 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (selectedAreaToIds.length > 0) {
-                fetchCallouts(selectedAreaToIds, calloutsToSection);
+                fetchCallouts(selectedAreaToIds, calloutsToSection, 'to');
             } else {
                 calloutsToSection.classList.add('d-none');
             }
         });
     });
 
-    function fetchCallouts(areaIds, calloutsSection) {
+    function fetchCallouts(areaIds, calloutsSection, type) {
         let promises = areaIds.map(areaId => fetch('/fetch_callouts/' + areaId).then(response => response.json()));
         Promise.all(promises)
             .then(calloutsData => {
-                let allCallouts = calloutsData.flat();
-                renderCallouts(allCallouts, calloutsSection);
+                let allCallouts = calloutsData.flat().map(callout => {
+                    callout.type = type;
+                    return callout;
+                });
+                renderCallouts(allCallouts, calloutsSection, type);
             })
             .catch(error => console.error('Błąd:', error));
     }
 
-    function renderCallouts(callouts, calloutsSection) {
+    function renderCallouts(callouts, calloutsSection, type) {
         let calloutsContainer = calloutsSection.querySelector('.card-body');
         calloutsContainer.innerHTML = '';
 
@@ -58,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let label = document.createElement('label');
             label.classList.add('form-check');
             label.innerHTML = `
-                <input class="form-check-input" name="callout" type="checkbox" value="${callout.id}">
+                <input class="form-check-input" name="callout_${type}_id" type="checkbox" value="${callout.id}">
                 <span id="${callout.id}" class="form-check-label">${callout.name}</span>
             `;
             calloutsContainer.appendChild(label);
