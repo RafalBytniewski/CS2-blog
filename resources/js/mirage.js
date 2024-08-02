@@ -17,7 +17,6 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 var areas = [
     {
         name: 'B',
-        
         bounds: [
             { "lat": 393.75, "lng": 234.75 },
             { "lat": 395.75, "lng": 168 },
