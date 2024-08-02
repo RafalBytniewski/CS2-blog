@@ -2,7 +2,13 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 @section('content')
 @vite(['resources/js/welcome.js'])
-@vite('resources/js/'.$maps->name.'.js')
+@php
+    $mapFileName = ucfirst($maps->name) . '.js';
+@endphp
+
+@if(file_exists(resource_path('js/' . $mapFileName)))
+    @vite('resources/js/' . $mapFileName)
+@endif
 <style>
     .show-more {
         display: block;
