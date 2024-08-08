@@ -70,6 +70,46 @@ public function show(Map $map)
     ]);
 }
 
+public function filter(Request $request, Map $map)
+{
+
+    $filters = $request->all();
+    dd($filters);
+    $query = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
+                    ->where('map_id', $map->id)
+                    ->where('visibility', 1);
+
+    if (isset($filters['team'])) {
+        $query->where('team', $filters['team']);
+    }
+    if (isset($filters['type'])) {
+        $query->where('type', $filters['type']);
+    }
+    if (isset($filters['area_from_id'])) {
+        $query->whereIn('area_from_id', explode(',', $filters['area_from_id']));
+    }
+    if (isset($filters['callout_from_id'])) {
+        $query->whereIn('callout_from_id', explode(',', $filters['callout_from_id']));
+    }
+    if (isset($filters['area_to_id'])) {
+        $query->whereIn('area_to_id', explode(',', $filters['area_to_id']));
+    }
+    if (isset($filters['callout_to_id'])) {
+        $query->whereIn('callout_to_id', explode(',', $filters['callout_to_id']));
+    }
+
+    $filteredGrenades = $query->get();
+
+    $areas = Area::with(['callouts'])
+                 ->where('map_id', $map->id)
+                 ->get();
+                 \Log::info('Filtering data for map:', ['map_id' => $map->id, 'filters' => $request->all()]);
+    return response()->json([
+        'grenades' => $filteredGrenades,
+        'areas' => $areas
+    ]);
+}
+
     /**
      * Show the form for editing the specified resource.
      */
