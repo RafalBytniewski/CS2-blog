@@ -72,7 +72,7 @@
         </div>
     </div>
     <div class="card-body">
-        <form action="" method="get">
+        <form action="{{ route('maps.filter', $maps->id) }}" method="get">
             @csrf
             <div class="card d-flex flex-row justify-content-center align-items-start border-0" id="filter">
                 {{-- team --}}
@@ -82,11 +82,11 @@
                     </div>
                     <div class="card-body">
                         <label class="form-check" for="Terrorist">
-                            <input name="team" class="form-check-input" type="checkbox" value="Terrorist" id="Terrorist">
+                            <input name="team[]" class="form-check-input" type="checkbox" value="Terrorist" id="Terrorist">
                             <span class="form-check-label">Terrorist</span>
                         </label>
                         <label class="form-check" for="Counter-Terrorist">
-                            <input class="form-check-input" name="team" type="checkbox" value="Counter-Terrorist" id="Counter-Terrorist">
+                            <input class="form-check-input" name="team[]" type="checkbox" value="Counter-Terrorist" id="Counter-Terrorist">
                             <span class="form-check-label">Counter-Terrorist</span>
                         </label>
                     </div>
@@ -99,7 +99,7 @@
                     <div class="card-body">
                         @foreach($types as $type)
                             <label class="form-check" for="type-{{$type}}">
-                                <input class="form-check-input" name="type" type="checkbox" value="{{$type}}" id="type-{{$type}}">
+                                <input class="form-check-input" name="type[]" type="checkbox" value="{{$type}}" id="type-{{$type}}">
                                 <span class="form-check-label">{{ $type }}</span>
                             </label>
                         @endforeach
@@ -147,10 +147,11 @@
                         </div>
                     </div>
                 </div>
+                <button type="subit" class="btn btn-primary" id="filterButton">FILTER</button>
             </div>
         </form>
-        
-        <div class="container col-10 d-flex justify-content-end">
+        <div class="container col-10 d-flex justify-content-evenly align-items-center">
+            <div class="resultInfo">There is {{ $count}} results for your filters</div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     View:

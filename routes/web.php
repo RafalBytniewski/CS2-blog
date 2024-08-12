@@ -29,6 +29,8 @@ Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/{map}', [MapController::class, 'show'])->name('maps.show');
+Route::get('{map}/map/filter', [MapController::class, 'filter'])->name('maps.filter');
+
 
 Route::get('/users/show/{user}', [UserController::class, 'show'])->name('users.show');
 Route::get('/grenades/{grenade}', [GrenadeController::class, 'show'])->name('grenade.show');

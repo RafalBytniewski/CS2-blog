@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let label = document.createElement('label');
             label.classList.add('form-check');
             label.innerHTML = `
-                <input class="form-check-input" name="callout_${type}_id" type="checkbox" value="${callout.id}">
+                <input class="form-check-input" name="callout_${type}_id[]" type="checkbox" value="${callout.id}">
                 <span id="${callout.id}" class="form-check-label">${callout.name}</span>
             `;
             calloutsContainer.appendChild(label);
