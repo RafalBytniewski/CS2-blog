@@ -72,7 +72,7 @@
         </div>
     </div>
     <div class="card-body">
-        <form action="{{ route('maps.filter', $maps->id) }}" method="get">
+        <form action="{{ route('maps.show', $maps->id) }}" method="get">
             @csrf
             <div class="card d-flex flex-row justify-content-center align-items-start border-0" id="filter">
                 {{-- team --}}

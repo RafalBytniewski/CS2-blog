@@ -52,71 +52,58 @@ class MapController extends Controller
     /**
      * Display the specified resource.
      */
-public function show(Map $map)
-{
-    $areas = Area::with(['callouts'])
-                    ->where('map_id', $map->id)
-                    ->get();
-    $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
-    $grenades = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
-                       ->where('map_id', $map->id)->where('visibility', 1) 
-                       ->get();
-    $count = $grenades->count();
-    return view('maps.show', [
-        'areas' => $areas,
-        'maps' => $map,
-        'grenades' => $grenades,
-        'types' => $types,
-        'count' => $count
-    ]);
-}
-public function filter(Request $request, Map $map)
-{
-    $filter = '';
-    $areas = Area::with(['callouts'])
-        ->where('map_id', $map->id)
-        ->get();
-    $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
-    $query = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
-    ->where('map_id', $map->id)->where('visibility', 1);
+    public function show(Request $request, Map $map)
+    {
+        // Pobieranie obszarów i typów granatów
+        $areas = Area::with(['callouts'])
+                        ->where('map_id', $map->id)
+                        ->get();
+        $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
+    
+        // Inicjalizacja zapytania do pobrania granatów
+        $query = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
+                        ->where('map_id', $map->id)
+                        ->where('visibility', 1);
+    
+        // Pobranie filtrów z zapytania
+        $grenadeFilter = $request->all();
+    
+        // Dodawanie filtrów do zapytania, jeśli są ustawione
+        if(isset($grenadeFilter['team'])) {
+            $query->whereIn('team', $grenadeFilter['team']);
+        }
+        if(isset($grenadeFilter['type'])) {
+            $query->whereIn('type', $grenadeFilter['type']);
+        }
+        if(isset($grenadeFilter['area_from_id'])) {
+            $query->whereIn('area_from_id', $grenadeFilter['area_from_id']);
+        }
+        if(isset($grenadeFilter['callout_from_id'])) {
+            $query->whereIn('callout_from_id', $grenadeFilter['callout_from_id']);
+        }
+        if(isset($grenadeFilter['area_to_id'])) {
+            $query->whereIn('area_to_id', $grenadeFilter['area_to_id']);
+        }
+        if(isset($grenadeFilter['callout_to_id'])) {
+            $query->whereIn('callout_to_id', $grenadeFilter['callout_to_id']);
+        }
+    
+        // Pobranie przefiltrowanych wyników
+        $grenades = $query->get();
+    
+        // Liczba przefiltrowanych wyników
+        $count = $grenades->count();
+    
+        // Zwrócenie widoku z danymi
+        return view('maps.show', [
+            'areas' => $areas,
+            'maps' => $map,
+            'grenades' => $grenades,
+            'types' => $types,
+            'count' => $count
+        ]);
+    }
 
-    $grenadeFilter = $request->all();
-    if(isset($grenadeFilter['team']))
-    {
-        $query->whereIn('team', $grenadeFilter['team']);
-       
-    }
-    if(isset($grenadeFilter['type']))
-    {
-        $query->whereIn('type', $grenadeFilter['type']);
-    }
-    if(isset($grenadeFilter['area_from_id']))
-    {
-        $query->whereIn('area_from_id', $grenadeFilter['area_from_id']);
-    }
-    if(isset($grenadeFilter['callout_from_id']))
-    {
-        $query->whereIn('callout_from_id', $grenadeFilter['callout_from_id']);
-    }
-    if(isset($grenadeFilter['area_to_id']))
-    {
-        $query->whereIn('area_to_id', $grenadeFilter['area_to_id']);
-    }
-    if(isset($grenadeFilter['callout_to_id']))
-    {
-        $query->whereIn('callout_to_id', $grenadeFilter['callout_to_id']);
-    }
-    $count = $query->count();
-    $grenades = $query->get();
-   
-    return view('maps.show', [
-        'areas' => $areas,
-        'maps' => $map,
-        'grenades' => $grenades,
-        'types' => $types,
-        'count' => $count
-    ]);
-}
     /**
      * Show the form for editing the specified resource.
      */
