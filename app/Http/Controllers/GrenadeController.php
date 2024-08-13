@@ -55,7 +55,7 @@ class GrenadeController extends Controller
         $grenade = Grenade::create($grenadeData);
     
         foreach ($request->file('images') as $image) {
-            $path = $image->store('public/images/grenades');
+            $path = $image->store('images/grenades');
             
             $grenade->grenadeImages()->create(['path' => $path]);
         }
