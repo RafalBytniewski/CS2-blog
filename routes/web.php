@@ -29,11 +29,9 @@ Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/{map}', [MapController::class, 'show'])->name('maps.show');
-Route::get('{map}/map/filter', [MapController::class, 'filter'])->name('maps.filter');
-
 
 Route::get('/users/show/{user}', [UserController::class, 'show'])->name('users.show');
-Route::get('/grenades/{grenade}', [GrenadeController::class, 'show'])->name('grenade.show');
+
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/{map}/grenade/create', [GrenadeController::class, 'create'])->name('grenade.create');
@@ -64,7 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
         Route::delete('/callouts/{callout}', [CalloutController::class, 'destroy'])->name('callout.destroy');
     });
 });
-
+Route::get('/grenades/{grenade}', [GrenadeController::class, 'show'])->name('grenade.show');
 
 /* AJAX */
 Route::get('/fetch-callouts/{areaId}', [GrenadeController::class, 'fetchCallouts']);
