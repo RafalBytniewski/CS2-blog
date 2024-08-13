@@ -74,75 +74,77 @@
     <div class="card-body">
         <form action="{{ route('maps.show', $maps->id) }}" method="get">
             @csrf
-            <div class="card d-flex flex-row justify-content-center align-items-start border-0" id="filter">
-                {{-- team --}}
-                <div class="filter-category mx-4">
-                    <div class="card-header">
-                        <span class="title fs-4">{{ __('cs2.map.show.agent') }}</span>
-                    </div>
-                    <div class="card-body">
-                        <label class="form-check" for="Terrorist">
-                            <input name="team[]" class="form-check-input" type="checkbox" value="Terrorist" id="Terrorist">
-                            <span class="form-check-label">Terrorist</span>
-                        </label>
-                        <label class="form-check" for="Counter-Terrorist">
-                            <input class="form-check-input" name="team[]" type="checkbox" value="Counter-Terrorist" id="Counter-Terrorist">
-                            <span class="form-check-label">Counter-Terrorist</span>
-                        </label>
-                    </div>
-                </div>
-                {{-- type --}}
-                <div class="filter-category mx-4">
-                    <header class="card-header">
-                        <span class="title fs-4">{{ __('cs2.map.show.nade_type') }}</span>
-                    </header>
-                    <div class="card-body">
-                        @foreach($types as $type)
-                            <label class="form-check" for="type-{{$type}}">
-                                <input class="form-check-input" name="type[]" type="checkbox" value="{{$type}}" id="type-{{$type}}">
-                                <span class="form-check-label">{{ $type }}</span>
+            <div class="container card p-2 col-10">
+                <div class="card d-flex flex-row justify-content-center align-items-start border-0" id="filter">
+                    {{-- team --}}
+                    <div class="filter-category mx-4">
+                        <div class="card-header">
+                            <span class="title fs-4">{{ __('cs2.map.show.agent') }}</span>
+                        </div>
+                        <div class="card-body">
+                            <label class="form-check" for="Terrorist">
+                                <input name="team[]" class="form-check-input" type="checkbox" value="Terrorist" id="Terrorist">
+                                <span class="form-check-label">Terrorist</span>
                             </label>
-                        @endforeach
+                            <label class="form-check" for="Counter-Terrorist">
+                                <input class="form-check-input" name="team[]" type="checkbox" value="Counter-Terrorist" id="Counter-Terrorist">
+                                <span class="form-check-label">Counter-Terrorist</span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                {{-- area/callout from --}}
-                <div class="filter-category mx-4">
-                    <header class="card-header">
-                        <span class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.from') }}</span>
-                    </header>
-                    <div class="d-flex">
-                        <div class="card-body flex-fill">
-                            @foreach($areas as $area)
-                                <label class="form-check" for="area-from-{{ $area->id }}">
-                                    <input class="form-check-input areaFromSelect" name="area_from_id[]" type="checkbox" value="{{ $area->id }}" id="area-from-{{ $area->id }}">
-                                    <span class="form-check-label">{{ $area->name }}</span>
+                    {{-- type --}}
+                    <div class="filter-category mx-4">
+                        <header class="card-header">
+                            <span class="title fs-4">{{ __('cs2.map.show.nade_type') }}</span>
+                        </header>
+                        <div class="card-body">
+                            @foreach($types as $type)
+                                <label class="form-check" for="type-{{$type}}">
+                                    <input class="form-check-input" name="type[]" type="checkbox" value="{{$type}}" id="type-{{$type}}">
+                                    <span class="form-check-label">{{ $type }}</span>
                                 </label>
                             @endforeach
                         </div>
-                        <div class="filter-content flex-fill d-none" id="calloutsFromSection">
-                            <div class="card-body">
-                                <!-- callouts_from -->
+                    </div>
+                    {{-- area/callout from --}}
+                    <div class="filter-category mx-4">
+                        <header class="card-header">
+                            <span class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.from') }}</span>
+                        </header>
+                        <div class="d-flex">
+                            <div class="card-body flex-fill">
+                                @foreach($areas as $area)
+                                    <label class="form-check" for="area-from-{{ $area->id }}">
+                                        <input class="form-check-input areaFromSelect" name="area_from_id[]" type="checkbox" value="{{ $area->id }}" id="area-from-{{ $area->id }}">
+                                        <span class="form-check-label">{{ $area->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                            <div class="filter-content flex-fill d-none" id="calloutsFromSection">
+                                <div class="card-body">
+                                    <!-- callouts_from -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {{-- area/callout to --}}
-                <div class="filter-category mx-4">
-                    <header class="card-header">
-                        <span class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.to') }}</span>
-                    </header>
-                    <div class="d-flex">
-                        <div class="card-body flex-fill">
-                            @foreach($areas as $area)
-                                <label class="form-check" for="area-to-{{ $area->id }}">
-                                    <input class="form-check-input areaToSelect" type="checkbox" name="area_to_id[]" value="{{ $area->id }}" id="area-to-{{ $area->id }}">
-                                    <span class="form-check-label">{{ $area->name }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <div class="filter-content flex-fill d-none" id="calloutsToSection">
-                            <div class="card-body">
-                                <!-- callouts_to -->
+                    {{-- area/callout to --}}
+                    <div class="filter-category mx-4">
+                        <header class="card-header">
+                            <span class="title fs-4" style="text-align:center;">{{ __('cs2.map.show.to') }}</span>
+                        </header>
+                        <div class="d-flex">
+                            <div class="card-body flex-fill">
+                                @foreach($areas as $area)
+                                    <label class="form-check" for="area-to-{{ $area->id }}">
+                                        <input class="form-check-input areaToSelect" type="checkbox" name="area_to_id[]" value="{{ $area->id }}" id="area-to-{{ $area->id }}">
+                                        <span class="form-check-label">{{ $area->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                            <div class="filter-content flex-fill d-none" id="calloutsToSection">
+                                <div class="card-body">
+                                    <!-- callouts_to -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -151,7 +153,21 @@
             </div>
         </form>
         <div class="card display-flex flex-row container col-10 d-flex justify-content-evenly align-items-center">
-            <div class="resultInfo fs-4">There is <b>{{ $count}}</b> results for your filters</div>
+        <div class="resultInfo fs-4">There 
+            @if($count === 0) 
+                is no results 
+            @elseif($count === 1) 
+                is <b>{{ $count}}</b> result 
+                @if($grenadeFilter) 
+                    for your filters 
+                @endif 
+            @else 
+                are <b>{{ $count }}</b> results 
+                @if($grenadeFilter) 
+                    for your filtering
+                @endif 
+            @endif
+        </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     View:

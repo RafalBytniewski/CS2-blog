@@ -54,21 +54,16 @@ class MapController extends Controller
      */
     public function show(Request $request, Map $map)
     {
-        // Pobieranie obszarów i typów granatów
         $areas = Area::with(['callouts'])
                         ->where('map_id', $map->id)
                         ->get();
         $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
-    
-        // Inicjalizacja zapytania do pobrania granatów
         $query = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
                         ->where('map_id', $map->id)
                         ->where('visibility', 1);
     
-        // Pobranie filtrów z zapytania
         $grenadeFilter = $request->all();
     
-        // Dodawanie filtrów do zapytania, jeśli są ustawione
         if(isset($grenadeFilter['team'])) {
             $query->whereIn('team', $grenadeFilter['team']);
         }
@@ -88,19 +83,16 @@ class MapController extends Controller
             $query->whereIn('callout_to_id', $grenadeFilter['callout_to_id']);
         }
     
-        // Pobranie przefiltrowanych wyników
         $grenades = $query->get();
-    
-        // Liczba przefiltrowanych wyników
         $count = $grenades->count();
     
-        // Zwrócenie widoku z danymi
         return view('maps.show', [
             'areas' => $areas,
             'maps' => $map,
             'grenades' => $grenades,
             'types' => $types,
-            'count' => $count
+            'count' => $count,
+            'grenadeFilter' => $grenadeFilter
         ]);
     }
 
