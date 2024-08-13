@@ -42,8 +42,8 @@ class MapController extends Controller
 
         if ($request->hasFile('image_path')) {
             $path = $request->file('image_path')->store('images/maps');
-            $publicPath = str_replace('public/', '', $path);
-            $map->image_path = $publicPath;
+
+            $map->image_path = $path;
         }
         $map->save();
         return redirect()->route('maps.index');
@@ -92,7 +92,7 @@ class MapController extends Controller
             'grenades' => $grenades,
             'types' => $types,
             'count' => $count,
-            'grenadeFilter' => $grenadeFilter
+            '$grenadeFilter' => $grenadeFilter
         ]);
     }
 
