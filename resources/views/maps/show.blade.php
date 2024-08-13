@@ -157,15 +157,9 @@
             @if($count === 0) 
                 is no results 
             @elseif($count === 1) 
-                is <b>{{ $count}}</b> result 
-                @if($grenadeFilter) 
-                    for your filters 
-                @endif 
+                is <b>{{ $count}}</b> result for your searching 
             @else 
-                are <b>{{ $count }}</b> results 
-                @if($grenadeFilter) 
-                    for your filtering
-                @endif 
+                are <b>{{ $count }}</b> results for your searching
             @endif
         </div>
             <div class="dropdown">

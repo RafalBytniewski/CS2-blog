@@ -61,7 +61,7 @@ class MapController extends Controller
         $query = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
                         ->where('map_id', $map->id)
                         ->where('visibility', 1);
-    
+        $grenadeFilter = null;
         $grenadeFilter = $request->all();
     
         if(isset($grenadeFilter['team'])) {
