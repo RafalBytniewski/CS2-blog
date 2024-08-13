@@ -1,6 +1,6 @@
 @extends('layouts/app')
 @section('content')
-@vite(['resources/js/create_grenade.js','resources/js/sortable.js'])
+@vite(['resources/js/createGrenade.js','resources/js/sortable.js'])
     <div class="container">
         @if(session('success'))
         <div class="alert alert-success">
@@ -137,8 +137,7 @@
 
                     <div class="col-md-6">
                         <input id="describtion" name="describtion" type="text"
-                            class="form-control @error('') is-invalid @enderror" value="{{$grenade->describtion}}" required
-                            autocomplete="describtion" autofocus>
+                            class="form-control @error('') is-invalid @enderror" value="{{$grenade->describtion}}" autocomplete="describtion" autofocus>
                         @error('describtion')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
