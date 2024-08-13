@@ -150,8 +150,8 @@
                 <button type="subit" class="btn btn-primary" id="filterButton">FILTER</button>
             </div>
         </form>
-        <div class="container col-10 d-flex justify-content-evenly align-items-center">
-            <div class="resultInfo">There is {{ $count}} results for your filters</div>
+        <div class="card display-flex flex-row container col-10 d-flex justify-content-evenly align-items-center">
+            <div class="resultInfo fs-4">There is <b>{{ $count}}</b> results for your filters</div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     View:
