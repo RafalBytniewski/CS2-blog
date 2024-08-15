@@ -30,7 +30,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/{map}', [MapController::class, 'show'])->name('maps.show');
 
-Route::get('/users/show/{user}', [UserController::class, 'show'])->name('users.show');
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 
 
 Route::middleware(['auth', 'verified'])->group(function() {

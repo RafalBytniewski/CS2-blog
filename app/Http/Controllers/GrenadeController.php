@@ -59,7 +59,7 @@ class GrenadeController extends Controller
             
             $grenade->grenadeImages()->create(['path' => $path]);
         }
-        return redirect()->route('maps.index')->with('success', 'Pomyślnie dodano grenadę!');
+        return redirect()->route('grenade.show', $grenade->id)->with('success', 'Pomyślnie dodano granat!');
     }
 
     /**

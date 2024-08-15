@@ -22,6 +22,7 @@
 </head>
 
 <body>
+
     <div id="app">
         <nav class="navbar navbar-expand-md text-light navbar-dark bg-secondary shadow-sm">
             <div class="container">
@@ -86,7 +87,17 @@
                 </div>
             </div>
         </nav>
-
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
         <main class="py-4">
             @yield('content')
         </main>

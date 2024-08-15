@@ -34,18 +34,6 @@
         width: 100%;
     }
 </style>
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
-
 <div class="container">
     <div class="card-header d-flex flex-column">
         <div class=" d-flex justify-content-end">
@@ -166,7 +154,7 @@
             @endif
         </div>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     View:
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -197,7 +185,7 @@
                         <div class="carousel-inner">
                             @foreach($grenade->grenadeImages as $key => $image)
                                 <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                                    <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="max-width: 960px; height: 720px; quality: 90;" data-action="zoom">
+                                    <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="max-width: 960px; height: 504; quality: 90;" data-action="zoom">
                                     <div class="carousel-caption">
                                         <span class="carousel-slide-number fs-1 fw-bolder">{{$loop->iteration}}</span>
                                         <span class="fw-bold fs-1 fw-bolder">/</span>
