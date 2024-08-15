@@ -1,11 +1,11 @@
 @extends('layouts.app')
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 @section('content')
 @vite(['resources/js/mapPageFiltersShow.js'])
 @php
     $mapFileName = ucfirst($maps->name) . '.js';
+    $mapFilePath = resource_path('js/' . $mapFileName);
 @endphp
-
 @if(file_exists(resource_path('js/' . $mapFileName)))
     @vite('resources/js/' . $mapFileName)
 @endif
@@ -65,11 +65,14 @@
             @endauth
         </div>
         <span class="fw-bold my-4" style="text-align:center;font-size: 60px">{{$maps->name}}</span>
+        @if(file_exists($mapFilePath))
+        @vite('resources/js/' . $mapFileName)
         <div id="main-map">
             <div class="card" id="map-container">
                 <div id="map"></div>
             </div>
         </div>
+    @endif
     </div>
     <div class="card-body">
         <form action="{{ route('maps.show', $maps->id) }}" method="get">
