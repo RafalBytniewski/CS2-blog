@@ -168,7 +168,7 @@
             @foreach($grenades as $grenade)
             <div class="card my-2">
                 <div class="card my-2 ps-3 border border-0">
-                    <span class="text-md-center fs-4">
+                    <span class="text-md-center fs-4" onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';" style="cursor:pointer">
                         <b>{{ $grenade->type }}</b>
                         <b>from: </b>{{ $grenade->areaFrom->name}} 
                         @if(isset($grenade->calloutFrom->name))
@@ -237,7 +237,7 @@
                         </div>
                     @endcan
                     <div class="author-grenade-footer">
-                        <span class="text-end">Added by: <b style="color: #f00000">{{$grenade->user->name}}</b></span>
+                        <span class="text-end">Added by: <b><a style="color: #f00000; text-decoration: none" href="{{route('users.show', $grenade->user->id)}}">{{$grenade->user->name}}</a></b></span>
                     </div>
                 </div>        
             </div>

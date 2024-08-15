@@ -71,7 +71,7 @@
             </div>
         @endcan
         <div class="author-grenade-footer">
-            <span class="text-end">Added by: <b style="color: #f00000">{{$grenade->user->name}}</b></span>
+            <span class="text-end">Added by: <b><a style="color: #f00000; text-decoration: none" href="{{route('users.show', $grenade->user->id)}}">{{$grenade->user->name}}</a></b></span>
         </div>
     </div>        
 </div>
