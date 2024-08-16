@@ -53,6 +53,7 @@
             @endauth
         </div>
         <span class="fw-bold my-4" style="text-align:center;font-size: 60px">{{$maps->name}}</span>
+        
         @if(file_exists($mapFilePath))
         @vite('resources/js/' . $mapFileName)
         <div id="main-map">
@@ -60,7 +61,7 @@
                 <div id="map"></div>
             </div>
         </div>
-    @endif
+        @endif
     </div>
     <div class="card-body">
         <form action="{{ route('maps.show', $maps->id) }}" method="get">

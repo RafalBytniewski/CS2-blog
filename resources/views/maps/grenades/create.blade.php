@@ -2,11 +2,51 @@
 
 @section('content')
 @vite(['resources/js/createGrenade.js'])
+@vite(['resources/js/mapPageFiltersShow.js'])
+@php
+    $mapFileName = ucfirst($map->name) . '.js';
+    $mapFilePath = resource_path('js/' . $mapFileName);
+@endphp
+@if(file_exists(resource_path('js/' . $mapFileName)))
+    @vite('resources/js/' . $mapFileName)
+@endif
+<style>
+    .show-more {
+        display: block;
+        margin-top: 10px;
+    }
+    #main-map{
+        display:flex;
+        justify-content: center;
+    }
+    #map-container {
+        height: 750px;
+        width: 750px;
+        margin-bottom: 50px;
+        position: relative;
+    }
+    #map {
+        height: 100%;
+        width: 100%;
+        border-radius: 5px;
+    }
+    .leaflet-container {
+        height: 100%;
+        width: 100%;
+    }
+</style>
     <div class="container">
         <div class="card-header">
             <h1 style="text-align:center">{{__("cs2.map.grenade.form.create_title")}}</h1>
         </div>
-
+        @if(file_exists($mapFilePath))
+        @vite('resources/js/' . $mapFileName)
+        <div id="main-map">
+            <div class="card" id="map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+        @endif
         <div class="card-body">
             <form method="POST" action="{{ route('grenade.store', $map->id) }}" enctype="multipart/form-data">
                 @csrf
