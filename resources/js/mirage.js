@@ -9,7 +9,7 @@ var map = L.map('map', {
 }).setView([375, 375], 0);
 
 // Nakładka obrazu mapy CS:GO
-var imageUrl = 'mirage_plan.png', // Zamień na ścieżkę do obrazu mapy CS:GO
+var imageUrl = '/storage/mirage_plan.png', // Zamień na ścieżkę do obrazu mapy CS:GO
     imageBounds = [[0, 0], [750, 750]];
 
 L.imageOverlay(imageUrl, imageBounds).addTo(map);
