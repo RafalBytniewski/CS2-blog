@@ -3,7 +3,7 @@
 @section('content')
 @vite(['resources/js/mapPageFiltersShow.js'])
 @php
-    $mapFileName = ucfirst($maps->name) . '.js';
+    $mapFileName = $maps->name . '.js';
     $mapFilePath = resource_path('js/' . $mapFileName);
 @endphp
 @if(file_exists(resource_path('js/' . $mapFileName)))
