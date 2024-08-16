@@ -4,7 +4,7 @@
 @vite(['resources/js/createGrenade.js'])
 @vite(['resources/js/mapPageFiltersShow.js'])
 @php
-    $mapFileName = ucfirst($map->name) . '.js';
+    $mapFileName = lcfirst($map->name) . '.js';
     $mapFilePath = resource_path('js/' . $mapFileName);
 @endphp
 @if(file_exists(resource_path('js/' . $mapFileName)))
