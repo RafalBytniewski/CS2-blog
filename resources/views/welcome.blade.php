@@ -8,14 +8,17 @@
       height: 330px;
       width: auto;
       transition: transform 0.3s ease-in-out;
-
 }
-
+@media (max-width: 575.98px) {
+            .rounded {
+                width: 100%;
+                height: auto;
+            }
+        }
 .map-card {
       position: relative;
       overflow: hidden;
 }
-
 .map-name {
       font-family: "Jersey 10", sans-serif;
       font-weight: 600;
@@ -44,26 +47,22 @@
     }
 
 </style>
-<div class="container col-8 d-flex flex-column">
-  <div class="card-header d-flex justify-content-center">
-    <div class="welcome">
+<div class="m-lg-auto m-md-auto col-sm-12 col-md-8 col-lg-8 d-flex flex-column">
+  <div class=" m-0 p-0 d-flex justify-content-center">
+    <div class="welcome p-0 m-0">
       <h1>
           Welcome to CS2 Grenades
       </h1>
-      <p class="fs-3">
+      <p class="fs-sm-1 fs-md-2 fs-lg-6">
         It's site made for CounterStrike 2 players who want to improve tactical part of the game.
       </p>
-      <p class="fs-3">
+      <p class="fs-sm-1 fs-md-2 fs-lg-3">
         Check grenades added by our community and join us if you want to share or save for yourself.
       </p>
-      
-    </div>
-    <div class="px-5">
-      <img src="{{ asset('storage/images/test/hey.png') }}" style="height: 200px; width: auto"alt="">
     </div>
   </div>
-  <div class="card-body d-flex flex-column">
-    <div class="py-5 row text-center">
+  <div class="card-body col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center flex-column">
+    <div class="py-5 row d-flex justify-content-center text-center">
       <h1 class="my-3">Active map pool:</h1>
       @foreach($mapsActive as $map)
         <div class="col-sm-auto m-1 p-0 map-card">
