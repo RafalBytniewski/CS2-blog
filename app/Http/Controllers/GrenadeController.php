@@ -53,13 +53,15 @@ class GrenadeController extends Controller
         $grenadeData = $request->validated();
         $grenadeData['user_id'] = $user->id;    
         $grenade = Grenade::create($grenadeData);
-    
+        
+        if(isset($grenadeData['images']))
         foreach ($request->file('images') as $image) {
             $path = $image->store('images/grenades');
             
             $grenade->grenadeImages()->create(['path' => $path]);
         }
         return redirect()->route('grenade.show', $grenade->id)->with('success', 'Pomyślnie dodano granat!');
+        
     }
 
     /**

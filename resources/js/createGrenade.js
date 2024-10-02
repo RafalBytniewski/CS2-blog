@@ -38,5 +38,46 @@ function fetchCallouts(targetId, areaId) {
         .catch(error => console.error('Error:', error));
 }
 
+// ##########################
+// visibility of source type handle section
+// ##########################
 
+const imagesDiv = document.querySelector('#images_div');
+const twitchDiv = document.querySelector('#twitch_div');
+const youTubeDiv = document.querySelector('#youtube_div');
 
+const imagesRadio = document.querySelector('#images_radio');
+const twitchRadio = document.querySelector('#twitch_radio');
+const youTubeRadio = document.querySelector('#youtube_radio');
+
+const images = document.querySelector('#images');
+const youTubePath = document.querySelector('#youtube_path');
+const twitchPath = document.querySelector('#twitch_path');
+
+const radioButtons = document.querySelectorAll('input[name="source_type"]');
+
+radioButtons.forEach(radio => {
+    radio.addEventListener('change', function() {
+        if (imagesRadio.checked) {
+            imagesDiv.style.display = '';
+            images.setAttribute('required', true);
+        } else {
+            imagesDiv.style.display = 'none';
+            images.removeAttribute('required');
+        }
+        if (youTubeRadio.checked) {
+            youTubeDiv.style.display = '';
+            youTubePath.setAttribute('required', true);
+        } else {
+            youTubeDiv.style.display = 'none';
+            youTubePath.removeAttribute('required');
+        }
+        if (twitchRadio.checked) {
+            twitchDiv.style.display = '';
+            twitchPath.setAttribute('required', true);
+        } else {
+            twitchDiv.style.display = 'none';
+            twitchPath.removeAttribute('required');
+        }
+    });
+});

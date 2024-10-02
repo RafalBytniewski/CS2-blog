@@ -26,7 +26,9 @@ class Grenade extends Model
         'area_from_id',
         'area_to_id',
         'callout_from_id',
-        'callout_to_id'
+        'callout_to_id',
+        'youtube_path',
+        'twitch_path'
     ];
     
     public function grenadeImages(): HasMany

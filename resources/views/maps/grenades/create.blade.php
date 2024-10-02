@@ -61,7 +61,7 @@
                 <div class="row mb-3">
                     <label for="team" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.team') }}</label>
                     <div class="col-md-6">
-                        <select id="team" name="team" class="form-control @error('team') is-invalid @enderror" required>
+                        <select id="team" name="team" class="form-control @error('team') is-invalid @enderror" required autofocus>
                             <option value=""></option>
                             <option value="Terrorist">Terrorist</option>
                             <option value="Counter-Terrorist">Counter-Terrorist</option>
@@ -159,7 +159,7 @@
                 <div class="row mb-3">
                     <label for="describtion" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.describtion') }}</label>
                     <div class="col-md-6">
-                        <textarea placeholder="Max. 500 char"id="describtion" name="describtion" class="form-control @error('describtion') is-invalid @enderror" maxlength="500" autocomplete="describtion" autofocus></textarea>
+                        <textarea placeholder="Max. 500 char"id="describtion" name="describtion" class="form-control @error('describtion') is-invalid @enderror" maxlength="500"></textarea>
                         @error('describtion')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -167,11 +167,19 @@
                         @enderror
                     </div>
                 </div>
-
                 <div class="row mb-3">
+                    <label for="source" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.source') }}</label>
+                    <div class="col-md-6">
+                        <input type="radio" id="images_radio" name="source_type" value="images"> Images<br>
+                        <input type="radio" id="youtube_radio" name="source_type" value="youtube"> YouTube Video<br>
+                        <input type="radio" id="twitch_radio" name="source_type" value="twitch"> Twitch clip
+                    </div>
+                </div>
+                
+                <div class="row mb-3" style="display:none" id="images_div">
                     <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.images') }}</label>
                     <div class="col-md-6">
-                        <input id="images" name="images[]" type="file" multiple class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror" autofocus >
+                        <input id="images" name="images[]" type="file" multiple class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror">
                         @error('images')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -184,7 +192,29 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row mb-0">
+                <div class="row mb-3" style="display:none" id="youtube_div">
+                    <label for="youtube_path" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.youtube') }}</label>
+                    <div class="col-md-6">
+                    <input type="text" name="youtube_path" id="youtube_path" class="form-control @error('youtube_path') is-invalid @enderror">
+                        @error('youtube_path')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-3" style="display:none" id="twitch_div">
+                    <label for="twitch_path" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.twitch') }}</label>
+                    <div class="col-md-6">
+                    <input type="text" name="twitch_path" id="twitch_path" class="form-control @error('twitch_path') is-invalid @enderror">
+                        @error('twitch_path')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-0" >
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">
                             {{ __('cs2.map.grenade.form.submit') }}

@@ -21,7 +21,7 @@ class UpsertGrenadeRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [   
+        $rules = [   
                 'map_id' => 'required|numeric',
                 'team' => 'required|',
                 'type' => 'required|',
@@ -31,8 +31,20 @@ class UpsertGrenadeRequest extends FormRequest
                 'area_to_id' => 'required|numeric',
                 'callout_from_id' => 'nullable|numeric',
                 'describtion' => 'nullable|max:500',
-                'images' => 'required|array|min:1',
-                'images.*' => 'required|image|mimes:jpg,png|max:4096'
+                'source_type' => 'required|',
         ];
+
+        if($this->input('source_type') === 'images'){
+            $rules['images'] = 'required|array|min:1';
+            $rules['images.*'] = 'required|image|mimes:jpg,png|max:4096';
+        }
+        if($this->input('source_type') === 'youtube'){
+            $rules['youtube_path'] = 'required|url';
+        }
+        if($this->input('source_type') === 'twitch'){
+            $rules['twitch_path'] = 'required|';
+        }
+
+        return $rules;
     }
 }
