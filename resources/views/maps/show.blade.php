@@ -154,7 +154,7 @@
                 are <b>{{ $count }}</b> results for your searching
             @endif
         </div>
-            <div class="dropdown">
+        <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     View:
                 </button>
@@ -181,29 +181,31 @@
                         @endif
                     </span>
                 </div>
-                @if($grenade->grenadeImages->count() > 0)
-                    <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide position-relative" data-bs-interval="false">
-                        <div class="carousel-inner">
-                            @foreach($grenade->grenadeImages as $key => $image)
-                                <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                                    <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="max-width: 960px; height: 504; quality: 90;" data-action="zoom">
-                                    <div class="carousel-caption">
-                                        <span class="carousel-slide-number fs-1 fw-bolder">{{$loop->iteration}}</span>
-                                        <span class="fw-bold fs-1 fw-bolder">/</span>
-                                        <span class="carousel-total-slides fs-1 fw-bolder">{{ count($grenade->grenadeImages) }}</span>
+                @if($grenade->source_type === 'youtube')
+                    @if($grenade->grenadeImages->count() > 0)
+                        <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide position-relative" data-bs-interval="false">
+                            <div class="carousel-inner">
+                                @foreach($grenade->grenadeImages as $key => $image)
+                                    <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
+                                        <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="max-width: 960px; height: 504; quality: 90;" data-action="zoom">
+                                        <div class="carousel-caption">
+                                            <span class="carousel-slide-number fs-1 fw-bolder">{{$loop->iteration}}</span>
+                                            <span class="fw-bold fs-1 fw-bolder">/</span>
+                                            <span class="carousel-total-slides fs-1 fw-bolder">{{ count($grenade->grenadeImages) }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    @endif
                 @endif
                 <div class="card my-2 border border-0 d-flex flex-row justify-content-evenly">
                     <div class="like-grenade-footer">

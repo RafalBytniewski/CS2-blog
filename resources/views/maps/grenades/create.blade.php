@@ -169,10 +169,16 @@
                 </div>
                 <div class="row mb-3">
                     <label for="source" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.source') }}</label>
-                    <div class="col-md-6">
-                        <input type="radio" id="images_radio" name="source_type" value="images"> Images<br>
+                    <div class="col-md-6 ">
+                        <input type="hidden" name="source_type" class="form-control @error('source_type') is-invalid @enderror">
+                        <input type="radio" id="images_radio" name="source_type" value="images" > Images<br>
                         <input type="radio" id="youtube_radio" name="source_type" value="youtube"> YouTube Video<br>
                         <input type="radio" id="twitch_radio" name="source_type" value="twitch"> Twitch clip
+                        @error('source_type')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                 </div>
                 
