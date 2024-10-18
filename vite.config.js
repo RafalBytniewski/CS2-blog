@@ -10,7 +10,8 @@ export default defineConfig({
                 'resources/js/mapPageFiltersShow.js',
                 'resources/js/mapPageFiltersFetch.js',
                 'resources/js/createGrenade.js',
-                'resources/js/Mirage.js'
+                'resources/js/Mirage.js',
+                'resources/css/welcome.css'
             ],
             refresh: true,
         }),

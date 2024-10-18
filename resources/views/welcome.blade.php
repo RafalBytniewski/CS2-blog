@@ -2,67 +2,25 @@
 @section('content')
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="resources/css/welcome.css">
 <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
 <style>
-.rounded {
-      height: 330px;
-      width: auto;
-      transition: transform 0.3s ease-in-out;
-}
-@media (max-width: 575.98px) {
-            .rounded {
-                width: 100%;
-                height: auto;
-            }
-        }
-.map-card {
-      position: relative;
-      overflow: hidden;
-}
-.map-name {
-      font-family: "Jersey 10", sans-serif;
-      font-weight: 600;
-      font-style: normal;
-      font-size: 2.5rem;
-      color: rgb(0, 0, 0);
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      box-sizing: border-box;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-}
-
-    .map-card:hover {
-          transform: scale(1.02);
-          box-shadow: rgba(255, 254, 254, 0.05) 0px 6px 24px 0px;
-      }
-      .grenade-card:hover {
-          transform: scale(1.02);
-      }
-    .map-card:hover .map-name {
-            opacity: 1;
-    }
 
 </style>
 <div class="m-lg-auto m-md-auto col-sm-12 col-md-8 col-lg-8 d-flex flex-column">
-  <div class=" m-0 p-0 d-flex justify-content-center">
-    <div class="welcome p-0 m-0">
-      <h1>
+  <div class="m-2 custom-text">
+      <h1 class="d-flex justify-content-center ">
           Welcome to CS2 Grenades
       </h1>
-      <p class="fs-sm-1 fs-md-2 fs-lg-6">
-        It's site made for CounterStrike 2 players who want to improve tactical part of the game.
+      <p class="d-flex justify-content-center ">
+        It's site made for Counter-Strike 2 players who want to improve tactical part of the game.
       </p>
-      <p class="fs-sm-1 fs-md-2 fs-lg-3">
+      <p class="d-flex justify-content-center ">
         Check grenades added by our community and join us if you want to share or save for yourself.
       </p>
-    </div>
   </div>
   <div class="card-body col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center flex-column">
-    <div class="py-5 row d-flex justify-content-center text-center">
+    <div class="m-3 row d-flex justify-content-center text-center">
       <h1 class="my-3">Active map pool:</h1>
       @foreach($mapsActive as $map)
         <div class="col-sm-auto m-1 p-0 map-card">
@@ -92,7 +50,6 @@
     </div>
     <h1>Recently added:</h1>
     <div class="row g-2 d-flex justify-content-center">
-      
       @foreach($grenades as $grenade)
           <div class="grenade-card col-md-3">
               <span class="text-md-center fs-6" onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';" style="cursor:pointer">
