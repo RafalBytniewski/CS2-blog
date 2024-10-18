@@ -92,6 +92,7 @@
     </div>
     <h1>Recently added:</h1>
     <div class="row g-2 d-flex justify-content-center">
+      
       @foreach($grenades as $grenade)
           <div class="grenade-card col-md-3">
               <span class="text-md-center fs-6" onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';" style="cursor:pointer">
@@ -103,25 +104,31 @@
                 <b>{{ $grenade->type }}</b>  
               </span> 
               <div class="m-1">
+              @if($grenade->source_type === 'youtube_path')
+              <div id="yt" class="d-flex justify-content-center align-items-center">
+                  <iframe  class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="border-radius:5px;max-width: 100%; max-height: 100%" width="1920" height="1080" src="https://www.youtube.com/embed/{{ $grenade->youtube_path }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              @elseif($grenade->source_type === 'images')
                 @if($grenade->grenadeImages->count() > 0)
                     <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide position-relative" data-bs-interval="false">
-                        <div class="carousel-inner">
-                            @foreach($grenade->grenadeImages as $key => $image)
-                                <div class="carousel-item {{$loop->first ? 'active' : ''}}">
-                                    <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="border-radius:5px;max-width: 100%; max-height: 100%; quality: 90;">
-                                </div>
-                            @endforeach
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                          <div class="carousel-inner">
+                              @foreach($grenade->grenadeImages as $key => $image)
+                                  <div class="carousel-item {{$loop->first ? 'active' : ''}}">
+                                      <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="border-radius:5px;max-width: 100%; max-height: 100%; quality: 90;">
+                                  </div>
+                              @endforeach
+                          </div>
+                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{$grenade->id}}" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                          </button>
+                      </div>
                 @endif
+              @endif
               </div>                  
               <div class="my-1 d-flex flex-row justify-content-between px-3">
                 <div class="like-grenade-footer">

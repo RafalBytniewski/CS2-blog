@@ -170,15 +170,16 @@
                 <div class="row mb-3">
                     <label for="source" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.source') }}</label>
                     <div class="col-md-6 ">
-                        <input type="hidden" name="source_type" class="form-control @error('source_type') is-invalid @enderror">
+                        
                         <input type="radio" id="images_radio" name="source_type" value="images" > Images<br>
-                        <input type="radio" id="youtube_radio" name="source_type" value="youtube"> YouTube Video<br>
-                        <input type="radio" id="twitch_radio" name="source_type" value="twitch"> Twitch clip
+                        <input type="radio" id="youtube_radio" name="source_type" value="youtube_path"> YouTube Video<br>
+ 
+    {{--                     <input type="hidden" name="source_type" class="form-control @error('source_type') is-invalid @enderror">
                         @error('source_type')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
+                        @enderror --}}
                     </div>
                 </div>
                 
@@ -203,17 +204,6 @@
                     <div class="col-md-6">
                     <input type="text" name="youtube_path" id="youtube_path" class="form-control @error('youtube_path') is-invalid @enderror">
                         @error('youtube_path')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row mb-3" style="display:none" id="twitch_div">
-                    <label for="twitch_path" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.twitch') }}</label>
-                    <div class="col-md-6">
-                    <input type="text" name="twitch_path" id="twitch_path" class="form-control @error('twitch_path') is-invalid @enderror">
-                        @error('twitch_path')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

@@ -181,7 +181,11 @@
                         @endif
                     </span>
                 </div>
-                @if($grenade->source_type === 'youtube')
+                @if($grenade->source_type === 'youtube_path')
+                <div id="yt" class="d-flex justify-content-center align-items-center">
+                    <iframe  width="960" height="540" src="https://www.youtube.com/embed/{{ $grenade->youtube_path }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                @elseif($grenade->source_type === 'images')
                     @if($grenade->grenadeImages->count() > 0)
                         <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide position-relative" data-bs-interval="false">
                             <div class="carousel-inner">

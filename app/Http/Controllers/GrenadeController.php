@@ -131,7 +131,7 @@ class GrenadeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGrenadeRequest $request, Grenade $grenade)
+    public function update(UpsertGrenadeRequest $request, Grenade $grenade)
     {
         $grenade->update($request->validated());
         return redirect()->route('grenade.show', $grenade)->with('success', 'Dane zostały zaktualizowane.');

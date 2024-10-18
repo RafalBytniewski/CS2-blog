@@ -27,6 +27,7 @@ class Grenade extends Model
         'area_to_id',
         'callout_from_id',
         'callout_to_id',
+        'source_type',
         'youtube_path',
         'twitch_path'
     ];

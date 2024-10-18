@@ -146,8 +146,28 @@
                     </div>
                 </div>
                 <div class="row mb-3">
+                    <label for="source" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.source') }}</label>
+                    <div class="col-md-6">
+                        <input type="radio" id="images_radio" name="source_type" value="images" disabled
+                        @if($grenade->source_type === 'images') checked  @endif> Images<br>
+                        
+                        <input type="radio" id="youtube_radio" name="source_type" value="youtube_path" 
+                        @if($grenade->source_type === 'youtube_path') checked disabled @endif> YouTube Video<br>
+                    </div>
+                </div>
+                <div class="row mb-3" style="display:none" id="youtube_div">
+                    <label for="youtube_path" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.youtube') }}</label>
+                    <div class="col-md-6">
+                    <input type="text" name="youtube_path" id="youtube_path" value="{{$grenade->youtube_path}}" class="form-control @error('youtube_path') is-invalid @enderror">
+                        @error('youtube_path')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-3" style="display:none" id="images_div">
                     <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.images') }}<p>(drag and drop)</p></label>
-                    
                     <div class="row col-md-8" id="images-list">
                         @foreach($images as $index => $image)
                             <div class="col-md-3 mb-3">

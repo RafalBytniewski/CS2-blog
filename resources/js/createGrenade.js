@@ -39,21 +39,30 @@ function fetchCallouts(targetId, areaId) {
 }
 
 // ##########################
-// visibility of source type handle section
+// visibility and validation for source type handle section
 // ##########################
 
 const imagesDiv = document.querySelector('#images_div');
-const twitchDiv = document.querySelector('#twitch_div');
 const youTubeDiv = document.querySelector('#youtube_div');
 
 const imagesRadio = document.querySelector('#images_radio');
-const twitchRadio = document.querySelector('#twitch_radio');
 const youTubeRadio = document.querySelector('#youtube_radio');
 
 const images = document.querySelector('#images');
 const youTubePath = document.querySelector('#youtube_path');
-const twitchPath = document.querySelector('#twitch_path');
 
+// Na starcie sprawdzamy, która opcja jest zaznaczona i pokazujemy odpowiednią sekcję
+if (imagesRadio.checked) {
+    imagesDiv.style.display = '';
+    if (images) {
+        images.setAttribute('required', true);
+    }
+} else if (youTubeRadio.checked) {
+    youTubeDiv.style.display = '';
+    youTubePath.setAttribute('required', true);
+}
+
+// Dodajemy event listener dla inputów, ale w edycji te opcje są zablokowane (disabled), więc ten fragment może nie być potrzebny
 const radioButtons = document.querySelectorAll('input[name="source_type"]');
 
 radioButtons.forEach(radio => {
@@ -71,13 +80,6 @@ radioButtons.forEach(radio => {
         } else {
             youTubeDiv.style.display = 'none';
             youTubePath.removeAttribute('required');
-        }
-        if (twitchRadio.checked) {
-            twitchDiv.style.display = '';
-            twitchPath.setAttribute('required', true);
-        } else {
-            twitchDiv.style.display = 'none';
-            twitchPath.removeAttribute('required');
         }
     });
 });
