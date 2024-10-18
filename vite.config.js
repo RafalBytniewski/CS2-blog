@@ -11,7 +11,8 @@ export default defineConfig({
                 'resources/js/mapPageFiltersFetch.js',
                 'resources/js/createGrenade.js',
                 'resources/js/Mirage.js',
-                'resources/css/welcome.css'
+                'resources/css/welcome.css',
+                'reousrces/js/sortable.js'
             ],
             refresh: true,
         }),
