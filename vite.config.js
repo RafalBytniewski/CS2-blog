@@ -9,7 +9,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/mapPageFiltersShow.js',
                 'resources/js/createGrenade.js',
-                'resources/js/Mirage.js',
+                'resources/js/mirage.js',
                 'resources/css/welcome.css',
                 'resources/js/sortable.js'
             ],
