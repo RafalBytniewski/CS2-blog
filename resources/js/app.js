@@ -40,4 +40,3 @@ document.addEventListener('DOMContentLoaded', function () {
         .openPopup();
 });
 
-import '/resources/css/welcome.css';
