@@ -4,6 +4,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
 <style>
+.grenade{
+  background-color: black;
+  height: 153px;
+  width: 272px;
+  border-radius: 5px;
+}
 .rounded {
     height: 330px;
     width: auto;
@@ -120,16 +126,16 @@
               </span> 
               <div class="m-1">
               @if($grenade->source_type === 'youtube_path')
-              <div id="yt" class="d-flex justify-content-center align-items-center">
-                  <iframe  class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="border-radius:5px;max-width: 100%; max-height: 100%" width="1920" height="1080" src="https://www.youtube.com/embed/{{ $grenade->youtube_path }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="grenade d-flex justify-content-center align-items-center">
+                  <iframe  class="mx-auto d-block img-fluid" style="border-radius:5px;width: auto; max-height: 153px" alt=""  width="" height="" src="https://www.youtube.com/embed/{{ $grenade->youtube_path }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               </div>
               @elseif($grenade->source_type === 'images')
                 @if($grenade->grenadeImages->count() > 0)
                     <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide position-relative" data-bs-interval="false">
                           <div class="carousel-inner">
                               @foreach($grenade->grenadeImages as $key => $image)
-                                  <div class="carousel-item {{$loop->first ? 'active' : ''}}">
-                                      <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="{{ $grenade->describtion }}" style="border-radius:5px;max-width: 100%; max-height: 100%; quality: 90;">
+                                  <div class="grenade carousel-item {{$loop->first ? 'active' : ''}}">
+                                      <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid" alt="" style="border-radius:5px;width: auto; max-height: 153px; quality: 90;">
                                   </div>
                               @endforeach
                           </div>
@@ -164,4 +170,5 @@
 
     </div>
 </div>
+
 @endsection
