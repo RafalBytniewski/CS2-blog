@@ -23,6 +23,8 @@ use App\Http\Controllers\GrenadeVoteController;
 
 
 
+Route::post('/grenade/vote', [GrenadeVoteController::class, 'vote']);
+
 Auth::routes(['verify' => true]);
 
 Route::get('/', [WelcomeController::class, 'index']);
@@ -36,10 +38,11 @@ Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show')
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/{map}/grenade/create', [GrenadeController::class, 'create'])->name('grenade.create');
     Route::post('/{map}/grenade/store', [GrenadeController::class, 'store'])->name('grenade.store');
-    Route::post('vote/{grenadeId}', [GrenadeVoteController::class, 'vote'])->name('vote');
-    Route::get('/grenade/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit');
+
+    /* Route::get('/grenade/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit'); */
     Route::get('/grenades/list', [GrenadeController::class, 'index'])->name('grenades.index');
     Route::put('/grenades/{grenade}', [GrenadeController::class, 'update'])->name('grenade.update');
+
 
 
     Route::middleware(['can:isAdmin'])->group(function() {

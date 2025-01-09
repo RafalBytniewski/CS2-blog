@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 @vite(['resources/js/mapPageFiltersShow.js'])
 @php
     $mapFileName = strtolower($maps->name) . '.js';
@@ -9,6 +10,8 @@
 @if(file_exists(resource_path('js/' . $mapFileName)))
     @vite('resources/js/' . $mapFileName)
 @endif
+
+
 <style>
     .show-more {
         display: block;
@@ -212,27 +215,20 @@
                     @endif
                 @endif
                 <div class="card my-2 border border-0 d-flex flex-row justify-content-evenly">
+        
                     <div class="like-grenade-footer">
-                        <form action="{{ route('vote', ['grenadeId' => $grenade->id]) }}" method="post">
-                            @csrf
-                        
-                            <button class="btn btn-link" type="submit" name="vote_type" value="-1">
-                                <i class="fa-solid fa-minus fa-xl" style="color: #f00000"></i>
-                            </button>
-                            <span class="fs-5">
-                                @php
-                                    $voteSum = $grenade->votes()->sum('vote_type');
-                                    echo $voteSum;
-                                @endphp
-                            </span>
-                            <button class="btn btn-link" type="submit" name="vote_type" value="1">
-                                <i class="fa-solid fa-plus fa-xl" style="color: #00f068"></i>
-                            </button>
-                        </form>
+                        <button class="btn btn-link vote-btn" data-id="1" data-type="-1">
+                            <i class="fa-solid fa-minus fa-xl" style="color: #f00000"></i>
+                        </button>
+                        <span class="fs-5" id="vote_result_1">0</span>
+                        <button class="btn btn-link vote-btn" data-id="1" data-type="1">
+                            <i class="fa-solid fa-plus fa-xl" style="color: #00f068"></i>
+                        </button>
                     </div>
+                    
                     <div class="favorite-grenade-footer">
                         <a href=""><i class="fa-regular fa-star fa-lg"></i></a>
-                        <span class="fs-5">0</span>
+                        <span class="fs-5" id="vote_result">0</span>
                     </div>
                     @can('isAdmin')
                         <div class="visibility">
@@ -252,4 +248,5 @@
         </div>
     </div>
 </div> 
+
 @endsection
