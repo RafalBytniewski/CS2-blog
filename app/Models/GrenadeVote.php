@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class GrenadeVote extends Model
 {
@@ -20,7 +21,13 @@ protected $fillable = [
     'grenade_id',
     'vote_type'
 ];
-public function users(): bBlongsTo
+public static function calculateVotes($grenadeId)
+{
+    return DB::table('grenade_votes')
+        ->where('grenade_id', $grenadeId)
+        ->sum('vote_type');
+}
+public function users(): BelongsTo
 {
     return $this->belongsTo(User::class);
 }

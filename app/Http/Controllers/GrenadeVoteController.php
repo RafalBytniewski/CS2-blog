@@ -13,28 +13,74 @@ class GrenadeVoteController extends Controller
    
     public function vote(Request $request)
     {
-        \Log::info('Request received:', $request->all()); // Logujemy dane żądania
+        // \Log::info('Request received:', $request->all()); // Logujemy dane żądania
 
-        // Proste sprawdzenie, czy dane przychodzą poprawnie
-        if (!$request->has(['grenade_id', 'vote_type'])) {
+        // sprawdzania requesta w konsoli 
+    /*     if (!$request->has(['grenade_id', 'vote_type'])) {
             return response()->json([
                 'success' => false,
                 'message' => 'Missing grenade_id or vote_type.',
             ], 400); // 400 Bad Request
+        } */
+        if (!auth()->check()) {
+            return response()->json(['success' => false, 'message' => 'User must be logged in to vote.'], 403);
         }
+        $user = Auth()->user();
 
-        // Debuguj odpowiedź krok po kroku
+        $userId = $user->id;
         $grenadeId = $request->input('grenade_id');
         $voteType = $request->input('vote_type');
 
-        // Przykład logiki głosowania
-        \Log::info('Vote attempt:', ['grenade_id' => $grenadeId, 'vote_type' => $voteType]);
+                // Sprawdzenie, czy użytkownik już głosował
+                $existingVote = DB::table('grenade_votes')
+                ->where('user_id', $userId)
+                ->where('grenade_id', $grenadeId)
+                ->first();
+    
+            if ($existingVote) {
+                // Jeśli głos jest taki sam, nie rób nic
+                if ((int)$existingVote->vote_type === (int)$voteType) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'You have already voted the same way.',
+                    ]);
+                }
+    
+                // Jeśli głos jest inny, zaktualizuj go
+                DB::table('grenade_votes')
+                    ->where('id', $existingVote->id)
+                    ->update(['vote_type' => $voteType]);
+            } else {
+                // Jeśli użytkownik jeszcze nie głosował, dodaj głos
+                DB::table('grenade_votes')->insert([
+                    'user_id' => $userId,
+                    'grenade_id' => $grenadeId,
+                    'vote_type' => $voteType,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+    
+            // Oblicz nowy wynik głosowania
+            $likes = DB::table('grenade_votes')
+                ->where('grenade_id', $grenadeId)
+                ->where('vote_type', 1)
+                ->count();
+    
+            $dislikes = DB::table('grenade_votes')
+                ->where('grenade_id', $grenadeId)
+                ->where('vote_type', -1)
+                ->count();
 
+            $result = DB::table('grenade_votes')
+                ->where('grenade_id', $grenadeId)
+                ->sum('vote_type');
+    
         // Na razie zwracamy statyczną odpowiedź
         return response()->json([
             'success' => true,
-            'grenade_id' => $grenadeId,
-            'vote_type' => $voteType,
+            'message' => 'Vote recorded successfully.',
+            'result' => $result // Dodaj wynik do odpowiedzi
         ]);
     }
 }

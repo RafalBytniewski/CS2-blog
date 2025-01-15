@@ -79,7 +79,8 @@ class GrenadeController extends Controller
         $areas = Area::where('map_id', $map->id)->get();
         $callouts = Callout::all();
         $images = $grenade->grenadeImages;
-
+        $grenade->vote_result = GrenadeVote::calculateVotes($grenade->id);
+        
         return view('maps.grenades.show', [
             'grenade' => $grenade,
             'areaFrom' => $areaFrom,

@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Map;
+use App\Models\User;
 use App\Models\Grenade;
+use App\Models\GrenadeVote;
 use App\Models\Callout;
 use App\Models\Area;
-use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpsertMapRequest;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class MapController extends Controller
 {
@@ -84,15 +85,17 @@ class MapController extends Controller
         }
     
         $grenades = $query->get();
+        foreach ($grenades as $grenade) {
+            $grenade->vote_result = GrenadeVote::calculateVotes($grenade->id); // Dodanie wyniku głosów jako właściwość
+        }
         $count = $grenades->count();
-    
+
         return view('maps.show', [
             'areas' => $areas,
             'maps' => $map,
             'grenades' => $grenades,
             'types' => $types,
-            'count' => $count,
-            '$grenadeFilter' => $grenadeFilter
+            'count' => $count
         ]);
     }
 

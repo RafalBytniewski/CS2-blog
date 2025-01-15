@@ -1,8 +1,7 @@
 @extends('layouts.app')
-
-@section('content')
-
 @vite(['resources/js/mapPageFiltersShow.js'])
+@vite(['resources/js/grenadeVote.js'])
+@section('content')
 @php
     $mapFileName = strtolower($maps->name) . '.js';
     $mapFilePath = resource_path('js/' . $mapFileName);
@@ -215,21 +214,22 @@
                     @endif
                 @endif
                 <div class="card my-2 border border-0 d-flex flex-row justify-content-evenly">
-        
+                    {{-- VOTE --}}
                     <div class="like-grenade-footer">
-                        <button class="btn btn-link vote-btn" data-id="1" data-type="-1">
+                        <button class="btn btn-link vote-btn" data-id="{{$grenade->id}}" data-type="-1">
                             <i class="fa-solid fa-minus fa-xl" style="color: #f00000"></i>
                         </button>
-                        <span class="fs-5" id="vote_result_1">0</span>
-                        <button class="btn btn-link vote-btn" data-id="1" data-type="1">
+                        <span class="fs-5" id="vote_result_{{$grenade->id}}">{{ $grenade->vote_result }}</span>
+                        <button class="btn btn-link vote-btn" data-id="{{$grenade->id}}" data-type="1">
                             <i class="fa-solid fa-plus fa-xl" style="color: #00f068"></i>
                         </button>
-                    </div>
-                    
+                    </div>         
+                    {{-- FAVORITE --}}
                     <div class="favorite-grenade-footer">
                         <a href=""><i class="fa-regular fa-star fa-lg"></i></a>
-                        <span class="fs-5" id="vote_result">0</span>
+                        <span class="fs-5" id="vote_result"></span>
                     </div>
+                    {{-- VISIBILITY --}}
                     @can('isAdmin')
                         <div class="visibility">
                             @if($grenade->visibility === 1)

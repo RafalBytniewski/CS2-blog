@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@vite(['resources/js/grenadeVote.js'])
 @section('content')
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -152,15 +153,31 @@
               @endif
               </div>                  
               <div class="my-1 d-flex flex-row justify-content-between px-3">
-                <div class="like-grenade-footer">
-                    <a href=""><i class="fa-solid fa-minus fa-sm" style="color: #f00000"></i></a>
-                    <span class="fs-5">0</span>
-                    <a href=""><i class="fa-solid fa-plus fa-sm" style="color: #00f068"></i></a>
-                </div>
-                <div class="favorite-grenade-footer">
-                    <a href="#"><i class="fa-regular fa-star fa-sm"></i></a>
-                    <span class="fs-5">0</span>
-                </div>
+                  {{-- VOTE --}}
+                  <div class="like-grenade-footer">
+                      <button class="btn btn-link vote-btn" data-id="{{$grenade->id}}" data-type="-1">
+                          <i class="fa-solid fa-minus fa-sm" style="color: #f00000"></i>
+                      </button>
+                      <span class="fs-6" id="vote_result_{{$grenade->id}}">{{ $grenade->vote_result }}</span>
+                      <button class="btn btn-link vote-btn" data-id="{{$grenade->id}}" data-type="1">
+                          <i class="fa-solid fa-plus fa-sm" style="color: #00f068"></i>
+                      </button>
+                  </div>         
+                  {{-- FAVORITE --}}
+                  <div class="favorite-grenade-footer">
+                      <i style="padding-top:10px" class="fs-6 fa-regular fa-star fa-lg"></i>
+                      {{-- <span class="fs-5" id=""></span> --}}
+                  </div>
+                  {{-- VISIBILITY --}}
+                  @can('isAdmin')
+                      <div class="visibility">
+                          @if($grenade->visibility === 1)
+                              public
+                          @else
+                              private
+                          @endif
+                      </div>
+                  @endcan
                 <div class="author-grenade-footer">
                     <span class="text-end">Added by: <b><a style="color: #f00000; text-decoration: none" href="{{route('users.show', $grenade->user->id)}}">{{$grenade->user->name}}</a></b></span>
                 </div>
