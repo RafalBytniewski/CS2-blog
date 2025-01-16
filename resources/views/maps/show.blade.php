@@ -213,7 +213,7 @@
                         </div>
                     @endif
                 @endif
-                <div class="card my-2 border border-0 d-flex flex-row justify-content-evenly">
+                <div style="align-items: center" class="card my-2 border border-0 d-flex flex-row justify-content-evenly">
                     {{-- VOTE --}}
                     <div class="like-grenade-footer">
                         <button class="btn btn-link vote-btn" data-id="{{$grenade->id}}" data-type="-1">

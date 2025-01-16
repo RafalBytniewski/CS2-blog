@@ -152,7 +152,7 @@
                 @endif
               @endif
               </div>                  
-              <div class="my-1 d-flex flex-row justify-content-between px-3">
+              <div style="align-items: center" class="my-1 d-flex flex-row justify-content-between px-3">
                   {{-- VOTE --}}
                   <div class="like-grenade-footer">
                       <button class="btn btn-link vote-btn" data-id="{{$grenade->id}}" data-type="-1">
@@ -165,19 +165,9 @@
                   </div>         
                   {{-- FAVORITE --}}
                   <div class="favorite-grenade-footer">
-                      <i style="padding-top:10px" class="fs-6 fa-regular fa-star fa-lg"></i>
+                      <i class="fs-6 fa-regular fa-star fa-lg"></i>
                       {{-- <span class="fs-5" id=""></span> --}}
                   </div>
-                  {{-- VISIBILITY --}}
-                  @can('isAdmin')
-                      <div class="visibility">
-                          @if($grenade->visibility === 1)
-                              public
-                          @else
-                              private
-                          @endif
-                      </div>
-                  @endcan
                 <div class="author-grenade-footer">
                     <span class="text-end">Added by: <b><a style="color: #f00000; text-decoration: none" href="{{route('users.show', $grenade->user->id)}}">{{$grenade->user->name}}</a></b></span>
                 </div>
