@@ -23,27 +23,23 @@ use App\Http\Controllers\GrenadeVoteController;
 
 
 
-Route::post('/grenade/vote', [GrenadeVoteController::class, 'vote']);
+
 
 Auth::routes(['verify' => true]);
 
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-
 Route::get('/{map}', [MapController::class, 'show'])->name('maps.show');
-
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/{map}/grenade/create', [GrenadeController::class, 'create'])->name('grenade.create');
     Route::post('/{map}/grenade/store', [GrenadeController::class, 'store'])->name('grenade.store');
-
-    /* Route::get('/grenade/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit'); */
+    Route::get('/grenade/{grenade}', [GrenadeController::class, 'edit'])->name('grenade.edit');
     Route::get('/grenades/list', [GrenadeController::class, 'index'])->name('grenades.index');
     Route::put('/grenades/{grenade}', [GrenadeController::class, 'update'])->name('grenade.update');
-
-
+    Route::post('/grenade/vote', [GrenadeVoteController::class, 'vote']);
 
     Route::middleware(['can:isAdmin'])->group(function() {
         Route::get('/users/pwd/{user}', [UserController::class, 'changePassword'])->name('users.changePassword');
@@ -67,7 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 });
 Route::get('/grenades/{grenade}', [GrenadeController::class, 'show'])->name('grenade.show');
 
-/* AJAX */
+/* AJAX callouts*/
 Route::get('/fetch-callouts/{areaId}', [GrenadeController::class, 'fetchCallouts']);
 Route::get('/fetch_callouts/{area}', [MapController::class, 'fetchCallouts']);
 

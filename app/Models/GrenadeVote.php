@@ -34,6 +34,6 @@ public function users(): BelongsTo
 
 public function grenades(): BelongsTo
 {
-    return $this->belongsTo(User::class);
+    return $this->belongsTo(Grenade::class);
 }
 }
