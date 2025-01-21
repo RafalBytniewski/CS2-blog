@@ -1,6 +1,6 @@
 document.querySelectorAll('.vote-btn').forEach(button => {
     button.addEventListener('click', function () {
-        const grenadeId = this.getAttribute('data-id');
+        const grenadeId = this.getAttribute('data-vote-id');
         const voteType = this.getAttribute('data-type');
         const voteResultElement = document.querySelector(`#vote_result_${grenadeId}`); // Zaktualizuj dla konkretnego granatu
 

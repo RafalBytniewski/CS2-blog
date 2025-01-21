@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GrenadeController;
 use App\Http\Controllers\CalloutController;
 use App\Http\Controllers\GrenadeVoteController;
+use App\Http\Controllers\GrenadeFavoriteController;
+
 
 
 /*
@@ -40,6 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/grenades/list', [GrenadeController::class, 'index'])->name('grenades.index');
     Route::put('/grenades/{grenade}', [GrenadeController::class, 'update'])->name('grenade.update');
     Route::post('/grenade/vote', [GrenadeVoteController::class, 'vote']);
+    Route::post('/grenade/favorite', [GrenadeFavoriteController::class, 'create']);
+
 
     Route::middleware(['can:isAdmin'])->group(function() {
         Route::get('/users/pwd/{user}', [UserController::class, 'changePassword'])->name('users.changePassword');
