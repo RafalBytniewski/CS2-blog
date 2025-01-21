@@ -68,4 +68,8 @@ class Grenade extends Model
     {
         return $this->hasMany(GrenadeVote::class);
     }
+    public function favorites(): HasMany
+    {
+        return $this->hasMany(GrenadeFavorite::class);
+    }
 }

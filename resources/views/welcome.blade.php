@@ -191,7 +191,7 @@
                             {{-- FAVORITE --}}
                             <div class="favorite-grenade-footer">
                                 <button class="btn btn-link favorite-btn" data-favorite-id="{{ $grenade->id }}">
-                                    <i class="fs-6 fa-regular fa-star fa-lg"></i>
+                                    <i style="color:gold" class="fs-6 @if($grenade->favorite === 0) fa-regular @else fa-solid @endif fa-star fa-lg"></i>
                                 </button>
                                 {{-- <span class="fs-5" id=""></span> --}}
                             </div>

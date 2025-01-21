@@ -41,12 +41,18 @@ class GrenadeFavoriteController extends Controller
                     DB::table('grenade_favorites')
                         ->where('id', $existingFavorite->id)
                         ->update(['favorite' => 0]);
-                    return response()->json(['success' => true, 'message' => 'Favorite unset successfully!']);
+                    return response()->json([
+                        'success' => true, 'message' => 'Favorite unset successfully!',
+                        'favorite' => 0
+                ]);
                 } else {
                     DB::table('grenade_favorites')
                         ->where('id', $existingFavorite->id)
                         ->update(['favorite' => 1]);
-                    return response()->json(['success' => true, 'message' => 'Favorite set successfully!']);
+                    return response()->json([
+                        'success' => true, 'message' => 'Favorite set successfully!',
+                        'favorite' => 1
+                    ]);
                 }
             } else {
                 DB::table('grenade_favorites')->insert([
@@ -56,8 +62,16 @@ class GrenadeFavoriteController extends Controller
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);
-                return response()->json(['success' => true, 'message' => 'Data inserted successfully!']);
+                return response()->json([
+                    'success' => true, 'message' => 'Data inserted successfully!',
+                    'favorite' => 1
+                ]);
             }
+            return response()->json([
+                'success' => true,
+                'message' => 'Favorite updated successfully!',
+                'favorite' => $updatedFavoriteValue // 1 lub 0
+            ]);
     }
 
     /**
