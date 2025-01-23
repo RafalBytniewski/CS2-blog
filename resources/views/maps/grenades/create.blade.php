@@ -157,10 +157,10 @@
 
 
                 <div class="row mb-3">
-                    <label for="describtion" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.describtion') }}</label>
+                    <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.description') }}</label>
                     <div class="col-md-6">
-                        <textarea placeholder="Max. 500 char"id="describtion" name="describtion" class="form-control @error('describtion') is-invalid @enderror" maxlength="500"></textarea>
-                        @error('describtion')
+                        <textarea placeholder="Max. 500 char"id="description" name="description" class="form-control @error('description') is-invalid @enderror" maxlength="500"></textarea>
+                        @error('description')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

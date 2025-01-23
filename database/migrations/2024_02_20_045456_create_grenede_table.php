@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('grenades', function (Blueprint $table) {
             $table->id();
-            $table->string('describtion', 255);
+            $table->string('description', 255);
             $table->string('image_path', 1000);
             $table->enum('type',['smoke', 'flash', 'hegrenade', 'molotov']);
             $table->enum('team',['t', 'ct']);

@@ -23,7 +23,7 @@
                     @foreach ($grenade->grenadeImages as $key => $image)
                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                             <img src="{{ asset('storage/' . $image->path) }}" class="mx-auto d-block img-fluid"
-                                alt="{{ $grenade->describtion }}" style="max-width: 1440px; height: 810px; quality: 90;"
+                                alt="{{ $grenade->description }}" style="max-width: 1440px; height: 810px; quality: 90;"
                                 data-action="zoom">
                             <div class="carousel-caption">
                                 <span class="carousel-slide-number fs-1 fw-bolder">{{ $loop->iteration }}</span>

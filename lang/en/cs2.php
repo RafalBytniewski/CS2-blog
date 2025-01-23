@@ -46,7 +46,7 @@ return [
                 'throwing_to_(area)' => 'Rzucany na (area)',
                 'throwing_to_(callout)' => 'Rzucany na (callout) opcjonalnie',
                 'optional' => 'Callout (opcjonalnie)',
-                'describtion' => 'Opis',
+                'description' => 'Opis',
                 'images' => 'Zrzuty ekranu',
                 'submit' => 'Dodaj',
                 'update' => 'Aktualizuj',

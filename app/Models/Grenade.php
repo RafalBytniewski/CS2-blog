@@ -19,7 +19,7 @@ class Grenade extends Model
     protected $fillable = [
         'user_id',
         'map_id',
-        'describtion',
+        'description',
         'team',
         'type',
         'visibility',
@@ -28,8 +28,7 @@ class Grenade extends Model
         'callout_from_id',
         'callout_to_id',
         'source_type',
-        'youtube_path',
-        'twitch_path'
+        'youtube_path'
     ];
     
     public function grenadeImages(): HasMany

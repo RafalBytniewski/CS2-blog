@@ -23,7 +23,7 @@
                     <th scope="row">{{$grenade->id}}</th>
                     <td>{{$grenade->map->name}}</td>
                     <td>{{$grenade->user->name}}</td>
-                    <td>{{$grenade->describtion}}</td>
+                    <td>{{$grenade->description}}</td>
                     <td>
                         <a href="{{ route('grenade.show', $grenade->id) }}">
                             <i title="{{ __('cs2.buttons.view') }}" class="fa-solid fa-magnifying-glass btn btn-md btn-primary"></i>

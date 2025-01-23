@@ -21,10 +21,10 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="describtion" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.forms.describtion') }}</label>
+                    <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.forms.description') }}</label>
                     <div class="col-md-6">
-                        <input type="text" id="describtion" name="describtion" value="{{ $map->describtion }}"class="form-control @error('describtion') is-invalid @enderror" autocomplete="describtion" autofocus>
-                        @error('describtion')
+                        <input type="text" id="description" name="description" value="{{ $map->description }}"class="form-control @error('description') is-invalid @enderror" autocomplete="description" autofocus>
+                        @error('description')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

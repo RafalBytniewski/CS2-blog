@@ -19,7 +19,7 @@ class Map extends Model
      */
     protected $fillable = [
         'name',
-        'describtion',
+        'description',
         'active',
         'image_path'
     ];

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('grenades', function (Blueprint $table) {
             $table->enum('source_type',['images', 'youtube_path', 'twitch_path'])->after('visibility');
             $table->string('youtube_path', 255)->nullable()->after('source_type');
-            $table->string('twitch_path', 255)->nullable()->after('youtube_path');
         });
     }
 
@@ -26,7 +25,6 @@ return new class extends Migration
         Schema::table('grenades', function (Blueprint $table) {
             $table->dropColumn('source_type');
             $table->dropColumn('youtube_path');
-            $table->dropColumn('twitch_clip');
         });
     }
 };

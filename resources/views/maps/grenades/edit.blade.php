@@ -133,12 +133,12 @@
 
 
                 <div class="row mb-3">
-                    <label for="describtion" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.describtion') }}</label>
+                    <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.description') }}</label>
 
                     <div class="col-md-6">
-                        <input id="describtion" name="describtion" type="text"
-                            class="form-control @error('') is-invalid @enderror" value="{{$grenade->describtion}}" autocomplete="describtion" autofocus>
-                        @error('describtion')
+                        <input id="description" name="description" type="text"
+                            class="form-control @error('') is-invalid @enderror" value="{{$grenade->description}}" autocomplete="description" autofocus>
+                        @error('description')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
