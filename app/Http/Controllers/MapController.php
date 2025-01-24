@@ -59,7 +59,7 @@ class MapController extends Controller
                         ->where('map_id', $map->id)
                         ->get();
         $types = DB::table('grenades')->select('type')->distinct()->pluck('type');
-        $query = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo'])
+        $query = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo','favorites'])
                         ->where('map_id', $map->id)
                         ->where('visibility', 1);
         $grenadeFilter = null;

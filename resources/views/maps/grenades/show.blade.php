@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @vite(['resources/js/mapPageFiltersShow.js'])
 @vite(['resources/js/grenadeVote.js'])
+@vite(['resources/js/grenadeFavorite.js'])
 @section('content')
     <div class="card my-2">
         <div class="card my-2 ps-3 border border-0">
@@ -47,20 +48,22 @@
             </div>
         @endif
         <div style="align-items: center" class="card my-2 border border-0 d-flex flex-row justify-content-evenly">
-            {{-- VOTE --}}
-            <div class="like-grenade-footer">
-                <button class="btn btn-link vote-btn" data-id="{{ $grenade->id }}" data-type="-1">
-                    <i class="fa-solid fa-minus fa-xl" style="color: #f00000"></i>
-                </button>
-                <span class="fs-5" id="vote_result_{{ $grenade->id }}">{{ $grenade->vote_result }}</span>
-                <button class="btn btn-link vote-btn" data-id="{{ $grenade->id }}" data-type="1">
-                    <i class="fa-solid fa-plus fa-xl" style="color: #00f068"></i>
-                </button>
-            </div>
-            {{-- FAVORITE --}}
+                    {{-- VOTE --}}
+                    <div class="like-grenade-footer">
+                        <button class="btn btn-link vote-btn" data-id="{{$grenade->id}}" data-type="-1">
+                            <i class="fa-solid fa-minus fa-xl" style="color: #f00000"></i>
+                        </button>
+                        <span class="fs-5" id="vote_result_{{$grenade->id}}">{{ $grenade->vote_result }}</span>
+                        <button class="btn btn-link vote-btn" data-id="{{$grenade->id}}" data-type="1">
+                            <i class="fa-solid fa-plus fa-xl" style="color: #00f068"></i>
+                        </button>
+                    </div>  
+                {{-- FAVORITE --}}
             <div class="favorite-grenade-footer">
-                <a href=""><i class="fa-regular fa-star fa-lg"></i></a>
-                <span class="fs-5" id="vote_result"></span>
+                <button class="btn btn-link favorite-btn" data-favorite-id="{{ $grenade->id }}" @if($grenade->favorite === 0) title="{{__('cs2.btn.title.favorite.add')}}" @else title="{{__('cs2.btn.title.favorite.delete')}}" @endif>
+                    <i style="color:gold" class="fs-6 @if($grenade->favorite === 0) fa-regular @else fa-solid @endif fa-star fa-xl"></i>
+                </button>
+                {{-- <span class="fs-5" id=""></span> --}}
             </div>
             {{-- VISIBILITY --}}
             @can('isAdmin')

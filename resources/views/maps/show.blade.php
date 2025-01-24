@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @vite(['resources/js/mapPageFiltersShow.js'])
 @vite(['resources/js/grenadeVote.js'])
+@vite(['resources/js/grenadeFavorite.js'])
 @section('content')
 @php
     $mapFileName = strtolower($maps->name) . '.js';
@@ -226,8 +227,10 @@
                     </div>         
                     {{-- FAVORITE --}}
                     <div class="favorite-grenade-footer">
-                        <a href=""><i class="fa-regular fa-star fa-lg"></i></a>
-                        <span class="fs-5" id="vote_result"></span>
+                        <button class="btn btn-link favorite-btn" data-favorite-id="{{ $grenade->id }}" @if($grenade->favorite === 0) title="{{__('cs2.btn.title.favorite.add')}}" @else title="{{__('cs2.btn.title.favorite.delete')}}" @endif>
+                            <i style="color:gold" class="fs-6 @if($grenade->favorite === 0) fa-regular @else fa-solid @endif fa-star fa-xl"></i>
+                        </button>
+                        {{-- <span class="fs-5" id=""></span> --}}
                     </div>
                     {{-- VISIBILITY --}}
                     @can('isAdmin')
