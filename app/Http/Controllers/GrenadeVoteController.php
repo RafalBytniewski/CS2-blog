@@ -13,20 +13,14 @@ class GrenadeVoteController extends Controller
    
     public function vote(Request $request)
     {
-        // \Log::info('Request received:', $request->all()); // Logujemy dane żądania
-
-        // sprawdzania requesta w konsoli 
-    /*     if (!$request->has(['grenade_id', 'vote_type'])) {
+        if (!auth()->check()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Missing grenade_id or vote_type.',
-            ], 400); // 400 Bad Request
-        } */
-        if (!auth()->check()) {
-            return response()->json(['success' => false, 'message' => 'User must be logged in to vote.'], 403);
+                'message' => 'You must be logged in to vote.'
+            ], 401);
         }
-        $user = Auth()->user();
 
+        $user = Auth()->user();
         $userId = $user->id;
         $grenadeId = $request->input('grenade_id');
         $voteType = $request->input('vote_type');

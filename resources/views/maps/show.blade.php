@@ -217,11 +217,11 @@
                 <div style="align-items: center" class="card my-2 border border-0 d-flex flex-row justify-content-evenly">
                     {{-- VOTE --}}
                     <div class="like-grenade-footer">
-                        <button class="btn btn-link vote-btn" data-id="{{$grenade->id}}" data-type="-1">
+                        <button class="btn btn-link vote-btn" data-vote-id="{{$grenade->id}}" data-type="-1">
                             <i class="fa-solid fa-minus fa-xl" style="color: #f00000"></i>
                         </button>
                         <span class="fs-5" id="vote_result_{{$grenade->id}}">{{ $grenade->vote_result }}</span>
-                        <button class="btn btn-link vote-btn" data-id="{{$grenade->id}}" data-type="1">
+                        <button class="btn btn-link vote-btn" data-vote-id="{{$grenade->id}}" data-type="1">
                             <i class="fa-solid fa-plus fa-xl" style="color: #00f068"></i>
                         </button>
                     </div>         

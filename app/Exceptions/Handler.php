@@ -29,16 +29,26 @@ class Handler extends ExceptionHandler
     }
 
     public function render($request, Throwable $exception)
-{
-    if ($request->expectsJson()) {
-        return response()->json([
-            'success' => false,
-            'message' => $exception->getMessage(),
-        ], $exception->getStatusCode() ?? 400);
+    {
+        // Sprawdź, czy żądanie oczekuje JSON
+        if ($request->expectsJson()) {
+            // Jeśli wyjątek jest instancją klasy HttpException
+            if (method_exists($exception, 'getStatusCode')) {
+                $statusCode = $exception->getStatusCode();
+            } else {
+                $statusCode = 500; // Domyślny kod błędu (Internal Server Error)
+            }
+    
+            // Zwróć odpowiedź JSON z informacjami o błędzie
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage() ?: 'Something went wrong.'
+            ], $statusCode);
+        }
+    
+        // Domyślne renderowanie błędu
+        return parent::render($request, $exception);
     }
-
-    return parent::render($request, $exception);
-}
 
 
 }

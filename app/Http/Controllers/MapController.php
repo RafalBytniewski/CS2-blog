@@ -84,10 +84,12 @@ class MapController extends Controller
             $query->whereIn('callout_to_id', $grenadeFilter['callout_to_id']);
         }
     
+
         $grenades = $query->get();
         foreach ($grenades as $grenade) {
-            $grenade->vote_result = GrenadeVote::calculateVotes($grenade->id); // Dodanie wyniku głosów jako właściwość
+            $grenade->vote_result = GrenadeVote::calculateVotes($grenade->id);
         }
+
         $count = $grenades->count();
 
         return view('maps.show', [

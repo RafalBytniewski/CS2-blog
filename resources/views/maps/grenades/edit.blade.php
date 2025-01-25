@@ -148,13 +148,18 @@
                 <div class="row mb-3">
                     <label for="source" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.source') }}</label>
                     <div class="col-md-6">
-                        <input type="radio" id="images_radio" name="source_type" value="images" disabled
-                        @if($grenade->source_type === 'images') checked  @endif> Images<br>
-                        
-                        <input type="radio" id="youtube_radio" name="source_type" value="youtube_path" 
-                        @if($grenade->source_type === 'youtube_path') checked disabled @endif> YouTube Video<br>
+                        <input type="radio" id="images_radio" name="source_type" value="images"
+                        @if(old('source_type', $grenade->source_type) === 'images') checked @endif
+                        @if($grenade->source_type !== 'images') disabled @endif>
+                        Images<br>
+                
+                        <input type="radio" id="youtube_radio" name="source_type" value="youtube_path"
+                        @if(old('source_type', $grenade->source_type) === 'youtube_path') checked @endif
+                        @if($grenade->source_type !== 'youtube_path') disabled @endif>
+                        YouTube Video<br>
                     </div>
                 </div>
+                
                 <div class="row mb-3" style="display:none" id="youtube_div">
                     <label for="youtube_path" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.youtube') }}</label>
                     <div class="col-md-6">
