@@ -46,23 +46,40 @@ class GrenadeController extends Controller
      * @param UpsertGrenadeRequest $request
      * @return RedirectResponse
      */
-    public function store(UpsertGrenadeRequest $request)
-    {
-
+public function store(UpsertGrenadeRequest $request)
+{
+    try {
         $user = auth()->user();
         $grenadeData = $request->validated();
-        $grenadeData['user_id'] = $user->id;    
+        $grenadeData['user_id'] = $user->id;
+
+        // Tworzenie granatu
         $grenade = Grenade::create($grenadeData);
-        
-        if(isset($grenadeData['images']))
-        foreach ($request->file('images') as $image) {
-            $path = $image->store('images/grenades');
-            
-            $grenade->grenadeImages()->create(['path' => $path]);
+
+        // Przechowywanie obrazów (jeśli istnieją)
+        if (isset($grenadeData['images'])) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('images/grenades');
+
+                // Tworzenie powiązanych obrazów
+                $grenade->grenadeImages()->create(['path' => $path]);
+            }
         }
-        return redirect()->route('grenade.show', $grenade->id)->with('success', 'Pomyślnie dodano granat!');
-        
+
+        return redirect()
+            ->route('grenade.show', $grenade->id)
+            ->with('success', 'Pomyślnie dodano granat!');
+    } catch (\Exception $e) {
+        // Logowanie błędu (opcjonalne)
+        \Log::error('Błąd podczas dodawania granatu: ' . $e->getMessage());
+
+        // Przekierowanie z komunikatem o błędzie
+        return redirect()
+            ->route('grenade.create') // Możesz zmienić trasę na właściwą
+            ->with('error', 'Wystąpił błąd podczas dodawania granatu. Spróbuj ponownie.');
     }
+}
+
 
     /**
      * Display the specified resource.
