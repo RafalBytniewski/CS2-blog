@@ -13,11 +13,15 @@ class GrenadeVoteController extends Controller
    
     public function vote(Request $request)
     {
-        if (!auth()->check()) {
+/*         if (!auth()->check()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You must be logged in to vote.'
             ], 401);
+        } */
+
+        if ($request->input('is_logged_in') === false) {
+            abort(401);
         }
 
         $user = Auth()->user();

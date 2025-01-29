@@ -119,6 +119,11 @@
                 });
             </script>
         @endif
+
+        <script>
+            const isLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
+        </script>
+        
         <main class="py-4">
             @yield('content')
         </main>
