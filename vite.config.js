@@ -9,11 +9,11 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/mapPageFiltersShow.js',
                 'resources/js/grenadeVote.js',
+                'resources/js/grenadeFavorite.js',
                 'resources/js/createGrenade.js',
                 'resources/js/mirage.js',
                 'resources/js/sortable.js',
                 'resources/js/alerts.js'
-
             ],
             refresh: true,
         }),
