@@ -11,7 +11,9 @@ export default defineConfig({
                 'resources/js/grenadeVote.js',
                 'resources/js/createGrenade.js',
                 'resources/js/mirage.js',
-                'resources/js/sortable.js'
+                'resources/js/sortable.js',
+                'resources/js/alerts.js'
+
             ],
             refresh: true,
         }),

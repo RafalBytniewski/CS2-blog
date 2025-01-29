@@ -21,48 +21,25 @@ document.querySelectorAll('.vote-btn').forEach(button => {
             console.log("Response status:", response.status);
             return response.json().catch(() => ({})).then(data => ({ status: response.status, data }));
         })
+        
         .then(({ status, data }) => {
             console.log("Parsed response:", status, data);
         
             if (status === 401) {
-                Swal.fire({
-                    title: "You must be logged in to vote.",
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    confirmButtonText: "Login",
-                    denyButtonText: "Register"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "/login";
-                    } else if (result.isDenied) {
-                        window.location.href = "/register";
-                    }
-                });
-                return;
+                showLoginAlert()
             }
         
             if (!data.success) {
                 throw new Error(data.message || "Unexpected error");
             }
-        
-            console.log('Vote recorded successfully:', data);
+
             if (voteResultElement) {
                 voteResultElement.textContent = data.result;
-                Swal.fire({
-                    title: "You voted well!",
-                    icon: "success",
-                    draggable: true
-                  });
+                showSuccessAlert();
             }
         })
         .catch(error => {
-            console.error('Error:', error.message);
-            Swal.fire({
-                title: "Error",
-                text: error.message,
-                icon: "error",
-                confirmButtonText: "OK"
-            });
+            showErrorAlert(error.message)
         });
         
     });

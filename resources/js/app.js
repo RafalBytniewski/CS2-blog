@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', function() {
 import Swal from 'sweetalert2';
 window.Swal = Swal;
 
+// alerts
+import { showLoginAlert, showSuccessAlert, showErrorAlert } from './alerts';
+
+// Ustawienie globalnego dostępu do funkcji
+window.showLoginAlert = showLoginAlert;
+window.showSuccessAlert = showSuccessAlert;
+window.showErrorAlert = showErrorAlert;
+
 // import leaflet.js
 
 import 'leaflet/dist/leaflet.css';
