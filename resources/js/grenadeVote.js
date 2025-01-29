@@ -27,6 +27,7 @@ document.querySelectorAll('.vote-btn').forEach(button => {
         
             if (status === 401) {
                 showLoginAlert()
+                return;
             }
         
             if (!data.success) {
