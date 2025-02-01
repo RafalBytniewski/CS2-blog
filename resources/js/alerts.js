@@ -17,7 +17,7 @@ export function showLoginAlert() {
     return
 }
 
-export function showSuccessAlert(message = "Operation successful!") {
+export function showSuccessAlert(message = "Voted successfully!") {
     Swal.fire({
         title: "Success",
         text: message,

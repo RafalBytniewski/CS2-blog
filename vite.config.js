@@ -13,7 +13,8 @@ export default defineConfig({
                 'resources/js/createGrenade.js',
                 'resources/js/mirage.js',
                 'resources/js/sortable.js',
-                'resources/js/alerts.js'
+                'resources/js/alerts.js',
+                'resources/js/collection.js'
             ],
             refresh: true,
         }),

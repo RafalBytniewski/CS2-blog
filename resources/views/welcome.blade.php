@@ -33,19 +33,19 @@
         }
 
         .map-name {
-            font-family: "Jersey 10", sans-serif;
-            font-weight: 600;
+            font-family: "Alfa Slab One", serif;
+            font-weight: 400;
             font-style: normal;
-            font-size: 2.5rem;
-            color: rgb(0, 0, 0);
+            font-size: 1.5rem;
+            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black, 1px  1px 0 black;
+            color: rgb(241, 237, 237);
             position: absolute;
-            bottom: 0;
+            bottom: 30;
             left: 0;
             width: 100%;
             text-align: center;
             box-sizing: border-box;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
+            opacity: 1;
         }
 
         .map-card:hover {
@@ -57,9 +57,9 @@
             transform: scale(1.02);
         }
 
-        .map-card:hover .map-name {
+      /*   .map-card:hover .map-name {
             opacity: 1;
-        }
+        } */
 
         /* Przykładowe media queries */
         @media (min-width: 300px) {
@@ -124,9 +124,12 @@
                 @endforeach
             </div>
             <h1>Recently added:</h1>
+         
+
             <div class="row g-2 d-flex justify-content-center">
                 @foreach ($grenades as $grenade)
                     <div class="grenade-card col-md-3">
+                        <div class="asdas d-flex justify-content-around">
                         <span class="text-md-center fs-6"
                             onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';"
                             style="cursor:pointer">
@@ -137,6 +140,10 @@
                             @endif
                             <b>{{ $grenade->type }}</b>
                         </span>
+                        <button class="btn btn-link" onclick="showCustomModal(() => alert('OK!'));">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </button>
+                    </div>
                         <div class="m-1">
                             @if ($grenade->source_type === 'youtube_path')
                                 <div class="grenade d-flex justify-content-center align-items-center">
@@ -190,8 +197,10 @@
                             </div>
                             {{-- FAVORITE --}}
                             <div class="favorite-grenade-footer">
-                                <button class="btn btn-link favorite-btn" data-favorite-id="{{ $grenade->id }}" @if($grenade->favorite === 0) title="{{__('cs2.btn.title.favorite.add')}}" @else title="{{__('cs2.btn.title.favorite.delete')}}" @endif>
-                                    <i style="color:gold" class="fs-6 @if($grenade->favorite === 0) fa-regular @else fa-solid @endif fa-star fa-lg"></i>
+                                <button class="btn btn-link favorite-btn" data-favorite-id="{{ $grenade->id }}"
+                                    @if ($grenade->favorite === 0) title="{{ __('cs2.btn.title.favorite.add') }}" @else title="{{ __('cs2.btn.title.favorite.delete') }}" @endif>
+                                    <i style="color:gold"
+                                        class="fs-6 @if ($grenade->favorite === 0) fa-regular @else fa-solid @endif fa-star fa-lg"></i>
                                 </button>
                                 {{-- <span class="fs-5" id=""></span> --}}
                             </div>

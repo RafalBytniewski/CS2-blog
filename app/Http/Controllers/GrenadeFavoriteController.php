@@ -24,9 +24,15 @@ class GrenadeFavoriteController extends Controller
      */
     public function create(Request $request)
     {
+        if($request->input('is_logged_in') === false){
+            abort(401);
+        }
+        /* 
         if (!auth()->check()) {
             return response()->json(['success' => false, 'message' => 'User must be logged in to vote.'], 403);
         }
+       */  
+      
         $user = Auth()->user();
 
         $userId = $user->id;

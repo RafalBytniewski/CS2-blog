@@ -12,36 +12,43 @@ document.querySelectorAll('.favorite-btn').forEach(button => {
             },
             body: JSON.stringify({
                 grenade_id: grenadeId,
+                is_logged_in: isLoggedIn
             })
         })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => {
+            return response
+                .json()
+                .catch(() => ({}))
+                .then((data) => ({ status: response.status, data }));
+        })
+
+        .then(({ status, data }) => {
+            if (status === 401) {
+                showLoginAlert();
+                return;
+            }
+
             if (!data.success) {
                 console.log('Error:', data.message); // Wyświetla komunikat w konsoli
                 alert(data.message); // Wyświetla komunikat użytkownikowi
             } else {
-                console.log('Vote recorded successfully:', data);
-                // Zmieniamy klasę ikony w zależności od wartości `favorite`
                 if (data.favorite === 1) {
                     icon.classList.remove('fa-regular');
                     icon.classList.add('fa-solid');
+                    showSuccessAlert("Added grenade to favorite");
                 } else {
                     icon.classList.remove('fa-solid');
                     icon.classList.add('fa-regular');
+                    showSuccessAlert("Deleted grenade from favorite");
                 }
-
-                // Dodaj klasę animacji
                 icon.classList.add('fa-bounce'); 
-
-                // Usuń animację po 1 sekundzie
                 setTimeout(() => {
                     icon.classList.remove('fa-bounce');
-                }, 1000); // Czas trwania animacji w milisekundach
+                }, 1000);
             }
         })
-        .catch(error => {
-            console.error('Error:', error); // Obsługa błędów fetch
-            alert('Something went wrong. Please try again.');
+        .catch((error) => {
+            showErrorAlert(error.message);
         });
     });
 });

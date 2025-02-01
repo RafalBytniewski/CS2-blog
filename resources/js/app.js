@@ -49,3 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+import { showCustomModal } from './collection';
+
+// Upewnij się, że funkcja działa globalnie
+window.showCustomModal = showCustomModal;
+

@@ -21,6 +21,7 @@
         display:flex;
         justify-content: center;
     }
+
     #map-container {
         height: 750px;
         width: 750px;
@@ -56,7 +57,7 @@
             @endauth
         </div>
         <span class="fw-bold my-4" style="text-align:center;font-size: 60px">{{$maps->name}}</span>
-        
+        {{-- LEAFLET MAP PLAN --}}
         @if(file_exists($mapFilePath))
         @vite('resources/js/' . $mapFileName)
         <div id="main-map">
