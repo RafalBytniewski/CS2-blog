@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-import { showCustomModal } from './collection';
+import { showCustomModal } from './grenadeGroup';
 
 // Upewnij się, że funkcja działa globalnie
 window.showCustomModal = showCustomModal;

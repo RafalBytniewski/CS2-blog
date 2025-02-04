@@ -33,11 +33,12 @@
         }
 
         .map-name {
-            font-family: "Alfa Slab One", serif;
-            font-weight: 400;
+            font-family: "Anton", serif;
+            font-weight: 300;
             font-style: normal;
-            font-size: 1.5rem;
-            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black, 1px  1px 0 black;
+            font-size: 2rem;
+/*             text-shadow: 1px 1px 2px black; */
+            -webkit-text-stroke: 1px black; 
             color: rgb(241, 237, 237);
             position: absolute;
             bottom: 30;
@@ -51,17 +52,14 @@
         .map-card:hover {
             transform: scale(1.02);
             box-shadow: rgba(255, 254, 254, 0.05) 0px 6px 24px 0px;
+            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black, 1px  1px 0 black
         }
 
         .grenade-card:hover {
             transform: scale(1.02);
         }
 
-      /*   .map-card:hover .map-name {
-            opacity: 1;
-        } */
-
-        /* Przykładowe media queries */
+        /* media queries */
         @media (min-width: 300px) {
             .custom-text {
                 font-size: 12px;

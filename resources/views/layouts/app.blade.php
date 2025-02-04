@@ -11,14 +11,16 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
+{{--     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet"> --}}
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
     <!-- CSS -->
-    <link rel="stylesheet" href="resources/css/welcome.css">
+
 
     <!-- Scripts -->
 
@@ -129,9 +131,9 @@
         </script>
 
         
-        {{-- MODAL COLLECTION --}}
-        @include('components.collection')
-        <script src="{{ asset('js/collection.js') }}" defer></script>
+        {{-- MODAL GRENADE_GROUP --}}
+        @include('components.grenadeGroup')
+        <script src="{{ asset('js/grenadeGroup.js') }}" defer></script>
         
         <script>
             window.translations = @json(__('messages')); // Lub @json(trans('messages'))

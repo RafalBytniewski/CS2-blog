@@ -14,7 +14,7 @@ export default defineConfig({
                 'resources/js/mirage.js',
                 'resources/js/sortable.js',
                 'resources/js/alerts.js',
-                'resources/js/collection.js'
+                'resources/js/grenadeGroup.js'
             ],
             refresh: true,
         }),

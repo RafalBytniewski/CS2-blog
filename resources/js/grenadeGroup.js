@@ -12,7 +12,7 @@ function showCustomModal(onConfirm = null) {
     confirmButton.onclick = function () {
         modal.classList.remove("modal-show");
         if (onConfirm) {
-            onConfirm();
+            onConfirm('');
         }
     };
 
