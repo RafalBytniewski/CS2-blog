@@ -34,11 +34,10 @@
 
         .map-name {
             font-family: "Anton", serif;
-            font-weight: 300;
+            font-weight: 400;
             font-style: normal;
             font-size: 2rem;
-/*             text-shadow: 1px 1px 2px black; */
-            -webkit-text-stroke: 1px black; 
+            text-shadow: 1px 1px 2px black;
             color: rgb(241, 237, 237);
             position: absolute;
             bottom: 30;
