@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('grenades', function (Blueprint $table) {
-            $table->enum('source_type',['images', 'youtube_path', 'twitch_path'])->after('visibility');
+            $table->enum('source_type',['images', 'youtube_path'])->after('visibility');
             $table->string('youtube_path', 255)->nullable()->after('source_type');
         });
     }
