@@ -1,6 +1,6 @@
 @extends('layouts/app')
 @section('content')
-@vite(['resources/js/createGrenade.js','resources/js/sortable.js'])
+@vite(['resources/js/createGrenade.js','resources/js/sortableGrenade.js'])
     <div class="container">
         @if(session('success'))
         <div class="alert alert-success">

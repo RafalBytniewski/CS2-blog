@@ -1,5 +1,5 @@
 
-@vite(['resources/js/collection.js'])
+@vite(['resources/js/grenadeGroup.js'])
 <style>
     /* Ukrycie modala domyślnie */
     .modal-overlay {
