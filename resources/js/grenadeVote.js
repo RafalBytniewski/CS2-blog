@@ -30,7 +30,7 @@ document.querySelectorAll(".vote-btn").forEach((button) => {
 
             .then(({ status, data }) => {
                 if (status === 401) {
-                    showLoginAlert();
+                    showLoginAlert(' to vote');
                     return;
                 }
 

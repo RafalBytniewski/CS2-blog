@@ -7,3 +7,18 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+
+.carousel-caption{
+    font-family: 'Anton', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2rem;
+    text-shadow: 1px 1px 2px black;
+    color: rgb(241, 237, 237) !important;
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: brightness(0) invert(1) !important;
+}

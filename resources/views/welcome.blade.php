@@ -12,6 +12,7 @@
             height: 153px;
             width: 272px;
             border-radius: 5px;
+            
         }
 
         .rounded {
@@ -57,7 +58,7 @@
         .grenade-card:hover {
             transform: scale(1.02);
         }
-
+        
         /* media queries */
         @media (min-width: 300px) {
             .custom-text {
@@ -160,7 +161,7 @@
                                                 <div class="grenade carousel-item {{ $loop->first ? 'active' : '' }}">
                                                     <img src="{{ asset('storage/' . $image->path) }}"
                                                         class="mx-auto d-block img-fluid" alt=""
-                                                        style="border-radius:5px;width: auto; max-height: 153px; quality: 90;">
+                                                        style="border-radius:5px;width: auto; max-height: 153px; quality: 90; text-align:center">
                                                 </div>
                                             @endforeach
                                         </div>

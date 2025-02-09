@@ -1,8 +1,8 @@
 import Swal from 'sweetalert2';
 
-export function showLoginAlert() {
+export function showLoginAlert(message = '') {
     Swal.fire({
-        title: "You must be logged in to vote.",
+        title: "You must be logged in"+message+"!",
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: "Login",

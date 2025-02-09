@@ -24,7 +24,7 @@ document.querySelectorAll('.favorite-btn').forEach(button => {
 
         .then(({ status, data }) => {
             if (status === 401) {
-                showLoginAlert();
+                showLoginAlert(' to add grenade');
                 return;
             }
 

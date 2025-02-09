@@ -40,6 +40,8 @@ $mapFilePath = resource_path('js/' . $mapFileName);
         height: 100%;
         width: 100%;
     }
+
+
 </style>
 <div class="container">
     <div class="card-header d-flex flex-column">
@@ -204,6 +206,7 @@ $mapFilePath = resource_path('js/' . $mapFileName);
                         allowfullscreen></iframe>
                 </div>
                 @elseif($grenade->source_type === 'images')
+                {{-- DISPLAY IMAGES --}}
                 @if($grenade->grenadeImages->count() > 0)
                 <div id="carouselExampleControls{{$grenade->id}}" class="carousel slide position-relative"
                     data-bs-interval="false">
@@ -216,8 +219,7 @@ $mapFilePath = resource_path('js/' . $mapFileName);
                             <div class="carousel-caption">
                                 <span class="carousel-slide-number fs-1 fw-bolder">{{$loop->iteration}}</span>
                                 <span class="fw-bold fs-1 fw-bolder">/</span>
-                                <span class="carousel-total-slides fs-1 fw-bolder">{{ count($grenade->grenadeImages)
-                                    }}</span>
+                                <span class="carousel-total-slides fs-1 fw-bolder">{{ count($grenade->grenadeImages) }}</span>
                             </div>
                         </div>
                         @endforeach
