@@ -30,11 +30,12 @@ class UpsertGrenadeRequest extends FormRequest
                 'callout_from_id' => 'nullable|numeric',
                 'area_to_id' => 'required|numeric',
                 'callout_from_id' => 'nullable|numeric',
-                'describtion' => 'nullable|max:500',
+                'description' => 'nullable|max:500',
                 'source_type' => 'required|in:youtube_path,images',
                 'images' => 'required_if:source_type,images|array|min:1',
                 'images.*' => 'required_if:source_type,images|image|mimes:jpg,png|max:4096',
                 'youtube_path' => [
+                    'nullable',
                     'required_if:source_type,youtube_path',
                     'regex:/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/',
                 ],

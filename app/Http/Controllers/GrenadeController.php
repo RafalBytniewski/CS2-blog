@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Models\Grenade;
 use App\Models\Map;
@@ -13,8 +14,9 @@ use App\Models\GrenadeImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UpsertGrenadeRequest;
-use App\Http\Requests\UpdateGrenadeRequest;
 
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class GrenadeController extends Controller
 {
@@ -58,27 +60,31 @@ class GrenadeController extends Controller
             }
 
             $grenade = Grenade::create($grenadeData);
-
-            // Przechowywanie obrazów (jeśli istnieją)
+            
             if (isset($grenadeData['images'])) {
-                foreach ($request->file('images') as $image) {
+                foreach ($request->file('images') as $image) { 
+                    $watermark = Storage::get('images/watermark/watermark.png');
                     $path = $image->store('images/grenades');
-
-                    // Tworzenie powiązanych obrazów
+                    Image::read(Storage::get($path))
+                        ->place(
+                            element: $watermark,
+                            position: 'bottom-right',
+                            offset_x: 10, // 10px from the right
+                            offset_y: 10, // 10px from the bottom
+                            opacity: 90 //
+                        )
+                        ->save(Storage::path($path));
                     $grenade->grenadeImages()->create(['path' => $path]);
                 }
             }
-
+            
             return redirect()
                 ->route('grenade.show', $grenade->id)
                 ->with('success', 'Pomyślnie dodano granat!');
         } catch (\Exception $e) {
-            // Logowanie błędu (opcjonalne)
             \Log::error('Błąd podczas dodawania granatu: ' . $e->getMessage());
-
-            // Przekierowanie z komunikatem o błędzie
             return redirect()
-                ->route('grenade.create') // Możesz zmienić trasę na właściwą
+                ->route('grenade.create')
                 ->with('error', 'Wystąpił błąd podczas dodawania granatu. Spróbuj ponownie.');
         }
     }
