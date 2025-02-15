@@ -11,10 +11,10 @@ use App\Models\Area;
 use App\Models\Callout;
 use App\Models\GrenadeVote;
 use App\Models\GrenadeImage;
+use App\Models\GrenadeFavorite;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UpsertGrenadeRequest;
-
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -174,6 +174,7 @@ class GrenadeController extends Controller
     {
             GrenadeImage::where('grenade_id', $grenade->id)->delete();
             GrenadeVote::where('grenade_id', $grenade->id)->delete();
+            GrenadeFavorite::where('grenade_id', $grenade->id)->delete();
             $grenade->delete();     
             return redirect()->back()->with('success', 'Grenade deleted successfully');
     }

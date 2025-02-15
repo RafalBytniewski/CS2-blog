@@ -45,19 +45,39 @@
                 </div>
                 <div class="row g-2">
                   <div class="col-4 mb-2">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                    <img src="https://steamuserimages-a.akamaihd.net/ugc/2290706040601511204/E96DFCD5837DB816AC32A865802BC38CABFC5142/"
                       alt="image 1" class="w-100 rounded-3">
                   </div>
                   <div class="col-4 mb-2">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                    <img src="https://steamuserimages-a.akamaihd.net/ugc/2290706040601511204/E96DFCD5837DB816AC32A865802BC38CABFC5142/"
                       alt="image 1" class="w-100 rounded-3">
                   </div>
                   <div class="col-4 mb-2">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                    <img src="https://steamuserimages-a.akamaihd.net/ugc/2290706040601511204/E96DFCD5837DB816AC32A865802BC38CABFC5142/"
                       alt="image 1" class="w-100 rounded-3">
                   </div>
                   <div class="col-4">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                    <img src="https://steamuserimages-a.akamaihd.net/ugc/2290706040601511204/E96DFCD5837DB816AC32A865802BC38CABFC5142/"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>
+                  <div class="col-4">
+                    <img src="https://steamuserimages-a.akamaihd.net/ugc/2290706040601511204/E96DFCD5837DB816AC32A865802BC38CABFC5142/"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>                  
+                  <div class="col-4">
+                    <img src="https://steamuserimages-a.akamaihd.net/ugc/2290706040601511204/E96DFCD5837DB816AC32A865802BC38CABFC5142/"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>                  
+                  <div class="col-4">
+                    <img src="https://steamuserimages-a.akamaihd.net/ugc/2290706040601511204/E96DFCD5837DB816AC32A865802BC38CABFC5142/"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>                  
+                  <div class="col-4">
+                    <img src="https://steamuserimages-a.akamaihd.net/ugc/2290706040601511204/E96DFCD5837DB816AC32A865802BC38CABFC5142/"
+                      alt="image 1" class="w-100 rounded-3">
+                  </div>                  
+                  <div class="col-4">
+                    <img src="https://steamuserimages-a.akamaihd.net/ugc/2290706040601511204/E96DFCD5837DB816AC32A865802BC38CABFC5142/"
                       alt="image 1" class="w-100 rounded-3">
                   </div>
                 </div>

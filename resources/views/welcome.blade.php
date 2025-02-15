@@ -122,26 +122,39 @@
                 @endforeach
             </div>
             <h1>Recently added:</h1>
-         
-
             <div class="row g-2 d-flex justify-content-center">
                 @foreach ($grenades as $grenade)
                     <div class="grenade-card col-md-3">
                         <div class="asdas d-flex justify-content-around">
-                        <span class="text-md-center fs-6"
-                            onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';"
-                            style="cursor:pointer">
-                            <b>{{ $grenade->map->name }}</b>
-                            {{ $grenade->areaTo->name }}
-                            @if (isset($grenade->calloutTo->name))
-                                -> {{ $grenade->calloutTo->name }}
-                            @endif
-                            <b>{{ $grenade->type }}</b>
-                        </span>
-                        <button class="btn btn-link" onclick="showCustomModal(() => alert('OK!'));">
-                            <i class="fa-solid fa-layer-group"></i>
-                        </button>
-                    </div>
+                            <span class="text-md-center fs-6"
+                                onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';"
+                                style="cursor:pointer">
+                                <b>{{ $grenade->map->name }}</b>
+                                {{ $grenade->areaTo->name }}
+                                @if (isset($grenade->calloutTo->name))
+                                    -> {{ $grenade->calloutTo->name }}
+                                @endif
+                                <b>{{ $grenade->type }}</b>
+                            </span>
+                            <div>
+                                @if(Auth::user()->id === $grenade->user->id)
+                                    <a class="btn" href="{{ route('grenade.edit', $grenade->id)}}">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </a>
+                                    <a class="btn" href="{{ route('grenade.destroy', $grenade->id)}}">
+                                        
+                                    </a>
+                                    <form action="{{ route('grenade.destroy', $grenade->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')            
+                                            <button class="btn btn-link" title="{{ __('cs2.buttons.delete') }}" onclick="return confirm('Czy na pewno chcesz usunąć ten element?')"><i class="fa-regular fa-circle-xmark" style="color: #d31717;"></i></button>
+                                    </form>
+                                @endif
+                                <button class="btn btn-link" onclick="showCustomModal(() => alert('OK!'));">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                </button>
+                            </div>
+                        </div>
                         <div class="m-1">
                             @if ($grenade->source_type === 'youtube_path')
                                 <div class="grenade d-flex justify-content-center align-items-center">
