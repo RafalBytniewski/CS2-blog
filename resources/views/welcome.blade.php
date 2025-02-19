@@ -136,19 +136,18 @@
                                 @endif
                                 <b>{{ $grenade->type }}</b>
                             </span>
-                            <div>
-                                @if(Auth::user()->id === $grenade->user->id)
-                                    <a class="btn" href="{{ route('grenade.edit', $grenade->id)}}">
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                    <a class="btn" href="{{ route('grenade.destroy', $grenade->id)}}">
-                                        
-                                    </a>
-                                    <form action="{{ route('grenade.destroy', $grenade->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')            
-                                            <button class="btn btn-link" title="{{ __('cs2.buttons.delete') }}" onclick="return confirm('Czy na pewno chcesz usunąć ten element?')"><i class="fa-regular fa-circle-xmark" style="color: #d31717;"></i></button>
-                                    </form>
+                            <div class="display-flex justify-content-end">
+                                @if(Auth::check() && Auth::user()->id === $grenade->user->id)
+                                <a class="btn" href="{{ route('grenade.edit', $grenade->id)}}">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>                               
+                                <form action="{{ route('grenade.destroy', $grenade->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')            
+                                    <button class="btn btn-link" title="{{ __('cs2.buttons.delete') }}" onclick="return confirm('Czy na pewno chcesz usunąć ten element?')">
+                                        <i class="fa-regular fa-circle-xmark" style="color: #d31717;"></i>
+                                    </button>
+                                </form>
                                 @endif
                                 <button class="btn btn-link" onclick="showCustomModal(() => alert('OK!'));">
                                     <i class="fa-solid fa-layer-group"></i>

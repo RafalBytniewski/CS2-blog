@@ -40,7 +40,7 @@
 
               <div id="recently_added_nades">
                 <div class="d-flex justify-content-between align-items-center my-4">
-                  <h1>Recent nades</h1>
+                  <h1>Nades</h1>
                   <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
                 </div>
                 <div class="row g-2">
@@ -84,7 +84,7 @@
               </div>
               <div id="favorite_nades">
                 <div class="d-flex justify-content-between align-items-center my-4">
-                  <h1>Favorite nades:</h1>
+                  <h1>Groups</h1>
                   <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
                 </div>
                 <div class="row g-2">
