@@ -54,7 +54,7 @@ $mapFilePath = resource_path('js/' . $mapFileName);
     <div class="card-body">
         <form method="POST" action="{{ route('grenade.store', $map->id) }}" enctype="multipart/form-data">
             @csrf
-
+            {{-- MAP --}}
             <div class="row mb-3">
                 <label for="map" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.map')
                     }}</label>
@@ -196,12 +196,12 @@ $mapFilePath = resource_path('js/' . $mapFileName);
             <div class="row mb-3">
                 <label class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.source') }}</label>
                 <div class="col-md-6">
-                    <input type="radio" id="images_radio" name="source_type" value="images"
-                        {{ old('source_type') == 'images' ? 'checked' : '' }} required> Images<br>
-            
-                    <input type="radio" id="youtube_radio" name="source_type" value="youtube_path"
-                        {{ old('source_type') == 'youtube_path' ? 'checked' : '' }} required> YouTube Video<br>
-            
+                    <input type="radio" id="images_radio" name="source_type" value="images" {{
+                        old('source_type')=='images' ? 'checked' : '' }} required> Images<br>
+
+                    <input type="radio" id="youtube_radio" name="source_type" value="youtube_path" {{
+                        old('source_type')=='youtube_path' ? 'checked' : '' }} required> YouTube Video<br>
+
                     @error('source_type')
                     <span class="invalid-feedback d-block" role="alert">
                         <strong>{{ $message }}</strong>

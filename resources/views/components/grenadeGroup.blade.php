@@ -1,15 +1,14 @@
-
 @vite(['resources/js/grenadeGroup.js'])
 <style>
     /* Ukrycie modala domyślnie */
-    .modal-overlay {
+    .modal-overlay { 
         color: black;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.6);
+       /*  background: rgba(0, 0, 0, 0.6); */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -21,7 +20,7 @@
 
     /* Styl treści modala */
     .modal-content {
-        background: white;
+        background: #2b3035 !important;
         padding: 20px;
         border-radius: 10px;
         text-align: center;
@@ -40,9 +39,10 @@
     }
 </style>
 <!-- Modal -->
+
 <div id="custom-modal" class="modal-overlay">
     <div class="modal-content">
-        <h2 id="modal-title">Add to existing group</h2>
+        <h2 id="modal-title">Add to yours existing group</h2>
         <table class="mx-5" style="color:black">
             <thead>
                 <tr>
@@ -76,14 +76,75 @@
                 <td><span>3</span></td>
                 <td><button id="modal-confirm" class="btn btn-primary">Add</button></td>
             </tr>
-        </tr>
+            </tr>
         </table>
         <h2>Make new grenade group</h2>
-        <div class="addGroup d-flex flex-row my-3 justify-content-evenly">
-            <label for="groupName">Group name:</label>
-            <input style="width:30%"type="text" name="groupName" id="" class="form-control @error('groupName') is-invalid @enderror">
+        <form action="" method="post">
+            {{-- USER --}}
+            <input name="user_id" type="hidden" @if(Auth::check())value="{{ Auth::user()->id }}" @endif>
+            {{-- MAP --}}
+            <div class="row mb-3">
+                <label for="map" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.map')
+                    }}</label>
+                <div class="col-md-6">
+                    <select id="map" class="form-control @error('map') is-invalid @enderror" name="map" required>
+                        <option value=""></option>
+                        @foreach($maps as $map)
+                        <option value="{{ $map->id}}">{{ $map->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('map')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            {{-- NAME --}}
+            <div class="row mb-3">
+                <label for="name" class="col-md-4 col-form-label text-md-end">{{
+                    __('name') }}</label>
+                <div class="col-md-6">
+                    <input type="text" name="name" id="" class="form-control @error('name') is-invalid @enderror">
+                    @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            {{-- VISIBILITY --}}
+            <div class="row mb-3">
+                <label for="visibility" class="col-md-4 col-form-label text-md-end">{{
+                    __('visibility') }}</label>
+                <div class="col-md-6">
+                    <select id="visibility" class="form-control @error('visibility') is-invalid @enderror" name="visibility" required>
+                        <option value="0">private</option>
+                        <option value="1" selected>public</option>
+                    </select>
+                    @error('visibility')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            {{-- DESCRIPTION --}}
+            <div class="row mb-3">
+                <label for="description" class="col-md-4 col-form-label text-md-end">{{
+                    __('description') }}</label>
+                <div class="col-md-6">
+                    <input type="text" name="description" id=""
+                        class="form-control @error('description') is-invalid @enderror">
+                    @error('description')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
             <button class="btn btn-primary">Add</button>
-        </div>
+        </form>
         <div class="modal-buttons">
 
             <button id="modal-confirm" class="btn btn-success">OK</button>

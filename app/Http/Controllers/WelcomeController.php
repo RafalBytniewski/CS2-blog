@@ -12,6 +12,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
+        $maps = Map::all();
         $mapsActive = Map::where('active', 1)->get();
         $mapsOthers = Map::where('active', 0)->get();
         $grenades = Grenade::with('grenadeImages', 'user', 'map', 'areaTo', 'calloutTo', 'favorites')->get();
@@ -30,6 +31,7 @@ class WelcomeController extends Controller
         return view('welcome', [
             'mapsActive' => $mapsActive,
             'mapsOthers' => $mapsOthers,
+            'maps' => $maps,
             'grenades' => $grenades,
         ]);
     }

@@ -71,4 +71,8 @@ class Grenade extends Model
     {
         return $this->hasMany(GrenadeFavorite::class);
     }
+    public function grenadeGroups()
+    {
+        return $this->belongsToMany(GrenadeGroup::class, 'grenade_group_item');
+    }
 }

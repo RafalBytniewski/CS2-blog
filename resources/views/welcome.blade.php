@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @vite(['resources/js/grenadeVote.js'])
 @vite(['resources/js/grenadeFavorite.js'])
-
+        {{-- MODAL GRENADE_GROUP --}}
+        @include('components.grenadeGroup')
+        <script src="{{ asset('js/grenadeGroup.js') }}" defer></script>
 @section('content')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
