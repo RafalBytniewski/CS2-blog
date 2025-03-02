@@ -28,7 +28,17 @@ class GrenadeGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Walidacja danych
+        
+        $validated = $request->validate([
+            'map_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'visibility' => 'required|integer',
+            'description' => 'nullable|string'
+        ]);
+        $grenade_group = GrenadeGroup::create($validated);
+        return redirect('/')->with('success', 'Pomyślnie dodano grupę!');
     }
 
     /**

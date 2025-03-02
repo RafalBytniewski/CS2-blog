@@ -9,6 +9,7 @@ use App\Http\Controllers\GrenadeController;
 use App\Http\Controllers\CalloutController;
 use App\Http\Controllers\GrenadeVoteController;
 use App\Http\Controllers\GrenadeFavoriteController;
+use App\Http\Controllers\GrenadeGroupController;
 
 
 
@@ -33,7 +34,8 @@ Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/{map}', [MapController::class, 'show'])->name('maps.show');
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-
+/* GROUP GRENADE */
+Route::post('/grenade-group', [GrenadeGroupController::class, 'store'])->name('grenade.group.store');
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/{map}/grenade/create', [GrenadeController::class, 'create'])->name('grenade.create');
@@ -43,8 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::put('/grenades/{grenade}', [GrenadeController::class, 'update'])->name('grenade.update');
     Route::post('/grenade/vote', [GrenadeVoteController::class, 'vote']);
     Route::post('/grenade/favorite', [GrenadeFavoriteController::class, 'create']);
-
-
+    
     Route::middleware(['can:isAdmin'])->group(function() {
         Route::get('/users/pwd/{user}', [UserController::class, 'changePassword'])->name('users.changePassword');
 

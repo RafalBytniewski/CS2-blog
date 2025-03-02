@@ -21,6 +21,7 @@ class UpsertGrenadeRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isEdit = $this->route('id') || $this->isMethod('put') || $this->isMethod('patch');
         return [   
                 'map_id' => 'required|numeric',
                 'team' => 'required|in:Terrorist,Counter-Terrorist',
@@ -32,7 +33,7 @@ class UpsertGrenadeRequest extends FormRequest
                 'callout_from_id' => 'nullable|numeric',
                 'description' => 'nullable|max:500',
                 'source_type' => 'required|in:youtube_path,images',
-                'images' => 'required_if:source_type,images|array|min:1',
+                'images' => $isEdit ? 'sometimes|array' :'required_if:source_type,images|array|min:1',
                 'images.*' => 'required_if:source_type,images|image|mimes:jpg,png|max:4096',
                 'youtube_path' => [
                     'nullable',

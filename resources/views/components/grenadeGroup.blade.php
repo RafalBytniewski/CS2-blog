@@ -42,7 +42,7 @@
 
 <div id="custom-modal" class="modal-overlay">
     <div class="modal-content">
-        <h2 id="modal-title">Add to yours existing group</h2>
+        <h2 id="modal-title">Add to yours existing group for</h2>
         <table class="mx-5" style="color:black">
             <thead>
                 <tr>
@@ -79,7 +79,8 @@
             </tr>
         </table>
         <h2>Make new grenade group</h2>
-        <form action="" method="post">
+        <form action="{{ route('grenade.group.store') }}" method="post">
+            @csrf
             {{-- USER --}}
             <input name="user_id" type="hidden" @if(Auth::check())value="{{ Auth::user()->id }}" @endif>
             {{-- MAP --}}
@@ -87,7 +88,7 @@
                 <label for="map" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.map')
                     }}</label>
                 <div class="col-md-6">
-                    <select id="map" class="form-control @error('map') is-invalid @enderror" name="map" required>
+                    <select id="map" class="form-control @error('map') is-invalid @enderror" name="map_id" required>
                         <option value=""></option>
                         @foreach($maps as $map)
                         <option value="{{ $map->id}}">{{ $map->name }}</option>
@@ -143,7 +144,7 @@
                     @enderror
                 </div>
             </div>
-            <button class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary">Add</button>
         </form>
         <div class="modal-buttons">
 

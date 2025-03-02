@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @vite(['resources/js/grenadeVote.js'])
 @vite(['resources/js/grenadeFavorite.js'])
-        {{-- MODAL GRENADE_GROUP --}}
-        @include('components.grenadeGroup')
-        <script src="{{ asset('js/grenadeGroup.js') }}" defer></script>
+{{-- MODAL GRENADE_GROUP --}}
+@include('components.grenadeGroup')
+<script src="{{ asset('js/grenadeGroup.js') }}" defer></script>
+
 @section('content')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,7 +128,7 @@
             <div class="row g-2 d-flex justify-content-center">
                 @foreach ($grenades as $grenade)
                     <div class="grenade-card col-md-3">
-                        <div class="asdas d-flex justify-content-around">
+                        <div class="d-flex justify-content-around">
                             <span class="text-md-center fs-6"
                                 onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';"
                                 style="cursor:pointer">
@@ -139,10 +140,12 @@
                                 <b>{{ $grenade->type }}</b>
                             </span>
                             <div class="display-flex justify-content-end">
+                                {{-- GRENADE EDIT BTN --}}
                                 @if(Auth::check() && Auth::user()->id === $grenade->user->id)
                                 <a class="btn" href="{{ route('grenade.edit', $grenade->id)}}">
                                     <i class="fa-regular fa-pen-to-square"></i>
-                                </a>                               
+                                </a>
+                                {{-- GRENADE DELETE BTN --}}                               
                                 <form action="{{ route('grenade.destroy', $grenade->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')            
@@ -151,6 +154,7 @@
                                     </button>
                                 </form>
                                 @endif
+                                {{-- GRENADE GROUP BTN --}}
                                 <button class="btn btn-link" onclick="showCustomModal(() => alert('OK!'));">
                                     <i class="fa-solid fa-layer-group"></i>
                                 </button>

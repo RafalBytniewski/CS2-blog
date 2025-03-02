@@ -9,12 +9,13 @@ class GrenadeGroup extends Model
 {
     use HasFactory;
 
-    protected $fillabe = [
+    protected $fillable = [
         'id',
         'map_id',
         'user_id',
         'name',
-        'description',
+        'visibility',
+        'description'
     ];
 
     public function grenades()

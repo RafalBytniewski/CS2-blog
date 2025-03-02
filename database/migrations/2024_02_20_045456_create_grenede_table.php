@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('description', 255);
             $table->string('image_path', 1000);
-            $table->enum('type',['smoke', 'flash', 'hegrenade', 'molotov']);
+            $table->enum('type',['Smoke', 'Flash', 'He Grenade', 'Molotov']);
             $table->enum('team',['t', 'ct']);
             $table->timestamps(); 
         });
