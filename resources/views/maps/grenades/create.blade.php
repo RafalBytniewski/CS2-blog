@@ -210,18 +210,15 @@ $mapFilePath = resource_path('js/' . $mapFileName);
                 </div>
             </div>
             {{-- IMAGES --}}
-            <div class="row mb-3" style="display:none" id="images_div">
-                <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.images')
-                    }}</label>
+            <div class="row mb-3" id="images_div" style="display:none">
+                <label for="images" class="col-md-4 col-form-label text-md-end">
+                    {{ __('cs2.map.grenade.form.images') }} <p>(drag and drop)</p>
+                </label>
                 <div class="col-md-6">
-                    <input id="images" name="images[]" type="file" multiple
+                    <input id="images" name="images[]" type="file" multiple accept="image/*"
                         class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror">
+                    <div id="image-preview" class="row mt-3"></div>
                     @error('images')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                    @error('images.*')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -256,48 +253,4 @@ $mapFilePath = resource_path('js/' . $mapFileName);
     </div>
 </div>
 </div>
-<script>
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const imagesRadio = document.getElementById("images_radio");
-    const youtubeRadio = document.getElementById("youtube_radio");
-    const imagesDiv = document.getElementById("images_div");
-    const youtubeDiv = document.getElementById("youtube_div");
-    const imagesInput = document.getElementById("images");
-    const youtubeInput = document.getElementById("youtube_path");
-
-    function updateRequiredFields() {
-        if (imagesRadio.checked) {
-            imagesDiv.style.display = "block";
-            youtubeDiv.style.display = "none";
-
-            imagesInput.setAttribute("required", "required");
-            youtubeInput.removeAttribute("required");
-        } 
-        else if (youtubeRadio.checked) {
-            imagesDiv.style.display = "none";
-            youtubeDiv.style.display = "block";
-
-            imagesInput.removeAttribute("required");
-            youtubeInput.setAttribute("required", "required");
-        } 
-        else {
-            imagesDiv.style.display = "none";
-            youtubeDiv.style.display = "none";
-
-            imagesInput.removeAttribute("required");
-            youtubeInput.removeAttribute("required");
-        }
-    }
-
-    // Nasłuchiwanie zmian w radio buttonach
-    imagesRadio.addEventListener("change", updateRequiredFields);
-    youtubeRadio.addEventListener("change", updateRequiredFields);
-
-    // Uruchomienie funkcji na start (w razie ponownego załadowania formularza)
-    updateRequiredFields();
-});
-</script>
-
-</script>
 @endsection
