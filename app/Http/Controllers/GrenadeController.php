@@ -62,19 +62,27 @@ class GrenadeController extends Controller
             $grenade = Grenade::create($grenadeData);
             
             if (isset($grenadeData['images'])) {
-                foreach ($request->file('images') as $image) { 
+                foreach ($request->file('images') as $index => $image) {
                     $watermark = Storage::get('images/watermark/watermark.png');
                     $path = $image->store('images/grenades');
+                
                     Image::read(Storage::get($path))
                         ->place(
                             element: $watermark,
                             position: 'bottom-right',
-                            offset_x: 10, // 10px from the right
-                            offset_y: 10, // 10px from the bottom
-                            opacity: 90 //
+                            offset_x: 10,
+                            offset_y: 10,
+                            opacity: 90
                         )
                         ->save(Storage::path($path));
-                    $grenade->grenadeImages()->create(['path' => $path]);
+                        dd($request->all());
+                    $grenade->grenadeImages()->create([
+                        'path' => $path,
+                        'position' => $request->input("image_meta.$index.position") ?? ($index + 1),
+                        'type' => $request->input("types.$index") ?? 'normal',
+
+
+                    ]);
                 }
             }
             

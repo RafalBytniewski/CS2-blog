@@ -209,6 +209,9 @@ $mapFilePath = resource_path('js/' . $mapFileName);
                     @enderror
                 </div>
             </div>
+            {{-- META container --}}
+            <div id="image-meta-container"></div>
+
             {{-- IMAGES --}}
             <div class="row mb-3" id="images_div" style="display:none">
                 <label for="images" class="col-md-4 col-form-label text-md-end">

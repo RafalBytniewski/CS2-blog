@@ -19,7 +19,9 @@ class GrenadeImage extends Model
 
     protected $fillable = [
         'grenade_id',
-        'path'
+        'path',
+        'position',
+        'type'
     ];
     public function grenades(): BelongsTo
     {

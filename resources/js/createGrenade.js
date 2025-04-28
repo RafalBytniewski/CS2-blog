@@ -85,99 +85,179 @@ radioButtons.forEach(radio => {
 });
 
 // ##########################
-// sortable and border for image land spot
+// sortable, preview for images and border for image landing spot
 // ##########################
 
-                
-                function addBorderToLastImage() {
-                    let lastImage = document.querySelector("#image-preview .image-item:last-child");
-                    let borderFrame = document.getElementById("image-border-frame");
-                    let label = document.getElementById("image-border-label");
-    
-                    if (!lastImage) return; // Jeśli nie ma obrazów, nic nie rób
-    
-                    let rect = lastImage.getBoundingClientRect();
-                    
-                    // Jeśli ramka już istnieje, przesuwamy ją
-                    if (!borderFrame) {
-                        borderFrame = document.createElement("div");
-                        borderFrame.id = "image-border-frame";
-                        borderFrame.style.position = "absolute";
-                        borderFrame.style.border = "3px solid blue"; // Kolor ramki
-                        borderFrame.style.borderRadius = "5px"; 
-                        borderFrame.style.pointerEvents = "none"; // Nie przeszkadza w drag & drop
-                        borderFrame.style.zIndex = "10"; // Nad zdjęciami
-                        document.body.appendChild(borderFrame);
-                    }
-    
-                    // Jeśli label nie istnieje, dodajemy go
-                    if (!label) {
-                        label = document.createElement("div");
-                        label.id = "image-border-label";
-                        label.textContent = "Land Spot";
-                        label.style.position = "absolute";
-                        label.style.color = "white";
-                        label.style.fontSize = "12px";
-                        label.style.fontWeight = "bold";
-                        label.style.borderRadius = "4px";
-                        label.style.zIndex = "11"; // Nad ramką
-                        document.body.appendChild(label);
-                    }
-    
-                    // Aktualizujemy pozycję i rozmiar ramki
-                    borderFrame.style.width = `${rect.width - 10}px`; // Zmniejszony padding X
-                    borderFrame.style.height = `${rect.height + 10}px`; // Zmniejszony padding Y
-                    borderFrame.style.top = `${rect.top + window.scrollY - 5}px`; // Wyrównanie
-                    borderFrame.style.left = `${rect.left + window.scrollX + 5}px`;
-    
-                    // Aktualizujemy pozycję etykiety "Land Spot"
-                    label.style.top = `${rect.top + window.scrollY - 20}px`; // Nad ramką
-                    label.style.left = `${rect.left + window.scrollX + rect.width / 2 - label.offsetWidth / 2}px`; // Wycentrowanie
-                }
-    
-                // Uruchamiamy na starcie i po każdej zmianie
-                document.addEventListener("DOMContentLoaded", function() {
-                    addBorderToLastImage(); // Sprawdza pozycję na starcie
-    
-                    document.getElementById("images").addEventListener("change", function() {
-                        setTimeout(() => {
-                            addBorderToLastImage(); // Aktualizuje ramkę po dodaniu nowego obrazu
-                        }, 300);
-                    });
-                });
-    
-                document.addEventListener("DOMContentLoaded", function() {
-                    let imageInput = document.getElementById("images");
-                    let previewContainer = document.getElementById("image-preview");
-                
-                    imageInput.addEventListener("change", function(event) {
-                        previewContainer.innerHTML = ""; // Czyścimy stare podglądy
-                        Array.from(event.target.files).forEach((file, index) => {
-                            let reader = new FileReader();
-                            reader.onload = function(e) {
-                                let div = document.createElement("div");
-                                div.classList.add("col-md-3", "mb-3", "image-item");
-                                div.dataset.index = index;
-                                div.innerHTML = `
-                                    <div class="position-relative">
-                                        <img src="${e.target.result}" class="img-thumbnail">
-                                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 delete-image">X</button>
-                                    </div>
-                                `;
-                                previewContainer.appendChild(div);
-                            };
-                            reader.readAsDataURL(file);
-                        });
-                    });
-                
-                    // Obsługa usuwania zdjęć z podglądu
-                    previewContainer.addEventListener("click", function(event) {
-                        if (event.target.classList.contains("delete-image")) {
-                            event.target.closest(".image-item").remove();
-                        }
-                    });
-                
-                    // Sortowanie
-                    new Sortable(previewContainer, { animation: 150 });
-                });
-                
+document.addEventListener("DOMContentLoaded", function () {
+    const imageInput = document.getElementById("images"); // input typu file
+    const previewContainer = document.getElementById("image-preview"); // kontener na podgląd zdjęć
+
+    // Ustawianie pozycji i typu zdjęć
+    function updateImagePositionsAndTypes() {
+        const items = previewContainer.querySelectorAll(".image-item");
+        const total = items.length;
+
+        items.forEach((item, index) => {
+            item.dataset.position = index + 1; // ustawiamy pozycję zdjęcia
+            item.dataset.type = 'normal'; // domyślny typ to 'normal'
+
+            // Tworzymy label z pozycją jeśli nie istnieje
+            let label = item.querySelector(".position-label");
+            if (!label) {
+                label = document.createElement("div");
+                label.className = "position-label";
+                label.style.position = "absolute";
+                label.style.bottom = "5px";
+                label.style.left = "50%";
+                label.style.transform = "translateX(-50%)";
+                label.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
+                label.style.color = "white";
+                label.style.fontSize = "12px";
+                label.style.padding = "2px 6px";
+                label.style.borderRadius = "4px";
+                label.style.zIndex = "12";
+                item.querySelector(".position-relative").appendChild(label);
+            }
+
+            label.textContent = `${index + 1}/${total}`; // ustawiamy tekst labela
+        });
+
+        // Ostatnie zdjęcie to 'landing_spot'
+        if (total > 0) {
+            items[total - 1].dataset.type = 'landing_spot';
+        }
+    }
+
+    // Dodaje ramkę i napis do ostatniego zdjęcia
+    function addBorderToLastImage() {
+        let lastImage = document.querySelector("#image-preview .image-item:last-child");
+        let borderFrame = document.getElementById("image-border-frame");
+        let label = document.getElementById("image-border-label");
+
+        if (!lastImage) {
+            if (borderFrame) borderFrame.remove();
+            if (label) label.remove();
+            return;
+        }
+
+        let rect = lastImage.getBoundingClientRect();
+
+        if (!borderFrame) {
+            borderFrame = document.createElement("div");
+            borderFrame.id = "image-border-frame";
+            borderFrame.style.position = "absolute";
+            borderFrame.style.border = "3px solid blue";
+            borderFrame.style.borderRadius = "5px";
+            borderFrame.style.pointerEvents = "none";
+            borderFrame.style.zIndex = "10";
+            document.body.appendChild(borderFrame);
+        }
+
+        if (!label) {
+            label = document.createElement("div");
+            label.id = "image-border-label";
+            label.textContent = "Land Spot";
+            label.style.position = "absolute";
+            label.style.color = "white";
+            label.style.fontSize = "12px";
+            label.style.fontWeight = "bold";
+            label.style.borderRadius = "4px";
+            label.style.zIndex = "11";
+            document.body.appendChild(label);
+        }
+
+        borderFrame.style.width = `${rect.width - 10}px`;
+        borderFrame.style.height = `${rect.height + 10}px`;
+        borderFrame.style.top = `${rect.top + window.scrollY - 5}px`;
+        borderFrame.style.left = `${rect.left + window.scrollX + 5}px`;
+
+        label.style.top = `${rect.top + window.scrollY - 20}px`;
+        label.style.left = `${rect.left + window.scrollX + rect.width / 2 - label.offsetWidth / 2}px`;
+    }
+
+    // Obsługa zmiany zdjęć (dodanie)
+    imageInput.addEventListener("change", function (event) {
+        previewContainer.innerHTML = ""; // wyczyść stare zdjęcia
+
+        Array.from(event.target.files).forEach((file, index) => {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let div = document.createElement("div");
+                div.classList.add("col-md-3", "mb-3", "image-item");
+                div.dataset.index = index;
+                div.innerHTML = `
+                    <div class="position-relative">
+                        <img src="${e.target.result}" class="img-thumbnail">
+                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 delete-image">X</button>
+                    </div>
+                `;
+                previewContainer.appendChild(div);
+                updateImagePositionsAndTypes();
+                addBorderToLastImage();
+            };
+            reader.readAsDataURL(file); // konwertuje obraz na base64
+        });
+
+        // opóźnienie, żeby DOM zdążył się zaktualizować
+        setTimeout(() => {
+            updateImagePositionsAndTypes();
+            addBorderToLastImage();
+        }, 300);
+    });
+
+    // Obsługa usuwania zdjęcia
+    previewContainer.addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-image")) {
+            event.target.closest(".image-item").remove();
+            setTimeout(() => {
+                updateImagePositionsAndTypes();
+                addBorderToLastImage();
+            }, 100);
+        }
+    });
+
+    // Gdy zmieniamy rozmiar okna, aktualizujemy ramkę
+    window.addEventListener("resize", () => {
+        setTimeout(addBorderToLastImage, 100);
+    });
+
+    // Obsługa przeciągania zdjęć (Sortable.js)
+    new Sortable(previewContainer, {
+        animation: 150,
+        onEnd: () => {
+            updateImagePositionsAndTypes();
+            setTimeout(addBorderToLastImage, 100);
+        },
+    });
+
+    // Inicjalne wywołanie
+    addBorderToLastImage();
+});
+
+// Funkcja tworzy hidden inputy z pozycjami i typami zdjęć (do przesłania w formularzu)
+function updateImageMetaInputs() {
+    const metaContainer = document.getElementById("image-meta-container");
+    const items = document.querySelectorAll("#image-preview .image-item");
+
+    metaContainer.innerHTML = ""; // usuwa stare inputy
+
+    items.forEach((item, index) => {
+        const inputPosition = document.createElement("input");
+        inputPosition.type = "hidden";
+        inputPosition.name = "positions[]";
+        inputPosition.value = index + 1;
+
+        const inputType = document.createElement("input");
+        inputType.type = "hidden";
+        inputType.name = "types[]";
+        inputType.value = index === items.length - 1 ? "landing_spot" : "normal";
+
+        metaContainer.appendChild(inputPosition);
+        metaContainer.appendChild(inputType);
+    });
+}
+form.addEventListener("submit", function (e) {
+    console.log("SUBMIT intercepted, dodajemy meta inputy");
+    updateImageMetaInputs();
+});
+window.updateImageMetaInputs = updateImageMetaInputs;
