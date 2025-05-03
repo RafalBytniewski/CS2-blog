@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (areaId) {
             fetchCallouts('callout_from', areaId);
             calloutFromDiv.removeAttribute('hidden');
+            
         } else {
             calloutFromDiv.setAttribute('hidden', true);
         }
