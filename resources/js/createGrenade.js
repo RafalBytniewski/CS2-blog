@@ -128,52 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Dodaje ramkę i napis do ostatniego zdjęcia
-    function addBorderToLastImage() {
-        let lastImage = document.querySelector("#image-preview .image-item:last-child");
-        let borderFrame = document.getElementById("image-border-frame");
-        let label = document.getElementById("image-border-label");
 
-        if (!lastImage) {
-            if (borderFrame) borderFrame.remove();
-            if (label) label.remove();
-            return;
-        }
-
-        let rect = lastImage.getBoundingClientRect();
-
-        if (!borderFrame) {
-            borderFrame = document.createElement("div");
-            borderFrame.id = "image-border-frame";
-            borderFrame.style.position = "absolute";
-            borderFrame.style.border = "3px solid blue";
-            borderFrame.style.borderRadius = "5px";
-            borderFrame.style.pointerEvents = "none";
-            borderFrame.style.zIndex = "10";
-            document.body.appendChild(borderFrame);
-        }
-
-        if (!label) {
-            label = document.createElement("div");
-            label.id = "image-border-label";
-            label.textContent = "Land Spot";
-            label.style.position = "absolute";
-            label.style.color = "white";
-            label.style.fontSize = "12px";
-            label.style.fontWeight = "bold";
-            label.style.borderRadius = "4px";
-            label.style.zIndex = "11";
-            document.body.appendChild(label);
-        }
-
-        borderFrame.style.width = `${rect.width - 10}px`;
-        borderFrame.style.height = `${rect.height + 10}px`;
-        borderFrame.style.top = `${rect.top + window.scrollY - 5}px`;
-        borderFrame.style.left = `${rect.left + window.scrollX + 5}px`;
-
-        label.style.top = `${rect.top + window.scrollY - 20}px`;
-        label.style.left = `${rect.left + window.scrollX + rect.width / 2 - label.offsetWidth / 2}px`;
-    }
 
     // Obsługa zmiany zdjęć (dodanie)
     imageInput.addEventListener("change", function (event) {
@@ -202,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             updateImagePositionsAndTypes();
             addBorderToLastImage();
+            updateImageMetaInputs();
         }, 300);
     });
 
@@ -212,10 +168,56 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 updateImagePositionsAndTypes();
                 addBorderToLastImage();
+                updateImageMetaInputs();
             }, 100);
         }
     });
+    // Dodaje ramkę i napis do ostatniego zdjęcia
+    function addBorderToLastImage() {
+        let lastImage = document.querySelector("#image-preview .image-item:last-child");
+        let borderFrame = document.getElementById("image-border-frame");
+        let label = document.getElementById("image-border-label");
 
+        if (!lastImage) {
+            if (borderFrame) borderFrame.remove();
+            if (label) label.remove();
+            return;
+        }
+
+        let rect = lastImage.getBoundingClientRect();
+
+        if (!borderFrame) {
+            borderFrame = document.createElement("div");
+            borderFrame.id = "image-border-frame";
+            borderFrame.style.position = "absolute";
+            borderFrame.style.border = "3px solid blue";
+            borderFrame.style.borderRadius = "5px";
+            borderFrame.style.pointerEvents = "none";
+            borderFrame.style.zIndex = "10";
+            document.body.appendChild(borderFrame);
+        }
+
+        if (!label) {
+            label = document.createElement("div");
+            label.id = "image-border-label";
+            label.textContent = "Landing Spot";
+            label.style.position = "absolute";
+            label.style.color = "white";
+            label.style.fontSize = "12px";
+            label.style.fontWeight = "bold";
+            label.style.borderRadius = "4px";
+            label.style.zIndex = "11";
+            document.body.appendChild(label);
+        }
+
+        borderFrame.style.width = `${rect.width - 10}px`;
+        borderFrame.style.height = `${rect.height + 10}px`;
+        borderFrame.style.top = `${rect.top + window.scrollY - 5}px`;
+        borderFrame.style.left = `${rect.left + window.scrollX + 5}px`;
+
+        label.style.top = `${rect.top + window.scrollY - 20}px`;
+        label.style.left = `${rect.left + window.scrollX + rect.width / 2 - label.offsetWidth / 2}px`;
+    }
     // Gdy zmieniamy rozmiar okna, aktualizujemy ramkę
     window.addEventListener("resize", () => {
         setTimeout(addBorderToLastImage, 100);
@@ -225,39 +227,33 @@ document.addEventListener("DOMContentLoaded", function () {
     new Sortable(previewContainer, {
         animation: 150,
         onEnd: () => {
-            updateImagePositionsAndTypes();
-            setTimeout(addBorderToLastImage, 100);
+            setTimeout(() => {
+                updateImagePositionsAndTypes();
+                addBorderToLastImage();
+                updateImageMetaInputs();
+            },100)
         },
     });
-
-    // Inicjalne wywołanie
-    addBorderToLastImage();
 });
 
-// Funkcja tworzy hidden inputy z pozycjami i typami zdjęć (do przesłania w formularzu)
+// HANDLE IMAGE INPUT TYPE
 function updateImageMetaInputs() {
     const metaContainer = document.getElementById("image-meta-container");
     const items = document.querySelectorAll("#image-preview .image-item");
 
-    metaContainer.innerHTML = ""; // usuwa stare inputy
+    metaContainer.innerHTML = ""; // wyczyść stare inputy
 
     items.forEach((item, index) => {
-        const inputPosition = document.createElement("input");
-        inputPosition.type = "hidden";
-        inputPosition.name = "positions[]";
-        inputPosition.value = index + 1;
-
         const inputType = document.createElement("input");
         inputType.type = "hidden";
         inputType.name = "types[]";
-        inputType.value = index === items.length - 1 ? "landing_spot" : "normal";
-
-        metaContainer.appendChild(inputPosition);
+        inputType.value = item.dataset.type === 'landing_spot' ? 'landing_spot' : 'normal';
         metaContainer.appendChild(inputType);
     });
 }
-form.addEventListener("submit", function (e) {
-    console.log("SUBMIT intercepted, dodajemy meta inputy");
-    updateImageMetaInputs();
-});
-window.updateImageMetaInputs = updateImageMetaInputs;
+
+
+
+
+
+

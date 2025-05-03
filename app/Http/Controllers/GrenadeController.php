@@ -48,54 +48,57 @@ class GrenadeController extends Controller
      * @param UpsertGrenadeRequest $request
      * @return RedirectResponse
      */
-    public function store(UpsertGrenadeRequest $request)
-    {
-        try {
-            $user = auth()->user();
-            $grenadeData = $request->validated();
-            $grenadeData['user_id'] = $user->id;
+   public function store(UpsertGrenadeRequest $request)
+{
+    try {
+        $user = auth()->user();
+        $grenadeData = $request->validated();
+        $grenadeData['user_id'] = $user->id;
 
-            if (!empty($grenadeData['youtube_path'])) {
-                $grenadeData['youtube_path'] = $this->extractYouTubeId($grenadeData['youtube_path']);
-            }
+        // Sprawdzenie zawartości przesyłanych danych
+        $types = $request->input('types'); // Odbieranie tablicy typów
+        $positions = $request->input('positions'); // Odbieranie tablicy pozycji
+        dd($request->input());
 
-            $grenade = Grenade::create($grenadeData);
-            
-            if (isset($grenadeData['images'])) {
-                foreach ($request->file('images') as $index => $image) {
-                    $watermark = Storage::get('images/watermark/watermark.png');
-                    $path = $image->store('images/grenades');
-                
-                    Image::read(Storage::get($path))
-                        ->place(
-                            element: $watermark,
-                            position: 'bottom-right',
-                            offset_x: 10,
-                            offset_y: 10,
-                            opacity: 90
-                        )
-                        ->save(Storage::path($path));
-                        dd($request->all());
-                    $grenade->grenadeImages()->create([
-                        'path' => $path,
-                        'position' => $request->input("image_meta.$index.position") ?? ($index + 1),
-                        'type' => $request->input("types.$index") ?? 'normal',
-
-
-                    ]);
-                }
-            }
-            
-            return redirect()
-                ->route('grenade.show', $grenade->id)
-                ->with('success', 'Pomyślnie dodano granat!');
-        } catch (\Exception $e) {
-            \Log::error('Błąd podczas dodawania granatu: ' . $e->getMessage());
-            return redirect()
-                ->route('grenade.create')
-                ->with('error', 'Wystąpił błąd podczas dodawania granatu. Spróbuj ponownie.');
+        if (!empty($grenadeData['youtube_path'])) {
+            $grenadeData['youtube_path'] = $this->extractYouTubeId($grenadeData['youtube_path']);
         }
+
+        $grenade = Grenade::create($grenadeData);
+        
+        if (isset($grenadeData['images'])) {
+            foreach ($request->file('images') as $index => $image) {
+                $watermark = Storage::get('images/watermark/watermark.png');
+                $path = $image->store('images/grenades');
+            
+                Image::read(Storage::get($path))
+                    ->place(
+                        element: $watermark,
+                        position: 'bottom-right',
+                        offset_x: 10,
+                        offset_y: 10,
+                        opacity: 90
+                    )
+                    ->save(Storage::path($path));
+                    
+                $grenade->grenadeImages()->create([
+                    'path' => $path,
+                    'position' => $positions[$index] ?? ($index + 1),
+                    'type' => $types[$index] ?? 'normal',
+                ]);
+            }
+        }
+        
+        return redirect()
+            ->route('grenade.show', $grenade->id)
+            ->with('success', 'Pomyślnie dodano granat!');
+    } catch (\Exception $e) {
+        \Log::error('Błąd podczas dodawania granatu: ' . $e->getMessage());
+        return redirect()
+            ->route('grenade.create')
+            ->with('error', 'Wystąpił błąd podczas dodawania granatu. Spróbuj ponownie.');
     }
+}
 
     private function extractYouTubeId($url)
     {
