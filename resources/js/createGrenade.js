@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (areaId) {
             fetchCallouts('callout_from', areaId);
             calloutFromDiv.removeAttribute('hidden');
-            
         } else {
             calloutFromDiv.setAttribute('hidden', true);
         }
@@ -90,19 +89,19 @@ radioButtons.forEach(radio => {
 // ##########################
 
 document.addEventListener("DOMContentLoaded", function () {
-    const imageInput = document.getElementById("images"); // input typu file
-    const previewContainer = document.getElementById("image-preview"); // kontener na podgląd zdjęć
-
-    // Ustawianie pozycji i typu zdjęć
-    function updateImagePositionsAndTypes() {
-        const items = previewContainer.querySelectorAll(".image-item");
+    const imageInput = document.getElementById("images");
+    const previewContainer = document.getElementById("image-preview"); 
+    
+    // update position and type of image
+    function updateImagePositionsAndTypes(container) {
+        container = container || document.getElementById("image-preview");
+        const items = container.querySelectorAll(".image-item");
         const total = items.length;
-
+    
         items.forEach((item, index) => {
-            item.dataset.position = index + 1; // ustawiamy pozycję zdjęcia
-            item.dataset.type = 'normal'; // domyślny typ to 'normal'
-
-            // Tworzymy label z pozycją jeśli nie istnieje
+            item.dataset.position = index + 1;
+            item.dataset.type = 'normal';
+    
             let label = item.querySelector(".position-label");
             if (!label) {
                 label = document.createElement("div");
@@ -119,27 +118,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 label.style.zIndex = "12";
                 item.querySelector(".position-relative").appendChild(label);
             }
-
-            label.textContent = `${index + 1}/${total}`; // ustawiamy tekst labela
+    
+            label.textContent = `${index + 1}/${total}`;
         });
-
-        // Ostatnie zdjęcie to 'landing_spot'
+    
         if (total > 0) {
             items[total - 1].dataset.type = 'landing_spot';
         }
     }
-
-
-
-    // Obsługa zmiany zdjęć (dodanie)
+    
+    // image add and edit handle
     imageInput.addEventListener("change", function (event) {
-        previewContainer.innerHTML = ""; // wyczyść stare zdjęcia
-
         Array.from(event.target.files).forEach((file, index) => {
             let reader = new FileReader();
             reader.onload = function (e) {
                 let div = document.createElement("div");
-                div.classList.add("col-md-3", "mb-3", "image-item");
+                div.classList.add("col-md-6", "mb-3", "image-item");
                 div.dataset.index = index;
                 div.innerHTML = `
                     <div class="position-relative">
@@ -150,19 +144,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 previewContainer.appendChild(div);
                 updateImagePositionsAndTypes();
                 addBorderToLastImage();
+                updateImageMetaInputs();
             };
-            reader.readAsDataURL(file); // konwertuje obraz na base64
+            reader.readAsDataURL(file);
         });
-
-        // opóźnienie, żeby DOM zdążył się zaktualizować
-        setTimeout(() => {
-            updateImagePositionsAndTypes();
-            addBorderToLastImage();
-            updateImageMetaInputs();
-        }, 300);
     });
 
-    // Obsługa usuwania zdjęcia
+    // delete image handlig
     previewContainer.addEventListener("click", function (event) {
         if (event.target.classList.contains("delete-image")) {
             event.target.closest(".image-item").remove();
@@ -173,20 +161,21 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 100);
         }
     });
-    // Dodaje ramkę i napis do ostatniego zdjęcia
-    function addBorderToLastImage() {
-        let lastImage = document.querySelector("#image-preview .image-item:last-child");
+    // border for last image
+    function addBorderToLastImage(container) {
+        container = container || document.getElementById("image-preview");
+        let lastImage = container.querySelector(".image-item:last-child");
         let borderFrame = document.getElementById("image-border-frame");
         let label = document.getElementById("image-border-label");
-
+    
         if (!lastImage) {
             if (borderFrame) borderFrame.remove();
             if (label) label.remove();
             return;
         }
-
-        let rect = lastImage.getBoundingClientRect();
-
+    
+        const rect = lastImage.getBoundingClientRect();
+    
         if (!borderFrame) {
             borderFrame = document.createElement("div");
             borderFrame.id = "image-border-frame";
@@ -197,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
             borderFrame.style.zIndex = "10";
             document.body.appendChild(borderFrame);
         }
-
+    
         if (!label) {
             label = document.createElement("div");
             label.id = "image-border-label";
@@ -210,21 +199,21 @@ document.addEventListener("DOMContentLoaded", function () {
             label.style.zIndex = "11";
             document.body.appendChild(label);
         }
-
+    
         borderFrame.style.width = `${rect.width - 10}px`;
         borderFrame.style.height = `${rect.height + 10}px`;
         borderFrame.style.top = `${rect.top + window.scrollY - 5}px`;
         borderFrame.style.left = `${rect.left + window.scrollX + 5}px`;
-
+    
         label.style.top = `${rect.top + window.scrollY - 20}px`;
         label.style.left = `${rect.left + window.scrollX + rect.width / 2 - label.offsetWidth / 2}px`;
     }
-    // Gdy zmieniamy rozmiar okna, aktualizujemy ramkę
+    
+
     window.addEventListener("resize", () => {
         setTimeout(addBorderToLastImage, 100);
     });
 
-    // Obsługa przeciągania zdjęć (Sortable.js)
     new Sortable(previewContainer, {
         animation: 150,
         onEnd: () => {
@@ -237,12 +226,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// HANDLE IMAGE INPUT TYPE
-function updateImageMetaInputs() {
-    const metaContainer = document.getElementById("image-meta-container");
-    const items = document.querySelectorAll("#image-preview .image-item");
 
-    metaContainer.innerHTML = ""; // wyczyść stare inputy
+// HANDLE IMAGE INPUT TYPE
+function updateImageMetaInputs(container = document.getElementById("image-preview")) {
+    const metaContainer = document.getElementById("image-meta-container");
+    const items = container.querySelectorAll(".image-item");
+
+    metaContainer.innerHTML = "";
 
     items.forEach((item, index) => {
         const inputType = document.createElement("input");
@@ -252,6 +242,50 @@ function updateImageMetaInputs() {
         metaContainer.appendChild(inputType);
     });
 }
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Nasłuchiwanie na scroll
+    window.addEventListener("scroll", handleScroll);
+
+    // Funkcja sprawdzająca widoczność elementu i wywołująca odpowiednie funkcje
+    function handleScroll() {
+        const previewContainer = document.getElementById("image-preview") || document.getElementById("images-list");
+
+        if (!previewContainer) return; // Upewnij się, że kontener istnieje
+
+        // Sprawdzenie, czy element jest widoczny w oknie przeglądarki
+        const rect = previewContainer.getBoundingClientRect();
+        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+        // Jeśli element jest widoczny, wywołujemy funkcje
+        if (isVisible) {
+            updateImagePositionsAndTypes(previewContainer);
+            addBorderToLastImage(previewContainer);
+            updateImageMetaInputs(previewContainer);
+        }
+    }
+
+    // Nasłuchiwanie na `resize` w celu dostosowania widoczności po zmianie rozmiaru okna
+    window.addEventListener("resize", function() {
+        const previewContainer = document.getElementById("image-preview") || document.getElementById("images-list");
+        
+        if (!previewContainer) return;
+
+        const rect = previewContainer.getBoundingClientRect();
+        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+        if (isVisible) {
+            updateImagePositionsAndTypes(previewContainer);
+            addBorderToLastImage(previewContainer);
+            updateImageMetaInputs(previewContainer);
+        }
+    });
+});
+
+
+
 
 
 

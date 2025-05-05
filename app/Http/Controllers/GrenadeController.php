@@ -173,6 +173,7 @@ class GrenadeController extends Controller
      */
     public function update(UpsertGrenadeRequest $request, Grenade $grenade)
     {
+        /* dd($request->input()); */
         $grenade->update($request->validated());
         return redirect()->route('grenade.show', $grenade)->with('success', 'Dane zostały zaktualizowane.');
     }
