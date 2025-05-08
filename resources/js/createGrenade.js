@@ -65,15 +65,38 @@ if (imagesRadio.checked) {
 // Dodajemy event listener dla inputów, ale w edycji te opcje są zablokowane (disabled), więc ten fragment może nie być potrzebny
 const radioButtons = document.querySelectorAll('input[name="source_type"]');
 
+document.addEventListener('DOMContentLoaded', function () {
+    const hasExistingImages = document.querySelectorAll('#image-preview .image-item').length > 0;
+
+    if (imagesRadio.checked) {
+        imagesDiv.style.display = '';
+        if (!hasExistingImages) {
+            images.setAttribute('required', true);
+        } else {
+            images.removeAttribute('required');
+        }
+    } else if (youTubeRadio.checked) {
+        youTubeDiv.style.display = '';
+        youTubePath.setAttribute('required', true);
+    }
+});
+
 radioButtons.forEach(radio => {
-    radio.addEventListener('change', function() {
+    radio.addEventListener('change', function () {
+        const hasExistingImages = document.querySelectorAll('#image-preview .image-item').length > 0;
+
         if (imagesRadio.checked) {
             imagesDiv.style.display = '';
-            images.setAttribute('required', true);
+            if (!hasExistingImages) {
+                images.setAttribute('required', true);
+            } else {
+                images.removeAttribute('required');
+            }
         } else {
             imagesDiv.style.display = 'none';
             images.removeAttribute('required');
         }
+
         if (youTubeRadio.checked) {
             youTubeDiv.style.display = '';
             youTubePath.setAttribute('required', true);
@@ -91,7 +114,7 @@ radioButtons.forEach(radio => {
 document.addEventListener("DOMContentLoaded", function () {
     const imageInput = document.getElementById("images");
     const previewContainer = document.getElementById("image-preview"); 
-    
+   
     // update position and type of image
     function updateImagePositionsAndTypes(container) {
         container = container || document.getElementById("image-preview");
@@ -129,6 +152,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // image add and edit handle
     imageInput.addEventListener("change", function (event) {
+        previewContainer.innerHTML = "";
+
         Array.from(event.target.files).forEach((file, index) => {
             let reader = new FileReader();
             reader.onload = function (e) {
@@ -211,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     window.addEventListener("resize", () => {
-        setTimeout(addBorderToLastImage, 100);
+        setTimeout(addBorderToLastImage, 500);
     });
 
     new Sortable(previewContainer, {
@@ -245,7 +270,7 @@ function updateImageMetaInputs(container = document.getElementById("image-previe
 
 
 
-document.addEventListener("DOMContentLoaded", function() {
+/* document.addEventListener("DOMContentLoaded", function() {
     // Nasłuchiwanie na scroll
     window.addEventListener("scroll", handleScroll);
 
@@ -282,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function() {
             updateImageMetaInputs(previewContainer);
         }
     });
-});
+}); */
 
 
 
