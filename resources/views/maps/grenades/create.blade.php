@@ -220,6 +220,10 @@ $mapFilePath = resource_path('js/' . $mapFileName);
                 <div class="col-md-6">
                     <input id="images" name="images[]" type="file" multiple accept="image/*"
                         class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror">
+                        <div class="col-md-6 justify-content-start d-flex">
+                            <button class="btn btn-outline-success m-1 btns" id="throwingBtn" type="button">THROWING SPOT</button>
+                            <button class="btn btn-outline-primary m-1 btns" id="landingBtn" type="button">LANDING SPOT</button>
+                        </div>
                     <div id="image-preview" class="row mt-3"></div>
                     @error('images')
                     <span class="invalid-feedback" role="alert">
@@ -228,6 +232,14 @@ $mapFilePath = resource_path('js/' . $mapFileName);
                     @enderror
                 </div>
             </div>
+            {{-- TOOLTIP --}}
+{{--             <div class="row mb-3" id="tooltip" style="display:none">
+                <div class="col-md-4"></div>
+                <div class="col-md-6 justify-content-start d-flex">
+                    <button class="btn btn-outline-primary mx-3" type="button">THROWING</button>
+                    <button class="btn btn-outline-primary mx-3" type="button">LANDING</button>
+                </div>
+            </div> --}}
             {{-- YOUTUBE PATH --}}
             <div class="row mb-3" style="display:none" id="youtube_div">
                 <label for="youtube_path" class="col-md-4 col-form-label text-md-end">{{

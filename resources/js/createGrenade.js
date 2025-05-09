@@ -115,6 +115,37 @@ document.addEventListener("DOMContentLoaded", function () {
     const imageInput = document.getElementById("images");
     const previewContainer = document.getElementById("image-preview"); 
    
+    // SET THROWING AND LANDING SPOT BORDER
+    const throwingBtn = document.getElementById('throwingBtn');
+    const landingBtn = document.getElementById('landingBtn');
+    const btns = document.querySelectorAll('.btns')
+
+    btns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            if(btn === throwingBtn){
+                btn.classList.toggle('active');
+                btn.innerHTML = "THROWING SPOT <i class='fa-regular fa-pen-to-square'></i>"
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('img-thumbnail')) {
+                        e.target.style.backgroundColor = 'green';
+                        e.target.setAttribute('data-type', 'throwing-spot');
+                        btn.innerHTML = "THROWING SPOT <i class='fa-regular fa-square-check'></i>"
+                    }
+                });
+            }else if(btn === landingBtn){
+                btn.classList.toggle('active');
+                btn.innerHTML = "THROWING SPOT <i class='fa-regular fa-pen-to-square'></i>"
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('img-thumbnail')) {
+                        e.target.style.backgroundColor = 'blue';
+                        e.target.setAttribute('data-type', 'landing-spot');
+                        btn.innerHTML = "THROWING SPOT <i class='fa-regular fa-square-check'></i>"
+                    }
+                });
+            }
+        });
+    });
+
     // update position and type of image
     function updateImagePositionsAndTypes(container) {
         container = container || document.getElementById("image-preview");
@@ -144,10 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
     
             label.textContent = `${index + 1}/${total}`;
         });
-    
-        if (total > 0) {
-            items[total - 1].dataset.type = 'landing_spot';
-        }
     }
     
     // image add and edit handle
@@ -168,14 +195,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
                 previewContainer.appendChild(div);
                 updateImagePositionsAndTypes();
-                addBorderToLastImage();
                 updateImageMetaInputs();
             };
             reader.readAsDataURL(file);
         });
     });
 
-    // delete image handlig
+    // delete image handlig !!!!!!!!!!!!!!!!!!!!!!!!!!!ADD DELETING IMAGES FROM INPUT!!!!!!!!!!!!!!!!!!!!
     previewContainer.addEventListener("click", function (event) {
         if (event.target.classList.contains("delete-image")) {
             event.target.closest(".image-item").remove();
@@ -186,65 +212,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 100);
         }
     });
-    // border for last image
-    function addBorderToLastImage(container) {
-        container = container || document.getElementById("image-preview");
-        let lastImage = container.querySelector(".image-item:last-child");
-        let borderFrame = document.getElementById("image-border-frame");
-        let label = document.getElementById("image-border-label");
-    
-        if (!lastImage) {
-            if (borderFrame) borderFrame.remove();
-            if (label) label.remove();
-            return;
-        }
-    
-        const rect = lastImage.getBoundingClientRect();
-    
-        if (!borderFrame) {
-            borderFrame = document.createElement("div");
-            borderFrame.id = "image-border-frame";
-            borderFrame.style.position = "absolute";
-            borderFrame.style.border = "3px solid blue";
-            borderFrame.style.borderRadius = "5px";
-            borderFrame.style.pointerEvents = "none";
-            borderFrame.style.zIndex = "10";
-            document.body.appendChild(borderFrame);
-        }
-    
-        if (!label) {
-            label = document.createElement("div");
-            label.id = "image-border-label";
-            label.textContent = "Landing Spot";
-            label.style.position = "absolute";
-            label.style.color = "white";
-            label.style.fontSize = "12px";
-            label.style.fontWeight = "bold";
-            label.style.borderRadius = "4px";
-            label.style.zIndex = "11";
-            document.body.appendChild(label);
-        }
-    
-        borderFrame.style.width = `${rect.width - 10}px`;
-        borderFrame.style.height = `${rect.height + 10}px`;
-        borderFrame.style.top = `${rect.top + window.scrollY - 5}px`;
-        borderFrame.style.left = `${rect.left + window.scrollX + 5}px`;
-    
-        label.style.top = `${rect.top + window.scrollY - 20}px`;
-        label.style.left = `${rect.left + window.scrollX + rect.width / 2 - label.offsetWidth / 2}px`;
-    }
-    
-
-    window.addEventListener("resize", () => {
-        setTimeout(addBorderToLastImage, 500);
-    });
 
     new Sortable(previewContainer, {
         animation: 150,
         onEnd: () => {
             setTimeout(() => {
                 updateImagePositionsAndTypes();
-                addBorderToLastImage();
                 updateImageMetaInputs();
             },100)
         },
@@ -252,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// HANDLE IMAGE INPUT TYPE
+/* // HANDLE IMAGE INPUT TYPE
 function updateImageMetaInputs(container = document.getElementById("image-preview")) {
     const metaContainer = document.getElementById("image-meta-container");
     const items = container.querySelectorAll(".image-item");
@@ -266,52 +239,7 @@ function updateImageMetaInputs(container = document.getElementById("image-previe
         inputType.value = item.dataset.type === 'landing_spot' ? 'landing_spot' : 'normal';
         metaContainer.appendChild(inputType);
     });
-}
-
-
-
-/* document.addEventListener("DOMContentLoaded", function() {
-    // Nasłuchiwanie na scroll
-    window.addEventListener("scroll", handleScroll);
-
-    // Funkcja sprawdzająca widoczność elementu i wywołująca odpowiednie funkcje
-    function handleScroll() {
-        const previewContainer = document.getElementById("image-preview") || document.getElementById("images-list");
-
-        if (!previewContainer) return; // Upewnij się, że kontener istnieje
-
-        // Sprawdzenie, czy element jest widoczny w oknie przeglądarki
-        const rect = previewContainer.getBoundingClientRect();
-        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-
-        // Jeśli element jest widoczny, wywołujemy funkcje
-        if (isVisible) {
-            updateImagePositionsAndTypes(previewContainer);
-            addBorderToLastImage(previewContainer);
-            updateImageMetaInputs(previewContainer);
-        }
-    }
-
-    // Nasłuchiwanie na `resize` w celu dostosowania widoczności po zmianie rozmiaru okna
-    window.addEventListener("resize", function() {
-        const previewContainer = document.getElementById("image-preview") || document.getElementById("images-list");
-        
-        if (!previewContainer) return;
-
-        const rect = previewContainer.getBoundingClientRect();
-        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-
-        if (isVisible) {
-            updateImagePositionsAndTypes(previewContainer);
-            addBorderToLastImage(previewContainer);
-            updateImageMetaInputs(previewContainer);
-        }
-    });
-}); */
-
-
-
-
+} */
 
 
 
