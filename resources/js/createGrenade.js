@@ -130,6 +130,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         e.target.style.backgroundColor = 'green';
                         e.target.setAttribute('data-type', 'throwing-spot');
                         btn.innerHTML = "THROWING SPOT <i class='fa-regular fa-square-check'></i>"
+                        if(e.target.getAttribute('data-type') === 'landing-spot'){
+                            e.target.setAttribute('data-type', 'multiple');
+                            e.target.style.backgroundColor = 'yellow';
+                        }
                     }
                 });
             }else if(btn === landingBtn){
@@ -139,7 +143,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (e.target.classList.contains('img-thumbnail')) {
                         e.target.style.backgroundColor = 'blue';
                         e.target.setAttribute('data-type', 'landing-spot');
-                        btn.innerHTML = "THROWING SPOT <i class='fa-regular fa-square-check'></i>"
+                        btn.innerHTML = "LANDING SPOT <i class='fa-regular fa-square-check'></i>"
+                        if(e.target.getAttribute('data-type') === 'throwing-spot'){
+                            e.target.setAttribute('data-type', 'multiple');
+                            e.target.style.backgroundColor = 'yellow';
+                        }
                     }
                 });
             }
