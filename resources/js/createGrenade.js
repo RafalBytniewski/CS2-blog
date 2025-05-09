@@ -116,43 +116,76 @@ document.addEventListener("DOMContentLoaded", function () {
     const previewContainer = document.getElementById("image-preview"); 
    
     // SET THROWING AND LANDING SPOT BORDER
-    const throwingBtn = document.getElementById('throwingBtn');
-    const landingBtn = document.getElementById('landingBtn');
-    const btns = document.querySelectorAll('.btns')
+const throwingBtn = document.getElementById('throwingBtn');
+const landingBtn = document.getElementById('landingBtn');
+let activeType = null; // aktualnie aktywny tryb wyboru
 
-    btns.forEach(btn => {
-        btn.addEventListener('click', function () {
-            if(btn === throwingBtn){
-                btn.classList.toggle('active');
-                btn.innerHTML = "THROWING SPOT <i class='fa-regular fa-pen-to-square'></i>"
-                document.addEventListener('click', function(e) {
-                    if (e.target.classList.contains('img-thumbnail')) {
-                        e.target.style.backgroundColor = 'green';
-                        e.target.setAttribute('data-type', 'throwing-spot');
-                        btn.innerHTML = "THROWING SPOT <i class='fa-regular fa-square-check'></i>"
-                        if(e.target.getAttribute('data-type') === 'landing-spot'){
-                            e.target.setAttribute('data-type', 'multiple');
-                            e.target.style.backgroundColor = 'yellow';
-                        }
-                    }
-                });
-            }else if(btn === landingBtn){
-                btn.classList.toggle('active');
-                btn.innerHTML = "THROWING SPOT <i class='fa-regular fa-pen-to-square'></i>"
-                document.addEventListener('click', function(e) {
-                    if (e.target.classList.contains('img-thumbnail')) {
-                        e.target.style.backgroundColor = 'blue';
-                        e.target.setAttribute('data-type', 'landing-spot');
-                        btn.innerHTML = "LANDING SPOT <i class='fa-regular fa-square-check'></i>"
-                        if(e.target.getAttribute('data-type') === 'throwing-spot'){
-                            e.target.setAttribute('data-type', 'multiple');
-                            e.target.style.backgroundColor = 'yellow';
-                        }
-                    }
-                });
+throwingBtn.addEventListener('click', () => {
+    const isNowActive = !throwingBtn.classList.contains('active');
+    activeType = isNowActive ? 'throwing' : null;
+
+    throwingBtn.classList.toggle('active', isNowActive);
+    landingBtn.classList.remove('active');
+
+    throwingBtn.innerHTML = isNowActive
+        ? "THROWING SPOT <i class='fa-regular fa-pen-to-square'></i>"
+        : "THROWING SPOT";
+    landingBtn.innerHTML = "LANDING SPOT";
+});
+
+landingBtn.addEventListener('click', () => {
+    const isNowActive = !landingBtn.classList.contains('active');
+    activeType = isNowActive ? 'landing' : null;
+
+    landingBtn.classList.toggle('active', isNowActive);
+    throwingBtn.classList.remove('active');
+
+    landingBtn.innerHTML = isNowActive
+        ? "LANDING SPOT <i class='fa-regular fa-pen-to-square'></i>"
+        : "LANDING SPOT";
+    throwingBtn.innerHTML = "THROWING SPOT";
+});
+
+document.addEventListener('click', function (e) {
+    if (!e.target.classList.contains('img-thumbnail')) return;
+    if (!activeType) return; // klik bez aktywnego trybu
+
+    // Usuń wcześniejsze zdjęcie z tym typem
+    document.querySelectorAll('.img-thumbnail').forEach(img => {
+        if (img !== e.target) {
+            const type = img.getAttribute('data-type');
+            if (
+                (activeType === 'throwing' && type === 'throwing-spot') ||
+                (activeType === 'landing' && type === 'landing-spot')
+            ) {
+                img.removeAttribute('data-type');
+                img.style.backgroundColor = '';
             }
-        });
+        }
     });
+
+    // Zastosuj typ do klikniętego zdjęcia
+    const currentType = e.target.getAttribute('data-type');
+
+    if (
+        (activeType === 'throwing' && currentType === 'landing-spot') ||
+        (activeType === 'landing' && currentType === 'throwing-spot')
+    ) {
+        e.target.setAttribute('data-type', 'multiple');
+        e.target.style.backgroundColor = 'yellow';
+    } else {
+        e.target.setAttribute('data-type', `${activeType}-spot`);
+        e.target.style.backgroundColor = activeType === 'throwing' ? 'green' : 'blue';
+    }
+
+    // Wyłącz tryb wybierania
+    activeType = null;
+    throwingBtn.classList.remove('active');
+    landingBtn.classList.remove('active');
+    throwingBtn.innerHTML = "THROWING SPOT";
+    landingBtn.innerHTML = "LANDING SPOT";
+});
+
 
     // update position and type of image
     function updateImagePositionsAndTypes(container) {
