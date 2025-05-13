@@ -58,7 +58,7 @@ class GrenadeController extends Controller
         // Sprawdzenie zawartości przesyłanych danych
         $types = $request->input('types'); // Odbieranie tablicy typów
         $positions = $request->input('positions'); // Odbieranie tablicy pozycji
-        /* dd($request->input()); */
+        dd($request->input());
 
         if (!empty($grenadeData['youtube_path'])) {
             $grenadeData['youtube_path'] = $this->extractYouTubeId($grenadeData['youtube_path']);
