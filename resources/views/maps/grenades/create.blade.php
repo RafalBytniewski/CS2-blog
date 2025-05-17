@@ -213,18 +213,20 @@ $mapFilePath = resource_path('js/' . $mapFileName);
             <div id="image-meta-container"></div>
 
             {{-- IMAGES --}}
-            <div class="row mb-3" id="images_div" style="display:none">
+            <div class="row mb-3" id="images_div" style="display: none">
                 <label for="images" class="col-md-4 col-form-label text-md-end">
                     {{ __('cs2.map.grenade.form.images') }} <p>(drag and drop)</p>
                 </label>
                 <div class="col-md-6">
                     <input id="images" name="images[]" type="file" multiple accept="image/*"
                         class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror">
-                        <div class="col-md-6 justify-content-start d-flex">
-                            <button class="btn btn-outline-success m-1 btns" id="throwingBtn" type="button" style="display:inline-block;white-space: nowrap">SET THROWING SPOT</button>
-                            <button class="btn btn-outline-primary m-1 btns" id="landingBtn" type="button" style="display:inline-block;white-space: nowrap">SET LANDING SPOT</button>
-                        </div>
-                    <div id="image-preview" class="row mt-3"></div>
+                    <div class="my-2" id="btnsContainer" style="display: none">
+                        <button class="btn btn-outline-success m-1 btns" id="throwingBtn" type="button"
+                            style="display:inline-block;white-space: nowrap">SET THROWING SPOT</button>
+                        <button class="btn btn-outline-primary m-1 btns" id="landingBtn" type="button"
+                            style="display:inline-block;white-space: nowrap">SET LANDING SPOT</button>
+                    </div>
+                    <div id="image-preview" class="row mt-1"></div>
                     @error('images')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

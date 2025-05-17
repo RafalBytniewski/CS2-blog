@@ -114,12 +114,13 @@ radioButtons.forEach(radio => {
 document.addEventListener("DOMContentLoaded", function () {
     const imageInput = document.getElementById("images");
     const previewContainer = document.getElementById("image-preview"); 
-   
+    const btnsContainer = document.getElementById("btnsContainer");
+
     // SET THROWING AND LANDING SPOT BORDER
     const throwingBtn = document.getElementById('throwingBtn');
     const landingBtn = document.getElementById('landingBtn');
     const imageCaption = document.getElementById('imageCaption');
-    let activeType = null; // aktualnie aktywny tryb wyboru
+    let activeType = null;
 
     throwingBtn.addEventListener('click', () => {
         const isNowActive = !throwingBtn.classList.contains('active');
@@ -149,9 +150,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (
                     (activeType === 'throwing' && type === 'throwing-spot') ||
                     (activeType === 'landing' && type === 'landing-spot')
+                    
                 ) {
                     img.removeAttribute('data-type');
                     img.style.backgroundColor = '';
+                    updateImageMetaInputs();
                 }
             }
         });
@@ -164,9 +167,11 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
             e.target.setAttribute('data-type', 'multiple');
             e.target.style.backgroundColor = 'yellow';
+            updateImageMetaInputs();
         } else {
             e.target.setAttribute('data-type', `${activeType}-spot`);
             e.target.style.backgroundColor = activeType === 'throwing' ? 'green' : 'blue';
+            updateImageMetaInputs();
         }
 
         activeType = null;
@@ -176,6 +181,12 @@ document.addEventListener("DOMContentLoaded", function () {
         landingBtn.innerHTML = "LANDING SPOT";
     });
 
+/*     // Jeśli są już zdjęcia przy edycji, pokaż przyciski
+    if (previewContainer.querySelectorAll('.image-item').length > 0) {
+        btnsContainer.style.display = "flex";
+        updateImagePositionsAndTypes();
+        updateImageMetaInputs();
+    } */
 
     // update position and type of image
     function updateImagePositionsAndTypes(container) {
@@ -185,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
         items.forEach((item, index) => {
             item.dataset.position = index + 1;
-            item.dataset.type = 'normal';
+           
     
             let label = item.querySelector(".position-label");
             if (!label) {
@@ -211,7 +222,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // image add and edit handle
     imageInput.addEventListener("change", function (event) {
         previewContainer.innerHTML = "";
-
+        const files = Array.from(event.target.files);
+    
+        if (files.length > 0) {
+            btnsContainer.style.display = "flex"; // 👈 pokazuje przyciski
+        }
         Array.from(event.target.files).forEach((file, index) => {
             let reader = new FileReader();
             reader.onload = function (e) {
@@ -225,7 +240,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 delete-image">X</button>
                 </div>
             `;
-            
                 previewContainer.appendChild(div);
                 updateImagePositionsAndTypes();
                 updateImageMetaInputs();
@@ -240,7 +254,6 @@ document.addEventListener("DOMContentLoaded", function () {
             event.target.closest(".image-item").remove();
             setTimeout(() => {
                 updateImagePositionsAndTypes();
-                addBorderToLastImage();
                 updateImageMetaInputs();
             }, 100);
         }
@@ -265,15 +278,30 @@ function updateImageMetaInputs(container = document.getElementById("image-previe
 
     metaContainer.innerHTML = "";
 
-    items.forEach((item, index) => {
+    items.forEach((item) => {
+        const img = item.querySelector('.img-thumbnail');
+        const type = img?.dataset.type || 'normal';
+        const position = item.dataset.position || '1';
+
         const inputType = document.createElement("input");
         inputType.type = "hidden";
         inputType.name = "types[]";
-        inputType.value = item.dataset.type === 'landing_spot' ? 'landing_spot' : 'normal';
+        inputType.value = type;
         metaContainer.appendChild(inputType);
+
+        const inputPosition = document.createElement("input");
+        inputPosition.type = "hidden";
+        inputPosition.name = "positions[]";
+        inputPosition.value = position;
+        metaContainer.appendChild(inputPosition);
     });
 }
 
+if (previewContainer.querySelectorAll('.image-item').length > 0) {
+    btnsContainer.style.display = "flex"; // pokaż przyciski SET THROWING / LANDING
+    updateImagePositionsAndTypes();
+    updateImageMetaInputs();
+}
 
 
 

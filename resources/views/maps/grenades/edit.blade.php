@@ -178,7 +178,6 @@
                 <div class="row mb-3" style="display:none" id="images_div">
                     <label for="images" class="col-md-4 col-form-label text-md-end">
                         {{ __('cs2.map.grenade.form.images') }}
-                        <p>(drag and drop)</p>
                     </label>
                     <div class="col-md-6">
                         <input type="file" id="images" name="images[]" multiple class="form-control mb-3">
