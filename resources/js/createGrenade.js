@@ -115,73 +115,108 @@ document.addEventListener("DOMContentLoaded", function () {
     const imageInput = document.getElementById("images");
     const previewContainer = document.getElementById("image-preview"); 
     const btnsContainer = document.getElementById("btnsContainer");
+    const btns = document.querySelectorAll(".btns");
+    
 
     // SET THROWING AND LANDING SPOT BORDER
     const throwingBtn = document.getElementById('throwingBtn');
     const landingBtn = document.getElementById('landingBtn');
-    const imageCaption = document.getElementById('imageCaption');
     let activeType = null;
+    
 
-    throwingBtn.addEventListener('click', () => {
-        const isNowActive = !throwingBtn.classList.contains('active');
-        activeType = isNowActive ? 'throwing' : null;
+    btns.forEach(btn => {
+        btn.addEventListener("click", function(){
+            activeType = btn.getAttribute("data-position");
 
-        throwingBtn.classList.toggle('active', isNowActive);
-        landingBtn.classList.remove('active');
-
-    });
-
-    landingBtn.addEventListener('click', () => {
-        const isNowActive = !landingBtn.classList.contains('active');
-        activeType = isNowActive ? 'landing' : null;
-
-        landingBtn.classList.toggle('active', isNowActive);
-        throwingBtn.classList.remove('active');
-
+            if (activeType === 'throwing') {
+                throwingBtn.classList.remove('btn-outline-success');
+                throwingBtn.classList.add('btn-success');
+            } else if (activeType === 'landing') {
+                landingBtn.classList.remove('btn-outline-primary');
+                landingBtn.classList.add('btn-primary');
+            }
+        });
     });
 
     document.addEventListener('click', function (e) {
-        if (!e.target.classList.contains('img-thumbnail')) return;
-        if (!activeType) return;
+        if (activeType !== null && e.target.classList.contains('img-thumbnail')) {
+                const images = previewContainer.querySelectorAll('.image-item');
+                const grenadeImage = e.target.parentNode.parentNode
+                if(activeType === 'throwing'){
+                    //zrobic obsluge border dla form edit, zmienic CAPTION na bardziej przejrzysty, zrobic warunek dla if(img has multiple && set spot to other img reset data-type)
+                    for (const img of images) {
+                        const imgType = img.getAttribute('data-type');
 
-        document.querySelectorAll('.img-thumbnail').forEach(img => {
-            if (img !== e.target) {
-                const type = img.getAttribute('data-type');
-                if (
-                    (activeType === 'throwing' && type === 'throwing-spot') ||
-                    (activeType === 'landing' && type === 'landing-spot')
-                    
-                ) {
-                    img.removeAttribute('data-type');
-                    img.style.backgroundColor = '';
-                    updateImageMetaInputs();
+                        if (imgType === activeType) {
+                            img.removeAttribute('data-type');
+                            img.querySelector('.imageCaption').innerHTML = '';
+                            img.querySelector('.img-thumbnail').style.backgroundColor = '';
+                        } else if (imgType === 'landing' && img === grenadeImage) {
+                            img.removeAttribute('data-type');
+                            img.setAttribute('data-type', 'multiple');
+                            e.target.style.backgroundColor = 'yellow';
+                            grenadeImage.querySelector('.imageCaption').innerHTML = "THROWING AND LANDING SPOT";
+                            grenadeImage.querySelector('.imageCaption').style.color = 'yellow';
+                            throwingBtn.classList.remove('btn-success');
+                            throwingBtn.classList.add('btn-outline-success');
+                           /*  updateImageMetaInputs(); */
+                            return;
+                        }
+                    }
+                    grenadeImage.setAttribute("data-type", activeType);
+                    grenadeImage.querySelector('.imageCaption').innerHTML = "THROWING SPOT";
+                    grenadeImage.querySelector('.imageCaption').style.color = 'green';
+                    e.target.style.backgroundColor = 'green';
+                    activeType = null;
+                    throwingBtn.innerHTML = "CHANGE THROWING SPOT"
+                    throwingBtn.classList.remove('btn-success');
+                    throwingBtn.classList.add('btn-outline-success');
+                }else if(activeType === 'landing'){
+                    for (const img of images) {
+                        const imgType = img.getAttribute('data-type');
+
+                        if(img.getAttribute('data-type') === activeType){
+                            img.removeAttribute('data-type');
+                            img.querySelector('.imageCaption').innerHTML = '';
+                            img.querySelector('.img-thumbnail').style.backgroundColor = '';
+                        } else if (imgType === 'throwing' && img === grenadeImage) {
+                            img.removeAttribute('data-type');
+                            img.setAttribute('data-type', 'multiple');
+                            e.target.style.backgroundColor = 'yellow';
+                            grenadeImage.querySelector('.imageCaption').innerHTML = "THROWING AND LANDING SPOT";
+                            grenadeImage.querySelector('.imageCaption').style.color = 'yellow';
+                            landingBtn.classList.remove('btn-primary');
+                            landingBtn.classList.add('btn-outline-primary');
+                            return;
+                        }
+                    }
+                    grenadeImage.setAttribute("data-type", activeType);
+                    grenadeImage.querySelector('.imageCaption').innerHTML = "LANDING SPOT";
+                    grenadeImage.querySelector('.imageCaption').style.color = 'blue';
+                    e.target.style.backgroundColor = 'blue'
+                    activeType = null;
+                    landingBtn.innerHTML = "CHANGE LANDING SPOT"
+                    landingBtn.classList.remove('btn-primary');
+                    landingBtn.classList.add('btn-outline-primary');
                 }
-            }
-        });
-
-        const currentType = e.target.getAttribute('data-type');
-
-        if (
-            (activeType === 'throwing' && currentType === 'landing-spot') ||
-            (activeType === 'landing' && currentType === 'throwing-spot')
-        ) {
-            e.target.setAttribute('data-type', 'multiple');
-            e.target.style.backgroundColor = 'yellow';
-            updateImageMetaInputs();
-        } else {
-            e.target.setAttribute('data-type', `${activeType}-spot`);
-            e.target.style.backgroundColor = activeType === 'throwing' ? 'green' : 'blue';
-            updateImageMetaInputs();
         }
-
-        activeType = null;
-        throwingBtn.classList.remove('active');
-        landingBtn.classList.remove('active');
-        throwingBtn.innerHTML = "THROWING SPOT";
-        landingBtn.innerHTML = "LANDING SPOT";
     });
 
-/*     // Jeśli są już zdjęcia przy edycji, pokaż przyciski
+
+/* 
+images.forEach(img => {
+    if(img.getAttribute('data-type') === activeType){
+            img.removeAttribute('data-type');
+        }
+    })
+IF BTN === ACTIVE
+
+
+IMG-.setClass = zoom
+forEACH.img
+e.target */
+
+/*     // Jeśli są już zdjęcia przy edycji, pokaż przyciski ##########################################################
     if (previewContainer.querySelectorAll('.image-item').length > 0) {
         btnsContainer.style.display = "flex";
         updateImagePositionsAndTypes();
@@ -234,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 div.classList.add("col-md-6", "mb-3", "image-item");
                 div.dataset.index = index;
                 div.innerHTML = `
-                <div class="text-center mt-1" id="imageCaption"><strong></strong></div>
+                <div class="text-center mt-1 imageCaption"></div>
                 <div class="position-relative">
                     <img src="${e.target.result}" class="img-thumbnail">
                     <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 delete-image">X</button>
@@ -279,8 +314,8 @@ function updateImageMetaInputs(container = document.getElementById("image-previe
     metaContainer.innerHTML = "";
 
     items.forEach((item) => {
-        const img = item.querySelector('.img-thumbnail');
-        const type = img?.dataset.type || 'normal';
+
+        const type = item.dataset.type || 'normal';
         const position = item.dataset.position || '1';
 
         const inputType = document.createElement("input");
@@ -296,6 +331,12 @@ function updateImageMetaInputs(container = document.getElementById("image-previe
         metaContainer.appendChild(inputPosition);
     });
 }
+
+// ######################################################################################
+
+document.getElementById("submit-button").addEventListener("click", function () {
+    updateImageMetaInputs();
+});
 
 if (previewContainer.querySelectorAll('.image-item').length > 0) {
     btnsContainer.style.display = "flex"; // pokaż przyciski SET THROWING / LANDING

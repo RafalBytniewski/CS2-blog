@@ -222,9 +222,9 @@ $mapFilePath = resource_path('js/' . $mapFileName);
                         class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror">
                     <div class="my-2" id="btnsContainer" style="display: none">
                         <button class="btn btn-outline-success m-1 btns" id="throwingBtn" type="button"
-                            style="display:inline-block;white-space: nowrap">SET THROWING SPOT</button>
+                            style="display:inline-block;white-space: nowrap" data-position="throwing">SET THROWING SPOT</button>
                         <button class="btn btn-outline-primary m-1 btns" id="landingBtn" type="button"
-                            style="display:inline-block;white-space: nowrap">SET LANDING SPOT</button>
+                            style="display:inline-block;white-space: nowrap" data-position="landing">SET LANDING SPOT</button>
                     </div>
                     <div id="image-preview" class="row mt-1"></div>
                     @error('images')
@@ -253,7 +253,7 @@ $mapFilePath = resource_path('js/' . $mapFileName);
             </div>
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" id="submit-button">
                         {{ __('cs2.map.grenade.form.submit') }}
                     </button>
                 </div>
