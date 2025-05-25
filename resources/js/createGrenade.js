@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const images = previewContainer.querySelectorAll('.image-item');
                 const grenadeImage = e.target.parentNode.parentNode
                 if(activeType === 'throwing'){
-                    //zrobic obsluge border dla form edit, zmienic CAPTION na bardziej przejrzysty, zrobic warunek dla if(img has multiple && set spot to other img reset data-type)
+                    //zrobic obsluge border dla form edit, zmienic CAPTION na bardziej przejrzysty, zrobic warunek dla if(img has multiple && set spot to other img reset data-type), usunac wywlywanie funkcji zostawic tylko na dole
                     for (const img of images) {
                         const imgType = img.getAttribute('data-type');
 
@@ -159,7 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             grenadeImage.querySelector('.imageCaption').style.color = 'yellow';
                             throwingBtn.classList.remove('btn-success');
                             throwingBtn.classList.add('btn-outline-success');
-                           /*  updateImageMetaInputs(); */
                             return;
                         }
                     }
@@ -201,28 +200,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
         }
     });
-
-
-/* 
-images.forEach(img => {
-    if(img.getAttribute('data-type') === activeType){
-            img.removeAttribute('data-type');
-        }
-    })
-IF BTN === ACTIVE
-
-
-IMG-.setClass = zoom
-forEACH.img
-e.target */
-
-/*     // Jeśli są już zdjęcia przy edycji, pokaż przyciski ##########################################################
-    if (previewContainer.querySelectorAll('.image-item').length > 0) {
-        btnsContainer.style.display = "flex";
-        updateImagePositionsAndTypes();
-        updateImageMetaInputs();
-    } */
-
     // update position and type of image
     function updateImagePositionsAndTypes(container) {
         container = container || document.getElementById("image-preview");
@@ -232,7 +209,6 @@ e.target */
         items.forEach((item, index) => {
             item.dataset.position = index + 1;
            
-    
             let label = item.querySelector(".position-label");
             if (!label) {
                 label = document.createElement("div");
@@ -338,10 +314,10 @@ document.getElementById("submit-button").addEventListener("click", function () {
     updateImageMetaInputs();
 });
 
+// SHOW BTNS AFTER ADDING IMAGES BY FORM 
+
 if (previewContainer.querySelectorAll('.image-item').length > 0) {
-    btnsContainer.style.display = "flex"; // pokaż przyciski SET THROWING / LANDING
-    updateImagePositionsAndTypes();
-    updateImageMetaInputs();
+    btnsContainer.style.display = "flex";
 }
 
 
