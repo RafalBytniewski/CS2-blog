@@ -164,26 +164,33 @@
                 <div class="row mb-3" style="display:none" id="youtube_div">
                     <label for="youtube_path" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.youtube') }}</label>
                     <div class="col-md-6">
-                    <input type="text" name="youtube_path" id="youtube_path" value="{{$grenade->youtube_path}}" class="form-control @error('youtube_path') is-invalid @enderror">
+                        <input type="text" name="youtube_path" id="youtube_path" value="{{$grenade->youtube_path}}" class="form-control @error('youtube_path') is-invalid @enderror">
                         @error('youtube_path')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+
                     </div>
+
                 </div>
 
                 <div id="image-meta-container"></div>
 
                 <div class="row mb-3" style="display:none" id="images_div">
-                    <label for="images" class="col-md-4 col-form-label text-md-end">
+                    <label class="col-md-4 col-form-label text-md-end">
                         {{ __('cs2.map.grenade.form.images') }}
                     </label>
                     <div class="col-md-6">
                         <input type="file" id="images" name="images[]" multiple class="form-control mb-3">
+                        <div class="my-2" id="btnsContainer">
+                            <button class="btn btn-outline-success m-1 btns" id="throwingBtn" type="button" style="display:inline-block;white-space: nowrap" data-position="throwing">SET THROWING SPOT</button>
+                            <button class="btn btn-outline-primary m-1 btns" id="landingBtn" type="button" style="display:inline-block;white-space: nowrap" data-position="landing">SET LANDING SPOT</button>
+                        </div>
                         <div class="row" id="image-preview">
                             @foreach($images as $index => $image)
-                            <div class="col-md-6 mb-3 image-item" data-index="{{ $index }}" data-type="{{ $image->type }}">
+                            <div class="col-md-6 mb-3 image-item" data-id="{{$image->id}}" data-index="{{ $index }}" data-type="{{ $image->type }}">
+                            <div class="text-center mt-1 imageCaption" style="font-weight: bold"></div>
                                 <div class="position-relative">
                                     <img src="{{ asset('storage/' . $image->path) }}" alt="image" class="img-thumbnail">
                                     <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 delete-image">X</button>
@@ -197,7 +204,7 @@
                         
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" id="submit-button" class="btn btn-primary">
                             {{ __('cs2.map.grenade.form.update') }}
                         </button>
                     </div>

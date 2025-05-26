@@ -58,7 +58,7 @@ class GrenadeController extends Controller
         // Sprawdzenie zawartości przesyłanych danych
         $types = $request->input('types'); // Odbieranie tablicy typów
         $positions = $request->input('positions'); // Odbieranie tablicy pozycji
-        dd($request->input());
+        /* dd($request->input()); */
 
         if (!empty($grenadeData['youtube_path'])) {
             $grenadeData['youtube_path'] = $this->extractYouTubeId($grenadeData['youtube_path']);
@@ -173,10 +173,32 @@ class GrenadeController extends Controller
      */
     public function update(UpsertGrenadeRequest $request, Grenade $grenade)
     {
-        /* dd($request->input()); */
         $grenade->update($request->validated());
-        return redirect()->route('grenade.show', $grenade)->with('success', 'Dane zostały zaktualizowane.');
+
+        $types = $request->input('types', []);
+        $positions = $request->input('positions', []);
+        /* dd($request->input()); */
+        $images = $grenade->grenadeImages()->get();
+
+/*         foreach ($images as $index => $image) {
+            dump([
+                'id' => $image->id,
+                'current_position' => $image->position,
+                'new_position' => $positions[$index] ?? 'brak'
+            ]);
+        }
+ */
+        foreach ($images as $index => $image) {
+            $image->type = $types[$index] ?? 'normal';
+            $image->position = (int) ($positions[$index] ?? ($index + 1));
+            $image->save(); // <- zamiast update([...])
+        }
+
+        return redirect()->route('grenade.show', $grenade)
+            ->with('success', 'Dane zostały zaktualizowane.');
     }
+
+
     
 
     /**

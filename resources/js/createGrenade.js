@@ -116,14 +116,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const previewContainer = document.getElementById("image-preview"); 
     const btnsContainer = document.getElementById("btnsContainer");
     const btns = document.querySelectorAll(".btns");
-    
-
-    // SET THROWING AND LANDING SPOT BORDER
     const throwingBtn = document.getElementById('throwingBtn');
     const landingBtn = document.getElementById('landingBtn');
+    
     let activeType = null;
     
-
     btns.forEach(btn => {
         btn.addEventListener("click", function(){
             activeType = btn.getAttribute("data-position");
@@ -141,9 +138,11 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener('click', function (e) {
         if (activeType !== null && e.target.classList.contains('img-thumbnail')) {
                 const images = previewContainer.querySelectorAll('.image-item');
-                const grenadeImage = e.target.parentNode.parentNode
+                const grenadeImage = e.target.closest('.image-item');
+                const imageCaption = grenadeImage.querySelector('.imageCaption')
                 if(activeType === 'throwing'){
-                    //zrobic obsluge border dla form edit, zmienic CAPTION na bardziej przejrzysty, zrobic warunek dla if(img has multiple && set spot to other img reset data-type), usunac wywlywanie funkcji zostawic tylko na dole
+                    //zrobic obsluge border dla form edit, zrobic warunek dla if(img has multiple && set spot to other img reset data-type), usunac wywlywanie funkcji zostawic tylko na dole
+                    //dodać position odrazu do zaldaowanych w edit zdjec i dodac zapis zmian(position i type)
                     for (const img of images) {
                         const imgType = img.getAttribute('data-type');
 
@@ -155,16 +154,16 @@ document.addEventListener("DOMContentLoaded", function () {
                             img.removeAttribute('data-type');
                             img.setAttribute('data-type', 'multiple');
                             e.target.style.backgroundColor = 'yellow';
-                            grenadeImage.querySelector('.imageCaption').innerHTML = "THROWING AND LANDING SPOT";
-                            grenadeImage.querySelector('.imageCaption').style.color = 'yellow';
+                            imageCaption.innerHTML = "THROWING AND LANDING SPOT";
+                            imageCaption.style.color = 'yellow';
                             throwingBtn.classList.remove('btn-success');
                             throwingBtn.classList.add('btn-outline-success');
                             return;
                         }
                     }
                     grenadeImage.setAttribute("data-type", activeType);
-                    grenadeImage.querySelector('.imageCaption').innerHTML = "THROWING SPOT";
-                    grenadeImage.querySelector('.imageCaption').style.color = 'green';
+                    imageCaption.innerHTML = "THROWING SPOT";
+                    imageCaption.style.color = 'green';
                     e.target.style.backgroundColor = 'green';
                     activeType = null;
                     throwingBtn.innerHTML = "CHANGE THROWING SPOT"
@@ -182,16 +181,16 @@ document.addEventListener("DOMContentLoaded", function () {
                             img.removeAttribute('data-type');
                             img.setAttribute('data-type', 'multiple');
                             e.target.style.backgroundColor = 'yellow';
-                            grenadeImage.querySelector('.imageCaption').innerHTML = "THROWING AND LANDING SPOT";
-                            grenadeImage.querySelector('.imageCaption').style.color = 'yellow';
+                            imageCaption.innerHTML = "THROWING AND LANDING SPOT";
+                            imageCaption.style.color = 'yellow';
                             landingBtn.classList.remove('btn-primary');
                             landingBtn.classList.add('btn-outline-primary');
                             return;
                         }
                     }
                     grenadeImage.setAttribute("data-type", activeType);
-                    grenadeImage.querySelector('.imageCaption').innerHTML = "LANDING SPOT";
-                    grenadeImage.querySelector('.imageCaption').style.color = 'blue';
+                    imageCaption.innerHTML = "LANDING SPOT";
+                    imageCaption.style.color = 'blue';
                     e.target.style.backgroundColor = 'blue'
                     activeType = null;
                     landingBtn.innerHTML = "CHANGE LANDING SPOT"
@@ -200,6 +199,29 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
         }
     });
+    const existingImages = previewContainer.querySelectorAll('.image-item');
+
+existingImages.forEach(img => {
+    const type = img.getAttribute('data-type');
+    const thumbnail = img.querySelector('.img-thumbnail');
+    const caption = img.querySelector('.imageCaption');
+
+    if (!thumbnail || !type) return;
+
+    if (type === 'throwing') {
+        thumbnail.style.backgroundColor = 'green';
+        caption.textContent = 'THROWING SPOT';
+        caption.style.color = 'green';
+    } else if (type === 'landing') {
+        thumbnail.style.backgroundColor = 'blue';
+        caption.textContent = 'LANDING SPOT';
+        caption.style.color = 'blue';
+    } else if (type === 'multiple') {
+        thumbnail.style.backgroundColor = 'yellow';
+        caption.textContent = 'THROWING AND LANDING SPOT';
+        caption.style.color = 'yellow';
+    }
+});
     // update position and type of image
     function updateImagePositionsAndTypes(container) {
         container = container || document.getElementById("image-preview");
@@ -245,7 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 div.classList.add("col-md-6", "mb-3", "image-item");
                 div.dataset.index = index;
                 div.innerHTML = `
-                <div class="text-center mt-1 imageCaption"></div>
+                <div class="text-center mt-1 imageCaption" style="font-weight: bold"></div>
                 <div class="position-relative">
                     <img src="${e.target.result}" class="img-thumbnail">
                     <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 delete-image">X</button>
@@ -305,6 +327,10 @@ function updateImageMetaInputs(container = document.getElementById("image-previe
         inputPosition.name = "positions[]";
         inputPosition.value = position;
         metaContainer.appendChild(inputPosition);
+
+/*         const inputId = document.createElement('input');
+        inputId.name = `image_ids[]`;
+        inputId.value = id; */
     });
 }
 

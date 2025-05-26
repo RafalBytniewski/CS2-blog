@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('grenade_images', function (Blueprint $table) {
             $table->unsignedInteger('position')->default(0);
-            $table->enum('type', ['normal', 'landing_spot'])->default('normal');
+            $table->enum('type', ['normal', 'landing', 'throwing', 'multiple'])->default('normal');
         });
     }
 
