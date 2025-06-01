@@ -189,7 +189,7 @@
                         </div>
                         <div class="row" id="image-preview">
                             @foreach($images as $index => $image)
-                            <div class="col-md-6 mb-3 image-item" data-id="{{$image->id}}" data-index="{{ $index }}" data-type="{{ $image->type }}">
+                            <div class="col-md-6 mb-3 image-item" data-index="{{ $index }}" data-type="{{ $image->type }}" data-position="{{ $image->position}}" grenade="{{$image->id}}">
                             <div class="text-center mt-1 imageCaption" style="font-weight: bold"></div>
                                 <div class="position-relative">
                                     <img src="{{ asset('storage/' . $image->path) }}" alt="image" class="img-thumbnail">

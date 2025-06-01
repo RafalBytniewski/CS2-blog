@@ -4,7 +4,6 @@
 {{-- MODAL GRENADE_GROUP --}}
 @include('components.grenadeGroup')
 <script src="{{ asset('js/grenadeGroup.js') }}" defer></script>
-
 @section('content')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +11,7 @@
     <style>
         .grenade {
             background-color: black;
-            height: 153px;
-            width: 272px;
             border-radius: 5px;
-            
         }
 
         .rounded {
@@ -56,10 +52,6 @@
             transform: scale(1.02);
             box-shadow: rgba(255, 254, 254, 0.05) 0px 6px 24px 0px;
             text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black, 1px  1px 0 black
-        }
-
-        .grenade-card:hover {
-            transform: scale(1.02);
         }
         
         /* media queries */
@@ -127,7 +119,7 @@
             <h1>Recently added:</h1>
             <div class="row g-2 d-flex justify-content-center">
                 @foreach ($grenades as $grenade)
-                    <div class="grenade-card col-md-3">
+                    <div class="grenade-card col-md-4">
                         <div class="d-flex justify-content-around">
                             <span class="text-md-center fs-6"
                                 onclick="window.location.href = '{{ route('grenade.show', $grenade->id) }}';"
@@ -139,7 +131,7 @@
                                 @endif
                                 <b>{{ $grenade->type }}</b>
                             </span>
-                            <div class="display-flex justify-content-end">
+                     <div class="display-flex justify-content-end">
                                 {{-- GRENADE EDIT BTN --}}
                                 @if(Auth::check() && Auth::user()->id === $grenade->user->id)
                                 <a class="btn" href="{{ route('grenade.edit', $grenade->id)}}">
@@ -162,41 +154,82 @@
                         </div>
                         <div class="m-1">
                             @if ($grenade->source_type === 'youtube_path')
-                                <div class="grenade d-flex justify-content-center align-items-center">
+                                <div class="grenade ">
                                     <iframe class="mx-auto d-block img-fluid"
-                                        style="border-radius:5px;width: auto; max-height: 153px" alt=""
+                                        style="border-radius:5px;width: 100%; height: 80%" alt=""
                                         width="" height=""
                                         src="https://www.youtube.com/embed/{{ $grenade->youtube_path }}" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen></iframe>
                                 </div>
                             @elseif($grenade->source_type === 'images')
-                                @if ($grenade->grenadeImages->count() > 0)
-                                    <div id="carouselExampleControls{{ $grenade->id }}"
-                                        class="carousel slide position-relative" data-bs-interval="false">
-                                        <div class="carousel-inner">
-                                            @foreach ($grenade->grenadeImages as $key => $image)
-                                                <div class="grenade carousel-item {{ $loop->first ? 'active' : '' }}">
-                                                    <img src="{{ asset('storage/' . $image->path) }}"
-                                                        class="mx-auto d-block img-fluid" alt=""
-                                                        style="border-radius:5px;width: auto; max-height: 153px; quality: 90; text-align:center">
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        <button class="carousel-control-prev" type="button"
-                                            data-bs-target="#carouselExampleControls{{ $grenade->id }}"
-                                            data-bs-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button"
-                                            data-bs-target="#carouselExampleControls{{ $grenade->id }}"
-                                            data-bs-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Next</span>
-                                        </button>
-                                    </div>
+
+                            <div class="grenade text-center">
+                                {{-- Sprawdź czy istnieje obrazek typu multiple --}}
+                                @if($grenade->grenadeImages->contains('type', 'multiple'))
+                                    @foreach ($grenade->grenadeImages as $image)
+                                        @if($image->type === 'multiple')
+                                            <img 
+                                                src="{{ asset('storage/' . $image->path) }}" 
+                                                alt="multiple" 
+                                                class="img-fluid"
+                                                style="max-height: 300px; object-fit: contain;">
+                                            @break
+                                        @endif
+                                    @endforeach
+
+                                {{-- Jeśli są oba: throwing i landing --}}
+                                @elseif(
+                                    $grenade->grenadeImages->contains('type', 'throwing') &&
+                                    $grenade->grenadeImages->contains('type', 'landing')
+                                )
+                                    <img-comparison-slider class="w-100" style="max-width: 100%; max-height: 300px; display: inline-block;">
+                                        @foreach ($grenade->grenadeImages as $image)
+                                            @if($image->type === 'throwing')
+                                                <img 
+                                                    slot="first" 
+                                                    src="{{ asset('storage/' . $image->path) }}" 
+                                                    alt="throwing" 
+                                                    class="img-fluid"
+                                                    style="max-height: 300px; object-fit: contain;">
+                                            @elseif($image->type === 'landing')
+                                                <img 
+                                                    slot="second" 
+                                                    src="{{ asset('storage/' . $image->path) }}" 
+                                                    alt="landing" 
+                                                    class="img-fluid"
+                                                    style="max-height: 300px; object-fit: contain;">
+                                            @endif
+                                        @endforeach
+                                    </img-comparison-slider>
+
+                                {{-- Jeśli jest tylko throwing --}}
+                                @elseif($grenade->grenadeImages->contains('type', 'throwing'))
+                                    @foreach ($grenade->grenadeImages as $image)
+                                        @if($image->type === 'throwing')
+                                            <img 
+                                                src="{{ asset('storage/' . $image->path) }}" 
+                                                alt="throwing" 
+                                                class="img-fluid"
+                                                style="max-height: 300px; object-fit: contain;">
+                                            @break
+                                        @endif
+                                    @endforeach
+
+                                {{-- Jeśli jest tylko landing --}}
+                                @elseif($grenade->grenadeImages->contains('type', 'landing'))
+                                    @foreach ($grenade->grenadeImages as $image)
+                                        @if($image->type === 'landing')
+                                            <img 
+                                                src="{{ asset('storage/' . $image->path) }}" 
+                                                alt="landing" 
+                                                class="img-fluid"
+                                                style="max-height: 300px; object-fit: contain;">
+                                            @break
+                                        @endif
+                                    @endforeach
                                 @endif
+                            </div>
                             @endif
                         </div>
                         <div style="align-items: center" class="my-1 d-flex flex-row justify-content-between px-3">
@@ -230,5 +263,8 @@
 
             </div>
         </div>
+<script>
 
+</script>
     @endsection
+

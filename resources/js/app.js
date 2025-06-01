@@ -54,3 +54,7 @@ import { showCustomModal } from './grenadeGroup';
 // Upewnij się, że funkcja działa globalnie
 window.showCustomModal = showCustomModal;
 
+// image comparison
+
+import 'img-comparison-slider';
+import 'img-comparison-slider/dist/styles.css';

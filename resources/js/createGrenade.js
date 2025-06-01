@@ -201,27 +201,27 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     const existingImages = previewContainer.querySelectorAll('.image-item');
 
-existingImages.forEach(img => {
-    const type = img.getAttribute('data-type');
-    const thumbnail = img.querySelector('.img-thumbnail');
-    const caption = img.querySelector('.imageCaption');
+    existingImages.forEach(img => {
+        const type = img.getAttribute('data-type');
+        const thumbnail = img.querySelector('.img-thumbnail');
+        const caption = img.querySelector('.imageCaption');
 
-    if (!thumbnail || !type) return;
+        if (!thumbnail || !type) return;
 
-    if (type === 'throwing') {
-        thumbnail.style.backgroundColor = 'green';
-        caption.textContent = 'THROWING SPOT';
-        caption.style.color = 'green';
-    } else if (type === 'landing') {
-        thumbnail.style.backgroundColor = 'blue';
-        caption.textContent = 'LANDING SPOT';
-        caption.style.color = 'blue';
-    } else if (type === 'multiple') {
-        thumbnail.style.backgroundColor = 'yellow';
-        caption.textContent = 'THROWING AND LANDING SPOT';
-        caption.style.color = 'yellow';
-    }
-});
+        if (type === 'throwing') {
+            thumbnail.style.backgroundColor = 'green';
+            caption.textContent = 'THROWING SPOT';
+            caption.style.color = 'green';
+        } else if (type === 'landing') {
+            thumbnail.style.backgroundColor = 'blue';
+            caption.textContent = 'LANDING SPOT';
+            caption.style.color = 'blue';
+        } else if (type === 'multiple') {
+            thumbnail.style.backgroundColor = 'yellow';
+            caption.textContent = 'THROWING AND LANDING SPOT';
+            caption.style.color = 'yellow';
+        }
+    });
     // update position and type of image
     function updateImagePositionsAndTypes(container) {
         container = container || document.getElementById("image-preview");
@@ -327,10 +327,6 @@ function updateImageMetaInputs(container = document.getElementById("image-previe
         inputPosition.name = "positions[]";
         inputPosition.value = position;
         metaContainer.appendChild(inputPosition);
-
-/*         const inputId = document.createElement('input');
-        inputId.name = `image_ids[]`;
-        inputId.value = id; */
     });
 }
 
