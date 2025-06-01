@@ -13,10 +13,10 @@ A web application for CS2 players, built with Laravel, designed to upload and sh
 
 ## 🧩 Planned Features
 - 📝 Add a blog section with tutorials and guides
-- 🗺️ Add detailed map overviews with:
-  - grenade timings
-  - bombsite radar positions
-  - interactive throw spots
+- 🗺️ To image map plan add:
+  - player position timings
+  - bomb range
+  - interactive grenade spots
 - 📌 Pin or favorite key lineups for quick access
 
 ## 🛠️ Built With
