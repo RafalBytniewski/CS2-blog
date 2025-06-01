@@ -15,7 +15,7 @@ class WelcomeController extends Controller
         $maps = Map::all();
         $mapsActive = Map::where('active', 1)->get();
         $mapsOthers = Map::where('active', 0)->get();
-        $grenades = Grenade::with('grenadeImages', 'user', 'map', 'areaTo', 'calloutTo', 'favorites')->get();
+        $grenades = Grenade::latest()->take(20)->with('grenadeImages', 'user', 'map', 'areaTo', 'calloutTo', 'favorites')->get();
     
         $userId = auth()->id();
     

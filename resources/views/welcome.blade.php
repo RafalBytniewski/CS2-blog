@@ -40,13 +40,29 @@
             text-shadow: 1px 1px 2px black;
             color: rgb(241, 237, 237);
             position: absolute;
-            bottom: 30;
+            bottom: 40;
             left: 0;
             width: 100%;
             text-align: center;
             box-sizing: border-box;
             opacity: 1;
         }
+            .map-grenades {
+            font-family: "Anton", serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px black;
+            color: rgb(241, 237, 237);
+            position: absolute;
+            bottom: 10;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            opacity: 1;
+        }
+
 
         .map-card:hover {
             transform: scale(1.02);
@@ -98,6 +114,7 @@
                                     alt="{{ $map->description }}">
                             @endif
                             <div class="map-name">{{ $map->name }}</div>
+                            <div class="map-grenades">{{ $map->grenades->count() }} nades</div>
                         </a>
                     </div>
                 @endforeach
@@ -112,6 +129,7 @@
                                     alt="{{ $map->description }}">
                             @endif
                             <div class="map-name">{{ $map->name }}</div>
+                            <div class="map-grenades">{{ $map->grenades->count() }} nades</div>
                         </a>
                     </div>
                 @endforeach
