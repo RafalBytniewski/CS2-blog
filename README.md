@@ -11,6 +11,14 @@ A web application for CS2 players, built with Laravel, designed to upload and sh
 - 🛠️ Admin panel for managing content
 - 🔐 Access control to protect private uploads
 
+## 🧩 Planned Features
+- 📝 Add a blog section with tutorials and guides
+- 🗺️ Add detailed map overviews with:
+  - grenade timings
+  - bombsite radar positions
+  - interactive throw spots
+- 📌 Pin or favorite key lineups for quick access
+
 ## 🛠️ Built With
 
 - Laravel 10 (PHP Framework)
