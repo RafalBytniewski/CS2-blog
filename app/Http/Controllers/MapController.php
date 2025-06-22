@@ -11,6 +11,7 @@ use App\Models\Callout;
 use App\Models\Area;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpsertMapRequest;
+use App\Models\GrenadeGroup;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
@@ -62,6 +63,7 @@ class MapController extends Controller
         $query = Grenade::with(['user', 'calloutFrom', 'calloutTo', 'grenadeImages', 'areaFrom', 'areaTo','favorites'])
                         ->where('map_id', $map->id)
                         ->where('visibility', 1);
+        $groups = GrenadeGroup::with('grenades.grenadeImages')->where('map_id', $map->id)->get();
         $grenadeFilter = null;
         $grenadeFilter = $request->all();
     
@@ -97,7 +99,8 @@ class MapController extends Controller
             'maps' => $map,
             'grenades' => $grenades,
             'types' => $types,
-            'count' => $count
+            'count' => $count,
+            'groups' => $groups
         ]);
     }
 

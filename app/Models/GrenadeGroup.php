@@ -20,7 +20,7 @@ class GrenadeGroup extends Model
 
     public function grenades()
     {
-        return $this-> belongsToMany(Grenade::class, 'grenade_group_item');
+        return $this-> belongsToMany(Grenade::class, 'grenade_group_items');
     }
 
     public function user()

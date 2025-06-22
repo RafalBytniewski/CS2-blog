@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Map;
 use App\Models\Grenade;
+use App\Models\GrenadeGroup;
 use App\Models\GrenadeVote;
 use Illuminate\Support\Facades\DB;
 
@@ -15,10 +16,9 @@ class WelcomeController extends Controller
         $maps = Map::all();
         $mapsActive = Map::where('active', 1)->get();
         $mapsOthers = Map::where('active', 0)->get();
-        $grenades = Grenade::latest()->take(20)->with('grenadeImages', 'user', 'map', 'areaTo', 'calloutTo', 'favorites')->get();
-    
+        $grenades = Grenade::latest()->take(12)->with('grenadeImages', 'user', 'map', 'areaTo', 'calloutTo', 'favorites')->get();
         $userId = auth()->id();
-    
+        $groups = GrenadeGroup::with('map', 'grenades')->get();
         foreach ($grenades as $grenade) {
             $grenade->vote_result = GrenadeVote::calculateVotes($grenade->id); // Dodanie wyniku głosów jako właściwość
             
@@ -33,6 +33,7 @@ class WelcomeController extends Controller
             'mapsOthers' => $mapsOthers,
             'maps' => $maps,
             'grenades' => $grenades,
+            'groups' => $groups
         ]);
     }
     

@@ -1,14 +1,13 @@
 @vite(['resources/js/grenadeGroup.js'])
 <style>
-    /* Ukrycie modala domyślnie */
-    .modal-overlay { 
-        color: black;
+    .modal-overlay {
+        color: rgb(255, 255, 255);
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-       /*  background: rgba(0, 0, 0, 0.6); */
+        /*  background: rgba(0, 0, 0, 0.6); */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -43,7 +42,7 @@
 <div id="custom-modal" class="modal-overlay">
     <div class="modal-content">
         <h2 id="modal-title">Add to yours existing group for</h2>
-        <table class="mx-5" style="color:black">
+        <table class="mx-5" style="color:rgb(241, 236, 236)">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -52,30 +51,16 @@
                     <th>Action</th>
                 </tr>
             </thead>
+
+            @foreach ($groups as $group)
             <tr>
-                <td><button>Mirage smokes from T spawn.</button></td>
-                <td><span>Mirage</span></td>
-                <td><span>10</span></td>
+                <td><span>{{ $group->name }}</span></td>
+                <td><span>{{ $group->map->name }}</span></td>
+                <td><span>{{ count($group->grenades) }}</span></td>
                 <td><button id="modal-confirm" class="btn btn-primary">Add</button></td>
             </tr>
-            <tr>
-                <td><button>Dust smokes on long.</button></td>
-                <td><span>Mirage</span></td>
-                <td><span>4</span></td>
-                <td><button id="modal-confirm" class="btn btn-primary">Add</button></td>
-            </tr>
-            <tr>
-                <td><button>Anubis A execute.</button></td>
-                <td><span>Anubis</span></td>
-                <td><span>10</span></td>
-                <td><button id="modal-confirm" class="btn btn-primary">Add</button></td>
-            </tr>
-            <tr>
-                <td><button>Nuke Navi wall.</button></td>
-                <td><span>Nuke</span></td>
-                <td><span>3</span></td>
-                <td><button id="modal-confirm" class="btn btn-primary">Add</button></td>
-            </tr>
+            @endforeach
+
             </tr>
         </table>
         <h2>Make new grenade group</h2>
@@ -119,7 +104,8 @@
                 <label for="visibility" class="col-md-4 col-form-label text-md-end">{{
                     __('visibility') }}</label>
                 <div class="col-md-6">
-                    <select id="visibility" class="form-control @error('visibility') is-invalid @enderror" name="visibility" required>
+                    <select id="visibility" class="form-control @error('visibility') is-invalid @enderror"
+                        name="visibility" required>
                         <option value="0">private</option>
                         <option value="1" selected>public</option>
                     </select>
