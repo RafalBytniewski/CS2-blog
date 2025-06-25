@@ -68,9 +68,10 @@ Route::middleware(['auth', 'verified'])->group(function() {
 });
 Route::get('/grenades/{grenade}', [GrenadeController::class, 'show'])->name('grenade.show');
 
-/* AJAX callouts*/
+
+/* AJAX */
 Route::get('/fetch-callouts/{areaId}', [GrenadeController::class, 'fetchCallouts']);
 Route::get('/fetch_callouts/{area}', [MapController::class, 'fetchCallouts']);
-
+Route::get('/groups-by-map/{map}', [GrenadeGroupController::class, 'getByMap']);
 
 

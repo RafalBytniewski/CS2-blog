@@ -41,7 +41,7 @@
 
 <div id="custom-modal" class="modal-overlay">
     <div class="modal-content">
-        <h2 id="modal-title">Add to yours existing group for</h2>
+        <h2 id="modal-title">Add to group</h2>
         <table class="mx-5" style="color:rgb(241, 236, 236)">
             <thead>
                 <tr>
@@ -52,17 +52,12 @@
                 </tr>
             </thead>
 
-            @foreach ($groups as $group)
-            <tr>
-                <td><span>{{ $group->name }}</span></td>
-                <td><span>{{ $group->map->name }}</span></td>
-                <td><span>{{ count($group->grenades) }}</span></td>
-                <td><button id="modal-confirm" class="btn btn-primary">Add</button></td>
-            </tr>
-            @endforeach
+<tbody id="group-table-body">
+</tbody>
 
             </tr>
         </table>
+        <div hidden>
         <h2>Make new grenade group</h2>
         <form action="{{ route('grenade.group.store') }}" method="post">
             @csrf
@@ -132,9 +127,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
+        </div>
         <div class="modal-buttons">
-
-            <button id="modal-confirm" class="btn btn-success">OK</button>
             <button id="modal-cancel" class="btn btn-danger">Cancel</button>
         </div>
     </div>

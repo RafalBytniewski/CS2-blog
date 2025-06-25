@@ -165,7 +165,7 @@
                                 </form>
                                 @endif
                                 {{-- GRENADE GROUP BTN --}}
-                                <button class="btn btn-link" onclick="showCustomModal(() => alert('OK!'));">
+                                <button class="btn btn-link" onclick="showCustomModal({{ $grenade->id }}, {{ $grenade->map->id }});">
                                     <i class="fa-solid fa-layer-group"></i>
                                 </button>
                             </div>

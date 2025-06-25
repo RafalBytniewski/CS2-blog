@@ -29,7 +29,7 @@ class GrenadeGroupController extends Controller
     public function store(Request $request)
     {
         // Walidacja danych
-        
+
         $validated = $request->validate([
             'map_id' => 'required|integer',
             'user_id' => 'required|integer',
@@ -71,5 +71,11 @@ class GrenadeGroupController extends Controller
     public function destroy(GrenadeGroup $grenadeGroup)
     {
         //
+    }
+
+    public function getByMap($map)
+    {
+        $groups = GrenadeGroup::with('map')->withCount('grenades')->where('map_id', $map)->get();
+        return response()->json($groups);
     }
 }

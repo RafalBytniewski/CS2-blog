@@ -10,8 +10,9 @@ export default defineConfig({
                 'resources/js/mapPageFiltersShow.js',
                 'resources/js/grenadeVote.js',
                 'resources/js/grenadeFavorite.js',
+                'resources/js/grenadeGroup.js',
                 'resources/js/createGrenade.js',
-                'resources/js/mirage.js',
+                'resources/js/Mirage.js',
                 'resources/js/sortableGrenade.js',
                 'resources/js/alerts.js',
                 'resources/js/grenadeGroup.js'
