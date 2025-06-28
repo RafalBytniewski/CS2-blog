@@ -1,4 +1,4 @@
-@vite(['resources/js/grenadeGroup.js'])
+{{-- @vite(['resources/js/grenadeGroup.js']) --}}
 <style>
     .modal-overlay {
         color: rgb(255, 255, 255);
@@ -52,81 +52,79 @@
                 </tr>
             </thead>
 
-<tbody id="group-table-body">
-</tbody>
+            <tbody id="group-table-body">
+            </tbody>
 
             </tr>
         </table>
-        <div hidden>
-        <h2>Make new grenade group</h2>
-        <form action="{{ route('grenade.group.store') }}" method="post">
-            @csrf
-            {{-- USER --}}
-            <input name="user_id" type="hidden" @if(Auth::check())value="{{ Auth::user()->id }}" @endif>
-            {{-- MAP --}}
-            <div class="row mb-3">
-                <label for="map" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.map')
-                    }}</label>
-                <div class="col-md-6">
-                    <select id="map" class="form-control @error('map') is-invalid @enderror" name="map_id" required>
-                        <option value=""></option>
-                        @foreach($maps as $map)
-                        <option value="{{ $map->id}}">{{ $map->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('map')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+        <div id="group_add">
+            <h2>Make new grenade group</h2>
+            <form id="add-group-form">
+                @csrf
+                {{-- MAP --}}
+                <div class="row mb-3">
+                    <label for="map" class="col-md-4 col-form-label text-md-end">{{ __('cs2.map.grenade.form.map')
+                        }}</label>
+                    <div class="col-md-6">
+                        <select id="map" class="form-control @error('map') is-invalid @enderror" name="map_id" required>
+                            <option value=""></option>
+                            @foreach($maps as $map)
+                            <option value="{{ $map->id}}">{{ $map->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('map')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                 </div>
-            </div>
-            {{-- NAME --}}
-            <div class="row mb-3">
-                <label for="name" class="col-md-4 col-form-label text-md-end">{{
-                    __('name') }}</label>
-                <div class="col-md-6">
-                    <input type="text" name="name" id="" class="form-control @error('name') is-invalid @enderror">
-                    @error('name')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                {{-- NAME --}}
+                <div class="row mb-3">
+                    <label for="name" class="col-md-4 col-form-label text-md-end">{{
+                        __('name') }}</label>
+                    <div class="col-md-6">
+                        <input type="text" name="name" id="" class="form-control @error('name') is-invalid @enderror">
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                 </div>
-            </div>
-            {{-- VISIBILITY --}}
-            <div class="row mb-3">
-                <label for="visibility" class="col-md-4 col-form-label text-md-end">{{
-                    __('visibility') }}</label>
-                <div class="col-md-6">
-                    <select id="visibility" class="form-control @error('visibility') is-invalid @enderror"
-                        name="visibility" required>
-                        <option value="0">private</option>
-                        <option value="1" selected>public</option>
-                    </select>
-                    @error('visibility')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                {{-- VISIBILITY --}}
+                <div class="row mb-3">
+                    <label for="visibility" class="col-md-4 col-form-label text-md-end">{{
+                        __('visibility') }}</label>
+                    <div class="col-md-6">
+                        <select id="visibility" class="form-control @error('visibility') is-invalid @enderror"
+                            name="visibility" required>
+                            <option value="0">private</option>
+                            <option value="1" selected>public</option>
+                        </select>
+                        @error('visibility')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                 </div>
-            </div>
-            {{-- DESCRIPTION --}}
-            <div class="row mb-3">
-                <label for="description" class="col-md-4 col-form-label text-md-end">{{
-                    __('description') }}</label>
-                <div class="col-md-6">
-                    <input type="text" name="description" id=""
-                        class="form-control @error('description') is-invalid @enderror">
-                    @error('description')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                {{-- DESCRIPTION --}}
+                <div class="row mb-3">
+                    <label for="description" class="col-md-4 col-form-label text-md-end">{{
+                        __('description') }}</label>
+                    <div class="col-md-6">
+                        <input type="text" name="description" id="description"
+                            class="form-control @error('description') is-invalid @enderror">
+                        @error('description')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Add</button>
-        </form>
+                <button id="group_add_btn" type="submit" class="btn btn-primary">Add</button>
+            </form>
         </div>
         <div class="modal-buttons">
             <button id="modal-cancel" class="btn btn-danger">Cancel</button>

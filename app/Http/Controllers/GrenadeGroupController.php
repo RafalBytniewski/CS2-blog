@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
+
+
 use App\Models\GrenadeGroup;
 use Illuminate\Http\Request;
 
@@ -28,18 +31,24 @@ class GrenadeGroupController extends Controller
      */
     public function store(Request $request)
     {
-        // Walidacja danych
+   
 
         $validated = $request->validate([
             'map_id' => 'required|integer',
-            'user_id' => 'required|integer',
             'name' => 'required|string|max:255',
             'visibility' => 'required|integer',
             'description' => 'nullable|string'
         ]);
-        $grenade_group = GrenadeGroup::create($validated);
-        return redirect('/')->with('success', 'Pomyślnie dodano grupę!');
+        $grenade_group = GrenadeGroup::create([
+            'map_id' => $validated['map_id'],
+            'name' => $validated['name'],
+            'visibility' => $validated['visibility'],
+            'description' => $validated['description'],
+            'user_id' => auth()->id()
+        ]);
     }
+
+
 
     /**
      * Display the specified resource.

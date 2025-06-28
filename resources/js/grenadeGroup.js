@@ -1,18 +1,20 @@
+// Start Section show group modal
+
 function showCustomModal(grenade, map) {
     const modal = document.getElementById("custom-modal");
-    const cancelButton = document.getElementById("modal-cancel");
     const groupTableBody = document.getElementById("group-table-body");
 
-    // Pokazujemy modal
+    // Show modal
     modal.classList.add("modal-show");
-    console.log(map);
 
     // Czyszczenie poprzednich danych
     groupTableBody.innerHTML = "";
 
-    // Pobieranie danych grup dla danej mapy
-   fetch(`/cs2/public/index.php/groups-by-map/${map}`)
+    // ******
+    // EDIT FETCH
+    // ******
 
+    fetch(`/cs2/public/index.php/groups-by-map/${map}`)
         .then(response => response.json())
         .then(data => {
             if (data.length === 0) {
@@ -20,7 +22,6 @@ function showCustomModal(grenade, map) {
             } else {
                 data.forEach(group => {
                     const row = document.createElement("tr");
-
                     row.innerHTML = `
                         <td>${group.name}</td>
                         <td>${group.map?.name || '-'}</td>
@@ -30,7 +31,6 @@ function showCustomModal(grenade, map) {
                             <button class="btn btn-secondary">Show</button>
                         </td>
                     `;
-
                     groupTableBody.appendChild(row);
                 });
             }
@@ -39,10 +39,54 @@ function showCustomModal(grenade, map) {
             console.error("Błąd przy pobieraniu grup:", error);
         });
 
-    // Obsługa przycisku Anuluj
+    // Cancel modal section
+    const cancelButton = document.getElementById("modal-cancel");
+
     cancelButton.onclick = function () {
         modal.classList.remove("modal-show");
     };
 }
 
 export { showCustomModal };
+// End section show group modal
+
+// Start Section add group
+
+const group_add = document.getElementById('group_add');
+const group_add_btn = document.getElementById('group_add_btn');
+
+group_add_btn.addEventListener('click', () => {
+  group_add.hidden = true; // ukrywa element
+});
+
+
+document.getElementById('add-group-form').addEventListener('submit', function (e) {
+    e.preventDefault(); 
+    console.log('submit event triggered');
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch('/cs2/public/index.php/grenade-group', {
+    method: 'POST',
+    headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+    },
+    body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        
+    })
+    .catch(error => {
+        
+    });
+});
+
+// End Section add group
+
