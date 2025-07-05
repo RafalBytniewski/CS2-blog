@@ -5,9 +5,9 @@
 @section('content')
 @php
 $mapFileName = strtolower($maps->name) . '.js';
-$mapFilePath = resource_path('js/' . $mapFileName);
+$mapFilePath = resource_path('js/map/' . $mapFileName);
 @endphp
-@if(file_exists(resource_path('js/' . $mapFileName)))
+@if(file_exists(resource_path('js/map/' . $mapFileName)))
 @vite('resources/js/' . $mapFileName)
 @endif
 
