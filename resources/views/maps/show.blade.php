@@ -62,7 +62,7 @@ $mapFilePath = resource_path('js/' . $mapFileName);
         <span class="fw-bold my-4" id="map_title" style="text-align:center;font-size: 60px">{{$maps->name}}</span>
         {{-- LEAFLET MAP PLAN --}}
         @if(file_exists($mapFilePath))
-        @vite('resources/js/' . $mapFileName)
+        @vite('resources/js/map/' . $mapFileName)
         <div id="main-map">
             <div class="card" id="map-container">
                 <div id="map"></div>
