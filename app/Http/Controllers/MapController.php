@@ -96,7 +96,7 @@ class MapController extends Controller
 
         return view('maps.show', [
             'areas' => $areas,
-            'maps' => $map,
+            'map' => $map,
             'grenades' => $grenades,
             'types' => $types,
             'count' => $count,

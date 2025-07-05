@@ -4,11 +4,12 @@
 @vite(['resources/js/grenadeFavorite.js'])
 @section('content')
 @php
-$mapFileName = strtolower($maps->name) . '.js';
+$mapFileName = strtolower($map->name) . '.js';
+
 $mapFilePath = resource_path('js/map/' . $mapFileName);
 @endphp
 @if(file_exists(resource_path('js/map/' . $mapFileName)))
-@vite('resources/js/' . $mapFileName)
+@vite('resources/js/map/' . $mapFileName)
 @endif
 
 
@@ -45,21 +46,21 @@ $mapFilePath = resource_path('js/map/' . $mapFileName);
     <div class="card-header d-flex flex-column">
         <div class=" d-flex justify-content-end">
             @can('isAdmin')
-            <a href="{{ route('maps.settings', $maps->id) }}">
+            <a href="{{ route('maps.settings', $map->id) }}">
                 <button class="btn btn-lg btn-outline-primary my-2">
                     {{ __('cs2.buttons.settings')}}
                 </button>
             </a>
             @endcan
             @auth
-            <a href="{{ route('grenade.create', $maps->id) }}">
+            <a href="{{ route('grenade.create', $map->id) }}">
                 <button class="btn btn-lg btn-outline-primary my-2">
                     {{ __('cs2.buttons.add_grenade')}}
                 </button>
             </a>
             @endauth
         </div>
-        <span class="fw-bold my-4" id="map_title" style="text-align:center;font-size: 60px">{{$maps->name}}</span>
+        <span class="fw-bold my-4" id="map_title" style="text-align:center;font-size: 60px">{{$map->name}}</span>
         {{-- LEAFLET MAP PLAN --}}
         @if(file_exists($mapFilePath))
         @vite('resources/js/map/' . $mapFileName)
@@ -116,7 +117,7 @@ $mapFilePath = resource_path('js/map/' . $mapFileName);
             </div>
             <div id="grenade_container">
                 {{-- filter section start --}}
-                <form action="{{ route('maps.show', $maps->id) }}" method="get">
+                <form action="{{ route('maps.show', $map->id) }}" method="get">
                     @csrf
                     <div class="container card p-2 col-10">
                         <div class="card d-flex flex-row justify-content-center align-items-start border-0" id="filter">
@@ -348,7 +349,7 @@ $mapFilePath = resource_path('js/map/' . $mapFileName);
         grenade_btn.classList.remove('btn-outline-primary');
         group_btn.classList.remove('btn-primary');
         group_btn.classList.add('btn-outline-primary'); 
-        map_title.innerHTML = '{{$maps->name}} - grenades'
+        map_title.innerHTML = '{{$map->name}} - grenades'
     })
 
     group_btn.addEventListener('click', function(){
@@ -358,7 +359,7 @@ $mapFilePath = resource_path('js/map/' . $mapFileName);
         group_btn.classList.remove('btn-outline-primary');
         grenade_btn.classList.remove('btn-primary');
         grenade_btn.classList.add('btn-outline-primary');  
-        map_title.innerHTML = '{{$maps->name}} - groups'     
+        map_title.innerHTML = '{{$map->name}} - groups'     
     })
 
 </script>
