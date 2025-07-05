@@ -1,20 +1,17 @@
-// Inicjalizacja mapy Leaflet
-var map = L.map('map', {
+let map = L.map('map', {
     crs: L.CRS.Simple,
     minZoom: 0,
     maxZoom: 2,
     attributionControl: false,
-    maxBounds: [[0, 0], [750, 750]], // Ustawienie maksymalnych granic mapy
-    maxBoundsViscosity: 1.0 // Elastyczne granice mapy
+    maxBounds: [[0, 0], [750, 750]],
+    maxBoundsViscosity: 1.0
 }).setView([375, 375], 0);
 
-// Nakładka obrazu mapy CS:GO
-var imageUrl = '/storage/mirage_plan.png', // Zamień na ścieżkę do obrazu mapy CS:GO
+let imageUrl = '/cs2-blog/public/storage/mirage_plan.png',
     imageBounds = [[0, 0], [750, 750]];
 
 L.imageOverlay(imageUrl, imageBounds).addTo(map);
-// dane
-var areas = [
+let areas = [
     {
         name: 'B',
         bounds: [
@@ -59,10 +56,11 @@ var areas = [
             { "lat": 594.25, "lng": 284 },
             { "lat": 556.5, "lng": 287.25 },
             { "lat": 556.5, "lng": 322.75 },
-            { "lat": 556, "lng": 364.25 }, { "lat": 517.75, "lng": 364.5 }, { "lat": 519, "lng": 327 },
+            { "lat": 556, "lng": 364.25 },
+            { "lat": 517.75, "lng": 364.5 },
+            { "lat": 519, "lng": 327 },
             { "lat": 518.75, "lng": 327.25 },
             { "lat": 520.75, "lng": 239.5 },
-
             { "lat": 465.5, "lng": 239.75 },
             { "lat": 465.25, "lng": 181.5 },
             { "lat": 461.75, "lng": 182 },
@@ -630,80 +628,68 @@ var areas = [
     }
 ];
 
-// Funkcja wyświetlająca calloutsy
+
 function showCallouts(area) {
-    // Usuwanie wszystkich istniejących callouts z mapy, jeśli są
     if (window.calloutMarkers) {
         window.calloutMarkers.forEach(marker => map.removeLayer(marker));
     }
 
-    // Inicjalizowanie tablicy dla nowych callouts
     window.calloutMarkers = [];
 
     area.callouts.forEach(function (callout) {
-        // Sprawdzenie, czy callout ma współrzędne
         if (callout.lat !== undefined && callout.lon !== undefined) {
-            // Tworzenie ikony div dla callout
-            var labelIcon = L.divIcon({
-                className: 'custom-callout-label', // Klasa CSS do stylowania
+            let labelIcon = L.divIcon({
+                className: 'custom-callout-label',
                 html: '<div style="transform:' + callout.transform + ' ;text-align:center; font-size: ' + 14 * callout.sizeFactor + 'px; font-family: Arial; font-weight: 700; color: white;">' + callout.name + '</div>',
-                iconSize: [150, 20], // Rozmiar ikony
+                iconSize: [150, 20],
             });
 
-            // Tworzenie markera z dynamicznym tekstem
-            var calloutMarker = L.marker([callout.lat, callout.lon], { icon: labelIcon }).addTo(map);
+            let calloutMarker = L.marker([callout.lat, callout.lon], { icon: labelIcon }).addTo(map);
 
-            // Dodawanie markera do tablicy calloutMarkers
             window.calloutMarkers.push(calloutMarker);
         }
     });
 }
-// Dodanie obszarów do mapy
 areas.forEach(function (area) {
-    var polygon = L.polygon(area.bounds, {
-        color: area.color, // Kolor obszaru ustawiany dynamicznie
-        weight: 2, // Grubość linii
-        fillOpacity: 0.3, // Przezroczystość wypełnienia
+    let polygon = L.polygon(area.bounds, {
+        color: area.color, 
+        weight: 2, 
+        fillOpacity: 0.3,
     });
 
-    // Dodanie do mapy
     polygon.addTo(map);
 
-    var titleCoords = [{ "lat": 708, "lng": 368 }];
-    var labelMarker;
+    let titleCoords = [{ "lat": 708, "lng": 368 }];
+    let labelMarker;
 
-    // Event na najechanie kursora
     polygon.on('mouseover', function () {
-        var labelIcon = L.divIcon({
-            className: 'custom-label', // Klasa CSS do stylowania
+        let labelIcon = L.divIcon({
+            className: 'custom-label',
             html: '<div style="text-align: center; font-weight: 900; font-size: 25px; font-family: Arial;color: white;">This is area<b> ' + area.name + '</b></br> Click here to show callouts</div>',
-            iconSize: [700, 40] // Rozmiar ikony
+            iconSize: [700, 40] 
         });
 
         labelMarker = L.marker([titleCoords[0].lat, titleCoords[0].lng], { icon: labelIcon })
             .addTo(map);
 
-        // Zmiana stylu polygona
+        
         polygon.setStyle({
-            weight: 2, // Zmieniona grubość ramki
-            color: '#4f4f4d' // Zmieniony kolor ramki
+            weight: 2, 
+            color: '#4f4f4d' 
         });
     });
 
-    // Event na opuszczenie kursora
     polygon.on('mouseout', function () {
         if (labelMarker) {
             map.removeLayer(labelMarker);
         }
 
-        // Przywrócenie oryginalnego stylu polygona
         polygon.setStyle({
-            weight: 2, // Oryginalna grubość ramki
-            color: area.color // Oryginalny kolor ramki
+            weight: 2,
+            color: area.color 
         });
     });
 
-    // Dodanie pop-up z nazwą strefy po kliknięciu
     polygon.on('click', function () {
         showCallouts(area);
     });

@@ -12,7 +12,7 @@ export default defineConfig({
                 'resources/js/grenadeFavorite.js',
                 'resources/js/grenadeGroup.js',
                 'resources/js/createGrenade.js',
-                'resources/js/Mirage.js',
+                'resources/js/map/mirage.js',
                 'resources/js/sortableGrenade.js',
                 'resources/js/alerts.js',
                 'resources/js/grenadeGroup.js'
