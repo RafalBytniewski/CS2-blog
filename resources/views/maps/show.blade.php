@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@vite(['resources/js/app.js'])
 @vite(['resources/js/mapPageFiltersShow.js'])
 @vite(['resources/js/grenadeVote.js'])
 @vite(['resources/js/grenadeFavorite.js'])

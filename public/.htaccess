@@ -14,6 +14,10 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
+    # ✅ ALLOW DIRECT ACCESS TO STORAGE FOLDER (OR OTHER IMAGE FOLDER)
+    RewriteCond %{REQUEST_URI} ^/storage/
+    RewriteRule .* - [L]
+
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
