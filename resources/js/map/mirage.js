@@ -1,3 +1,6 @@
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
 let map = L.map('map', {
     crs: L.CRS.Simple,
     minZoom: 0,
