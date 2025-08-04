@@ -7,7 +7,7 @@ let map = L.map('map', {
     maxBoundsViscosity: 1.0
 }).setView([375, 375], 0);
 
-let imageUrl = '/cs2-blog/public/storage/mirage_plan.png',
+let imageUrl = '/storage/mirage_plan.png';
     imageBounds = [[0, 0], [750, 750]];
 
 L.imageOverlay(imageUrl, imageBounds).addTo(map);
